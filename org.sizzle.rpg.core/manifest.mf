@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+OpenIDE-Module: org.sizzle.rpg.core
+OpenIDE-Module-Install: org/sizzle/rpg/core/Installer.class
+OpenIDE-Module-Localizing-Bundle: org/sizzle/rpg/core/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+
