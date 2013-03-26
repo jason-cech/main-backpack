@@ -559,7 +559,7 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
                     }
                 });//add(new MenuItem("Clear User Value"));
                 txtStrScore.setComponentPopupMenu(pop);
-                txtStrScore.setBackground(Color.YELLOW);
+                txtStrScore.setBackground(Color.GREEN);
             } else {
                 txtStrScore.setComponentPopupMenu(null);
                 txtStrScore.setBackground(Color.WHITE);
