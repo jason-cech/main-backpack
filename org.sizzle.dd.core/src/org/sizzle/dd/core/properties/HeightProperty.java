@@ -1,12 +1,10 @@
 package org.sizzle.dd.core.properties;
 
-import org.sizzle.rpg.core.AbstractProperty;
-
 /**
  *
  * @author Jason
  */
-public class HeightProperty extends AbstractProperty<String> {
+public class HeightProperty extends CoreProperty<String> {
     
     public HeightProperty() {
         super("avatar_height");

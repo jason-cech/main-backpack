@@ -1,12 +1,10 @@
 package org.sizzle.dd.core.properties;
 
-import org.sizzle.rpg.core.AbstractProperty;
-
 /**
  *
  * @author Jason
  */
-public class NameProperty extends AbstractProperty<String> {
+public class NameProperty extends CoreProperty<String> {
 
     public NameProperty() {
         super("avatar_name");

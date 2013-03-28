@@ -1,12 +1,10 @@
 package org.sizzle.dd.core.properties;
 
-import org.sizzle.rpg.core.AbstractProperty;
-
 /**
  *
  * @author Jason
  */
-public class AgeProperty extends AbstractProperty<Float> {
+public class AgeProperty extends CoreProperty<Float> {
     
     public AgeProperty() {
         super("avatar_age");

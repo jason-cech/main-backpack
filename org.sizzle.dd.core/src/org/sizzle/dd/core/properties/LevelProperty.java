@@ -1,12 +1,10 @@
 package org.sizzle.dd.core.properties;
 
-import org.sizzle.rpg.core.AbstractProperty;
-
 /**
  *
  * @author Jason
  */
-public class LevelProperty extends AbstractProperty<Integer>{
+public class LevelProperty extends CoreProperty<Integer>{
     int[] levels = new int[] { 0, 999, 2249, 3749, 5499, 7499, 9999 };
     public LevelProperty() {
         super("avatar_level");
