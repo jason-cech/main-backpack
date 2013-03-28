@@ -4,6 +4,7 @@ import org.sizzle.rpg.core.IAvatar;
 import java.util.Collection;
 import java.util.List;
 import java.util.Vector;
+import org.openide.util.Lookup;
 import org.sizzle.rpg.core.AbstractProperty;
 
 /**
@@ -55,5 +56,10 @@ public class ArmorClassProperty extends AbstractProperty<Integer>{
     @Override
     public Collection<IModifier<Integer>> getModifiers() {
         return this.modifiers;
+    }
+
+    @Override
+    public Lookup getLookup() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

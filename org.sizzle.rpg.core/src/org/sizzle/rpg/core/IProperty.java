@@ -1,6 +1,8 @@
 package org.sizzle.rpg.core;
 
+import java.beans.PropertyChangeListener;
 import java.util.Collection;
+import org.openide.util.Lookup;
 import org.sizzle.rpg.core.model.IModifier;
 
 /**
@@ -8,18 +10,21 @@ import org.sizzle.rpg.core.model.IModifier;
  * @param <T>
  * @author Jason Cech
  */
-public interface IProperty<T> {
+public interface IProperty<T> extends Lookup.Provider {
 
     T getValue();
     boolean isUserSet();
-
-    boolean hasAlias(String alias); 
-    String getSlug();
+    boolean hasAlias(String alias);
 
     Class<T> getType();
     
     void setAvatar(IAvatar avatar);
     
     Collection<IModifier<T>> getModifiers();
+    void addModifier(IModifier<T> modifier);
+    void removeModifier(IModifier<T> modifier);
     
+    void addPropertyChangeListener(PropertyChangeListener listener);
+    void removePropertyChangeListener(PropertyChangeListener listener);
+    void firePropertyChange(T oldValue, T newValue);
 }

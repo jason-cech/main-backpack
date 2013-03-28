@@ -9,6 +9,11 @@ import org.openide.util.lookup.InstanceContent;
  * @author Jason
  */
 public abstract class AbstractAvatar implements IAvatar {
+
+    @Override
+    public Lookup getLookup() {
+        return propertyLookup;
+    }
     protected InstanceContent propertyContent = new InstanceContent();
     protected Lookup propertyLookup = new AbstractLookup(propertyContent);
     protected InstanceContent stateContent = new InstanceContent();
@@ -90,4 +95,12 @@ public abstract class AbstractAvatar implements IAvatar {
             this.propertyContent.remove(property);
         }
     }
+
+    //<editor-fold defaultstate="collapsed" desc="Events">
+    @Override
+    public void firePropertyChanged() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    //</editor-fold>
 }

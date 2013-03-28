@@ -1,5 +1,6 @@
 package org.sizzle.rpg.core.model;
 
+import org.openide.util.Lookup;
 import org.sizzle.rpg.core.AbstractProperty;
 
 /**
@@ -18,6 +19,11 @@ public class NameProperty extends AbstractProperty<String>{
 
     @Override
     public boolean hasAlias(String alias) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Lookup getLookup() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

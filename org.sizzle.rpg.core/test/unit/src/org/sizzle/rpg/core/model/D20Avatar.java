@@ -15,6 +15,11 @@ import org.sizzle.rpg.core.IState;
  * @author Jason
  */
 public abstract class D20Avatar implements IAvatar {
+
+    @Override
+    public Lookup getLookup() {
+        return propertyLookup;
+    }
     private InstanceContent content = new InstanceContent();
     protected Lookup propertyLookup = new AbstractLookup(content);
     private InstanceContent wearingContent = new InstanceContent();
@@ -35,9 +40,10 @@ public abstract class D20Avatar implements IAvatar {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T> IProperty<T> find(String slug) {
         for (IProperty<?> property : propertyLookup.lookupAll(IProperty.class)) {
-            if (slug.equals(property.getSlug())) {
+            if (property.hasAlias(slug)) {
                 return (IProperty<T>) property;
             }
         }
@@ -101,6 +107,7 @@ public abstract class D20Avatar implements IAvatar {
     @Override
     public <T> void removeProperty(IProperty<T> property) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        @SuppressWarnings("unchecked")
         Class<IProperty<T>> type = (Class<IProperty<T>>) property.getType();
         String id = "[id]";
         Lookup.Template<IProperty<T>> templatedProperty = new Lookup.Template<IProperty<T>>(type, id, property);
@@ -113,6 +120,11 @@ public abstract class D20Avatar implements IAvatar {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    /**
+     *
+     * @param wearableClass
+     * @return
+     */
     public boolean isWearing(Class<? extends IWearable> wearableClass) {
         IWearable wearable = wearingLookup.lookup(wearableClass);
         return wearable!=null;
