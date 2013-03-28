@@ -1,14 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.sizzle.dd.core.ui.windows;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Iterator;
 import javax.swing.AbstractAction;
 import javax.swing.JPopupMenu;
+import javax.swing.text.JTextComponent;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
@@ -18,6 +17,9 @@ import org.openide.util.LookupListener;
 import org.openide.windows.TopComponent;
 import org.openide.util.NbBundle.Messages;
 import org.sizzle.dd.core.Avatar;
+import org.sizzle.dd.core.properties.AbilityModifierProperty;
+import org.sizzle.dd.core.properties.AbilityScoreProperty;
+import org.sizzle.dd.core.properties.CoreProperty;
 import org.sizzle.rpg.core.AbstractAvatar;
 import org.sizzle.rpg.core.AbstractProperty;
 import org.sizzle.rpg.core.IProperty;
@@ -43,9 +45,12 @@ import org.sizzle.rpg.core.IProperty;
     "CTL_AbilitiesTopComponent=Abilities Window",
     "HINT_AbilitiesTopComponent=This is a Abilities window"
 })
-public final class AbilitiesTopComponent extends TopComponent implements LookupListener {
+public final class AbilitiesTopComponent extends TopComponent implements LookupListener, PropertyChangeListener {
 
     private Lookup.Result<AbstractAvatar> avatarResult = null;
+    private Lookup.Result<AbilityScoreProperty> abilityScoreResult = null;
+    private Lookup.Result<AbilityModifierProperty> abilityModifierResult = null;
+    private Avatar avatar;
 
     public AbilitiesTopComponent() {
         initComponents();
@@ -463,18 +468,17 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
 
     private void txtStrScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStrScoreActionPerformed
         // TODO add your handling code here:
-        Iterator<? extends AbstractAvatar> avatarIterator = avatarResult.allInstances().iterator();
-        Avatar avatar = avatarIterator.hasNext() ? (Avatar) avatarIterator.next() : null;
-        
-        if (avatar!=null) {
+        //Iterator<? extends AbstractAvatar> avatarIterator = avatarResult.allInstances().iterator();
+        //Avatar avatar = avatarIterator.hasNext() ? (Avatar) avatarIterator.next() : null;
+
+        if (avatar != null) {
             ((AbstractProperty<Integer>) avatar.<Integer>find("strength_score")).setValue(Integer.parseInt(txtStrScore.getText()));
             txtStrScore.setToolTipText("User Defined Value");
             txtStrScore.transferFocus();
-            LookupEvent initialLookupEventOnComponentOpen = new LookupEvent(avatarResult);
-            resultChanged(initialLookupEventOnComponentOpen);
+//            LookupEvent initialLookupEventOnComponentOpen = new LookupEvent(avatarResult);
+//            resultChanged(initialLookupEventOnComponentOpen);
         }
     }//GEN-LAST:event_txtStrScoreActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
@@ -541,75 +545,159 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
 
     @Override
     public void resultChanged(LookupEvent ev) {
-        @SuppressWarnings("unchecked")
-        Lookup.Result<Avatar> r = (Lookup.Result<Avatar>) ev.getSource();
-        Iterator<? extends Avatar> avatarIterator = r.allInstances().iterator();
-        Avatar avatar = avatarIterator.hasNext() ? avatarIterator.next() : null;
+        Object src = ev.getSource();
 
-        if (avatar != null) {
-            final IProperty<Integer> strScoreProp = avatar.<Integer>find("strength_score");
-            if (strScoreProp.isUserSet()) {
-                JPopupMenu pop = new JPopupMenu();
-                pop.add(new AbstractAction("Clear User Value") {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        ((AbstractProperty<Integer>)strScoreProp).unsetValue();
-                        LookupEvent initialLookupEventOnComponentOpen = new LookupEvent(avatarResult);
-                        resultChanged(initialLookupEventOnComponentOpen);
-                    }
-                });//add(new MenuItem("Clear User Value"));
-                txtStrScore.setComponentPopupMenu(pop);
-                txtStrScore.setBackground(Color.GREEN);
-            } else {
-                txtStrScore.setComponentPopupMenu(null);
-                txtStrScore.setBackground(Color.WHITE);
-            }
-            txtStrScore.setText(avatar.<Integer>findValueOf("strength_score").toString());
-            txtStrMod.setText(avatar.<Integer>findValueOf("strength_modifier").toString());
-            txtConScore.setText(avatar.<Integer>findValueOf("constitution_score").toString());
-            txtConMod.setText(avatar.<Integer>findValueOf("constitution_modifier").toString());
-            txtDexScore.setText(avatar.<Integer>findValueOf("dexterity_score").toString());
-            txtDexMod.setText(avatar.<Integer>findValueOf("dexterity_modifier").toString());
-            txtIntScore.setText(avatar.<Integer>findValueOf("intelligence_score").toString());
-            txtIntMod.setText(avatar.<Integer>findValueOf("intelligence_modifier").toString());
-            txtWisScore.setText(avatar.<Integer>findValueOf("wisdom_score").toString());
-            txtWisMod.setText(avatar.<Integer>findValueOf("wisdom_modifier").toString());
-            txtChaScore.setText(avatar.<Integer>findValueOf("charisma_score").toString());
-            txtChaMod.setText(avatar.<Integer>findValueOf("charisma_modifier").toString());
-            setFieldsEnabled(true);
-        } else {
-            setFieldsEnabled(false);
-            setFieldText("N/A");
+        if (src.getClass().isAssignableFrom(avatarResult.getClass())) {
+            // avatar has changed, so we must update our property Lookup.Results
+            @SuppressWarnings("unchecked")
+            Lookup.Result<Avatar> r = (Lookup.Result<Avatar>) ev.getSource();
+            Iterator<? extends Avatar> avatarIterator = r.allInstances().iterator();
+            avatar = avatarIterator.hasNext() ? avatarIterator.next() : null;
+
+            resetAbilityResults(avatar);
+            connectListeners(avatar);
+        } else if (src.getClass().isAssignableFrom(CoreProperty.class)) {
+            // a property has changed! quick update the value
         }
+//        @SuppressWarnings("unchecked")
+//        Lookup.Result<Avatar> r = (Lookup.Result<Avatar>) ev.getSource();
+//        Iterator<? extends Avatar> avatarIterator = r.allInstances().iterator();
+//        avatar = avatarIterator.hasNext() ? avatarIterator.next() : null;
+//
+//        if (avatar != null) {
+//            updateAbilityProperty(avatar.<Integer>find(AbilityScoreProperty.SLUG.STRENGTH_SCORE), txtStrScore);
+//            updateAbilityProperty(avatar.<Integer>find(AbilityScoreProperty.SLUG.CONSTITUTION_SCORE), txtConScore);
+//            updateAbilityProperty(avatar.<Integer>find(AbilityScoreProperty.SLUG.DEXTERITY_SCORE), txtDexScore);
+//            updateAbilityProperty(avatar.<Integer>find(AbilityScoreProperty.SLUG.INTELLIGENCE_SCORE), txtIntScore);
+//            updateAbilityProperty(avatar.<Integer>find(AbilityScoreProperty.SLUG.WISDOM_SCORE), txtWisScore);
+//            updateAbilityProperty(avatar.<Integer>find(AbilityScoreProperty.SLUG.CHARISMA_SCORE), txtChaScore);
+//
+//            updateAbilityProperty(avatar.<Integer>find(AbilityModifierProperty.SLUG.STRENGTH_MODIFIER), txtStrMod);
+//            updateAbilityProperty(avatar.<Integer>find(AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER), txtConMod);
+//            updateAbilityProperty(avatar.<Integer>find(AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER), txtDexMod);
+//            updateAbilityProperty(avatar.<Integer>find(AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER), txtIntMod);
+//            updateAbilityProperty(avatar.<Integer>find(AbilityModifierProperty.SLUG.WISDOM_MODIFIER), txtWisMod);
+//            updateAbilityProperty(avatar.<Integer>find(AbilityModifierProperty.SLUG.CHARISMA_MODIFIER), txtChaMod);
+//
+//            setFieldsEnabled(true);
+//        } else {
+//            setFieldsEnabled(false);
+//            setFieldText("N/A");
+//        }
+    }
+
+    private void updateAbilityProperty(final IProperty<Integer> property, JTextComponent component) {
+        if (property.isUserSet()) {
+            JPopupMenu pop = new JPopupMenu();
+            pop.add(new AbstractAction("Clear User Value") {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    ((AbstractProperty<Integer>) property).unsetValue();
+                    LookupEvent initialLookupEventOnComponentOpen = new LookupEvent(avatarResult);
+                    resultChanged(initialLookupEventOnComponentOpen);
+                }
+            });//add(new MenuItem("Clear User Value"));
+            component.setComponentPopupMenu(pop);
+            component.setBackground(Color.GREEN);
+        } else {
+            component.setComponentPopupMenu(null);
+            component.setBackground(Color.WHITE);
+        }
+        component.setText(property.getValue().toString());
+    }
+
+    private void resetAbilityResults(Avatar avatar) {
+        if (abilityScoreResult != null) {
+            abilityScoreResult.removeLookupListener(this);// avatar has changed, we no longer want to listen to IT'S scores
+        }
+        if (abilityModifierResult != null) {
+            abilityModifierResult.removeLookupListener(this);
+        }
+
+        if (null == avatar) {
+            abilityScoreResult = null;
+            abilityModifierResult = null;
+        } else {
+            abilityScoreResult = avatar.getLookup().lookupResult(AbilityScoreProperty.class);
+            abilityScoreResult.addLookupListener(this);
+            abilityModifierResult = avatar.getLookup().lookupResult(AbilityModifierProperty.class);
+            abilityModifierResult.addLookupListener(this);
+        }
+    }
+
+    private void connectListeners(Avatar avatar) {
+        avatar.<Integer>find(AbilityScoreProperty.SLUG.STRENGTH_SCORE).addPropertyChangeListener(this);
+        avatar.<Integer>find(AbilityScoreProperty.SLUG.CONSTITUTION_SCORE).addPropertyChangeListener(this);
+        avatar.<Integer>find(AbilityScoreProperty.SLUG.DEXTERITY_SCORE).addPropertyChangeListener(this);
+        avatar.<Integer>find(AbilityScoreProperty.SLUG.INTELLIGENCE_SCORE).addPropertyChangeListener(this);
+        avatar.<Integer>find(AbilityScoreProperty.SLUG.WISDOM_SCORE).addPropertyChangeListener(this);
+        avatar.<Integer>find(AbilityScoreProperty.SLUG.CHARISMA_SCORE).addPropertyChangeListener(this);
+
+        avatar.<Integer>find(AbilityModifierProperty.SLUG.STRENGTH_MODIFIER).addPropertyChangeListener(this);
+        avatar.<Integer>find(AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER).addPropertyChangeListener(this);
+        avatar.<Integer>find(AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER).addPropertyChangeListener(this);
+        avatar.<Integer>find(AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER).addPropertyChangeListener(this);
+        avatar.<Integer>find(AbilityModifierProperty.SLUG.WISDOM_MODIFIER).addPropertyChangeListener(this);
+        avatar.<Integer>find(AbilityModifierProperty.SLUG.CHARISMA_MODIFIER).addPropertyChangeListener(this);
     }
 
     private void setFieldsEnabled(boolean flag) {
         txtStrScore.setEnabled(flag);
-        txtStrMod.  setEnabled(flag);
+        txtStrMod.setEnabled(flag);
         txtConScore.setEnabled(flag);
-        txtConMod.  setEnabled(flag);
+        txtConMod.setEnabled(flag);
         txtDexScore.setEnabled(flag);
-        txtDexMod.  setEnabled(flag);
+        txtDexMod.setEnabled(flag);
         txtIntScore.setEnabled(flag);
-        txtIntMod.  setEnabled(flag);
+        txtIntMod.setEnabled(flag);
         txtWisScore.setEnabled(flag);
-        txtWisMod.  setEnabled(flag);
+        txtWisMod.setEnabled(flag);
         txtChaScore.setEnabled(flag);
-        txtChaMod.  setEnabled(flag);
+        txtChaMod.setEnabled(flag);
     }
-    
+
     private void setFieldText(String text) {
         txtStrScore.setText(text);
-        txtStrMod.  setText(text);
+        txtStrMod.setText(text);
         txtConScore.setText(text);
-        txtConMod.  setText(text);
+        txtConMod.setText(text);
         txtDexScore.setText(text);
-        txtDexMod.  setText(text);
+        txtDexMod.setText(text);
         txtIntScore.setText(text);
-        txtIntMod.  setText(text);
+        txtIntMod.setText(text);
         txtWisScore.setText(text);
-        txtWisMod.  setText(text);
+        txtWisMod.setText(text);
         txtChaScore.setText(text);
-        txtChaMod.  setText(text);
+        txtChaMod.setText(text);
     }
+
+    //<editor-fold defaultstate="collapsed" desc="Property Change Listener Implementation">
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        Object src = evt.getSource();
+        String anAlias = evt.getPropertyName();
+        if (src.getClass().isAssignableFrom(AbilityScoreProperty.class)) {
+            // update score and modifier textboxes
+            AbilityScoreProperty score = AbilityScoreProperty.class.cast(src);
+            switch (anAlias) {
+                case AbilityScoreProperty.SLUG.STRENGTH_SCORE:
+                    updateAbilityProperty(score, txtStrScore);
+                    updateAbilityProperty(avatar.<Integer>find(AbilityModifierProperty.SLUG.STRENGTH_MODIFIER), txtStrMod);
+                    break;
+                default:
+            }
+        } else if (src.getClass().isAssignableFrom(AbilityModifierProperty.class)) {
+            // update modifier textbox
+            switch (anAlias) {
+                case AbilityModifierProperty.SLUG.STRENGTH_MODIFIER:
+                    updateAbilityProperty(AbilityModifierProperty.class.cast(src), txtStrMod);
+                    break;
+                default:
+            }
+        } else {
+            // not sure
+            boolean x = false;
+        }
+    }
+    //</editor-fold>
 }
