@@ -24,8 +24,10 @@ import org.openide.util.Exceptions;
 import org.openide.util.Lookup;
 import org.openide.util.NbBundle.Messages;
 import org.sizzle.dd.core.modifier.InitialAbilityScoreModifier;
+import org.sizzle.dd.core.properties.AbilityModifierProperty;
 import org.sizzle.dd.core.properties.AbilityScoreProperty;
 import org.sizzle.rpg.core.AbstractAvatar;
+import org.sizzle.rpg.core.model.IModifier;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
@@ -73,19 +75,24 @@ public final class ImportFourthEditionAvatar implements ActionListener {
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
             document = documentBuilder.parse(dnd4eFile);
             //XML
-        } catch (ParserConfigurationException ex) {
-            Exceptions.printStackTrace(ex);
-        } catch (SAXException ex) {
-            Exceptions.printStackTrace(ex);
-        } catch (IOException ex) {
+        } catch (ParserConfigurationException | SAXException | IOException ex) {
             Exceptions.printStackTrace(ex);
         }
         
         if (document!=null) {
+            clearAbilityModifiers(avatar);
             setAbilityInitialScores(avatar, document);
         }
     }
     
+    @SuppressWarnings("unchecked")
+    private void clearAbilityModifiers(AbstractAvatar avatar) {
+        for(AbilityModifierProperty modifier : avatar.getLookup().lookupAll(AbilityModifierProperty.class)) {
+            for (IModifier<?> mod : modifier.getLookup().lookupAll(IModifier.class)) {
+                modifier.removeModifier((IModifier<Integer>)mod);
+            }
+        }
+    }
     private void setAbilityInitialScores(AbstractAvatar avatar, Document doc) {
         avatar.<Integer>find(AbilityScoreProperty.SLUG.STRENGTH_SCORE).addModifier(new InitialAbilityScoreModifier(Integer.parseInt(doc.getElementsByTagName("Strength").item(0).getAttributes().getNamedItem("score").getNodeValue())));
         avatar.<Integer>find(AbilityScoreProperty.SLUG.CONSTITUTION_SCORE).addModifier(new InitialAbilityScoreModifier(Integer.parseInt(doc.getElementsByTagName("Constitution").item(0).getAttributes().getNamedItem("score").getNodeValue())));

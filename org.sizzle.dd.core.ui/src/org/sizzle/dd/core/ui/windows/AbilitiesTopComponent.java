@@ -11,6 +11,7 @@ import javax.swing.text.JTextComponent;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
+import org.openide.util.Exceptions;
 import org.openide.util.Lookup;
 import org.openide.util.LookupEvent;
 import org.openide.util.LookupListener;
@@ -119,6 +120,11 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
                 txtStrScoreActionPerformed(evt);
             }
         });
+        txtStrScore.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtStrScoreFocusLost(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -132,6 +138,11 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
         txtConScore.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255))), javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
         txtConScore.setMargin(new java.awt.Insets(5, 5, 5, 5));
         txtConScore.setPreferredSize(new java.awt.Dimension(30, 26));
+        txtConScore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtConScoreActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -467,18 +478,36 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
     }//GEN-LAST:event_txtIntModActionPerformed
 
     private void txtStrScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStrScoreActionPerformed
-        // TODO add your handling code here:
-        //Iterator<? extends AbstractAvatar> avatarIterator = avatarResult.allInstances().iterator();
-        //Avatar avatar = avatarIterator.hasNext() ? (Avatar) avatarIterator.next() : null;
-
-        if (avatar != null) {
+        if (avatar == null) {
+            txtStrScore.setText("?");
+        } else {
             ((AbstractProperty<Integer>) avatar.<Integer>find("strength_score")).setValue(Integer.parseInt(txtStrScore.getText()));
             txtStrScore.setToolTipText("User Defined Value");
             txtStrScore.transferFocus();
-//            LookupEvent initialLookupEventOnComponentOpen = new LookupEvent(avatarResult);
-//            resultChanged(initialLookupEventOnComponentOpen);
         }
     }//GEN-LAST:event_txtStrScoreActionPerformed
+
+    private void txtConScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConScoreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtConScoreActionPerformed
+
+    private void txtStrScoreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtStrScoreFocusLost
+        if (avatar == null) {
+            txtStrScore.setText("?");
+        } else {
+            IProperty<Integer> property = avatar.<Integer>find(AbilityScoreProperty.SLUG.STRENGTH_SCORE);
+            Integer textValue = Integer.parseInt(txtStrScore.getText());
+            Integer propertyValue = property.getValue();
+            int compareResult = textValue.compareTo(propertyValue);
+            if (compareResult!=0) {
+                ((AbstractProperty<Integer>) property).setValue(textValue);
+                txtStrScore.setToolTipText("User Defined Value");
+            } else {
+                txtStrScore.setToolTipText(null);
+            }
+        }
+    }//GEN-LAST:event_txtStrScoreFocusLost
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
@@ -559,31 +588,6 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
         } else if (src.getClass().isAssignableFrom(CoreProperty.class)) {
             // a property has changed! quick update the value
         }
-//        @SuppressWarnings("unchecked")
-//        Lookup.Result<Avatar> r = (Lookup.Result<Avatar>) ev.getSource();
-//        Iterator<? extends Avatar> avatarIterator = r.allInstances().iterator();
-//        avatar = avatarIterator.hasNext() ? avatarIterator.next() : null;
-//
-//        if (avatar != null) {
-//            updateAbilityProperty(avatar.<Integer>find(AbilityScoreProperty.SLUG.STRENGTH_SCORE), txtStrScore);
-//            updateAbilityProperty(avatar.<Integer>find(AbilityScoreProperty.SLUG.CONSTITUTION_SCORE), txtConScore);
-//            updateAbilityProperty(avatar.<Integer>find(AbilityScoreProperty.SLUG.DEXTERITY_SCORE), txtDexScore);
-//            updateAbilityProperty(avatar.<Integer>find(AbilityScoreProperty.SLUG.INTELLIGENCE_SCORE), txtIntScore);
-//            updateAbilityProperty(avatar.<Integer>find(AbilityScoreProperty.SLUG.WISDOM_SCORE), txtWisScore);
-//            updateAbilityProperty(avatar.<Integer>find(AbilityScoreProperty.SLUG.CHARISMA_SCORE), txtChaScore);
-//
-//            updateAbilityProperty(avatar.<Integer>find(AbilityModifierProperty.SLUG.STRENGTH_MODIFIER), txtStrMod);
-//            updateAbilityProperty(avatar.<Integer>find(AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER), txtConMod);
-//            updateAbilityProperty(avatar.<Integer>find(AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER), txtDexMod);
-//            updateAbilityProperty(avatar.<Integer>find(AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER), txtIntMod);
-//            updateAbilityProperty(avatar.<Integer>find(AbilityModifierProperty.SLUG.WISDOM_MODIFIER), txtWisMod);
-//            updateAbilityProperty(avatar.<Integer>find(AbilityModifierProperty.SLUG.CHARISMA_MODIFIER), txtChaMod);
-//
-//            setFieldsEnabled(true);
-//        } else {
-//            setFieldsEnabled(false);
-//            setFieldText("N/A");
-//        }
     }
 
     private void updateAbilityProperty(final IProperty<Integer> property, JTextComponent component) {
@@ -622,6 +626,32 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
             abilityScoreResult.addLookupListener(this);
             abilityModifierResult = avatar.getLookup().lookupResult(AbilityModifierProperty.class);
             abilityModifierResult.addLookupListener(this);
+        }
+        JTextComponent field;
+        for (AbilityScoreProperty abilityScoreProperty : abilityScoreResult.allInstances()) {
+            switch(abilityScoreProperty.aliases.iterator().next()) {
+                case AbilityScoreProperty.SLUG.STRENGTH_SCORE: field = txtStrScore; break;
+                case AbilityScoreProperty.SLUG.CONSTITUTION_SCORE: field = txtConScore; break;
+                case AbilityScoreProperty.SLUG.DEXTERITY_SCORE: field = txtDexScore; break;
+                case AbilityScoreProperty.SLUG.INTELLIGENCE_SCORE: field = txtIntScore; break;
+                case AbilityScoreProperty.SLUG.WISDOM_SCORE: field = txtWisScore; break;
+                case AbilityScoreProperty.SLUG.CHARISMA_SCORE: field = txtChaScore; break;
+                default: field = null;
+            }
+            if (field!=null) updateAbilityProperty(abilityScoreProperty, field);
+        }
+        
+        for (AbilityModifierProperty abilityModifierProperty : abilityModifierResult.allInstances()) {
+            switch(abilityModifierProperty.aliases.iterator().next()) {
+                case AbilityModifierProperty.SLUG.STRENGTH_MODIFIER: field = txtStrMod; break;
+                case AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER: field = txtConMod; break;
+                case AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER: field = txtDexMod; break;
+                case AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER: field = txtIntMod; break;
+                case AbilityModifierProperty.SLUG.WISDOM_MODIFIER: field = txtWisMod; break;
+                case AbilityModifierProperty.SLUG.CHARISMA_MODIFIER: field = txtChaMod; break;
+                default: field = null;
+            }
+            if (field!=null) updateAbilityProperty(abilityModifierProperty, field);
         }
     }
 
@@ -676,27 +706,26 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
     public void propertyChange(PropertyChangeEvent evt) {
         Object src = evt.getSource();
         String anAlias = evt.getPropertyName();
-        if (src.getClass().isAssignableFrom(AbilityScoreProperty.class)) {
-            // update score and modifier textboxes
-            AbilityScoreProperty score = AbilityScoreProperty.class.cast(src);
-            switch (anAlias) {
-                case AbilityScoreProperty.SLUG.STRENGTH_SCORE:
-                    updateAbilityProperty(score, txtStrScore);
-                    updateAbilityProperty(avatar.<Integer>find(AbilityModifierProperty.SLUG.STRENGTH_MODIFIER), txtStrMod);
-                    break;
-                default:
-            }
-        } else if (src.getClass().isAssignableFrom(AbilityModifierProperty.class)) {
-            // update modifier textbox
-            switch (anAlias) {
-                case AbilityModifierProperty.SLUG.STRENGTH_MODIFIER:
-                    updateAbilityProperty(AbilityModifierProperty.class.cast(src), txtStrMod);
-                    break;
-                default:
-            }
-        } else {
-            // not sure
-            boolean x = false;
+
+        switch (anAlias) {
+            case AbilityScoreProperty.SLUG.STRENGTH_SCORE: updateAbilityProperty(AbilityScoreProperty.class.cast(src), txtStrScore); break;
+            case AbilityScoreProperty.SLUG.CONSTITUTION_SCORE: updateAbilityProperty(AbilityScoreProperty.class.cast(src), txtConScore); break;
+            case AbilityScoreProperty.SLUG.DEXTERITY_SCORE: updateAbilityProperty(AbilityScoreProperty.class.cast(src), txtDexScore); break;
+            case AbilityScoreProperty.SLUG.INTELLIGENCE_SCORE: updateAbilityProperty(AbilityScoreProperty.class.cast(src), txtIntScore); break;
+            case AbilityScoreProperty.SLUG.WISDOM_SCORE: updateAbilityProperty(AbilityScoreProperty.class.cast(src), txtWisScore); break;
+            case AbilityScoreProperty.SLUG.CHARISMA_SCORE: updateAbilityProperty(AbilityScoreProperty.class.cast(src), txtChaScore); break;
+            case AbilityModifierProperty.SLUG.STRENGTH_MODIFIER: updateAbilityProperty(AbilityModifierProperty.class.cast(src), txtStrMod); break;
+            case AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER: updateAbilityProperty(AbilityModifierProperty.class.cast(src), txtConMod); break;
+            case AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER: updateAbilityProperty(AbilityModifierProperty.class.cast(src), txtDexMod); break;
+            case AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER: updateAbilityProperty(AbilityModifierProperty.class.cast(src), txtIntMod); break;
+            case AbilityModifierProperty.SLUG.WISDOM_MODIFIER: updateAbilityProperty(AbilityModifierProperty.class.cast(src), txtWisMod); break;
+            case AbilityModifierProperty.SLUG.CHARISMA_MODIFIER: updateAbilityProperty(AbilityModifierProperty.class.cast(src), txtChaMod); break;
+            default:
+                try {
+                    throw new Exception("Untracked alias " + anAlias);
+                } catch (Exception ex) {
+                    Exceptions.printStackTrace(ex);
+                }
         }
     }
     //</editor-fold>
