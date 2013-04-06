@@ -36,6 +36,11 @@ public class FourtEditionAvatarImporter extends AvatarImporter {
     public void process(IAvatar avatar, Document document) {
 
         clearAbilities(Avatar.class.cast(avatar));
+        
+        RaceProperty raceProperty = avatar.find(RaceProperty.class);
+        if(raceProperty!=null)
+            avatar.removeProperty(raceProperty);
+        
         setAbilityInitialScores(Avatar.class.cast(avatar), document);
         
         setRace(Avatar.class.cast(avatar), document);

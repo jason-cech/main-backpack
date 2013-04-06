@@ -63,8 +63,8 @@ public abstract class AbstractAvatar implements IAvatar {
     
     @Override
     public <T> void addProperty(IProperty<T> property) {
-        property.setAvatar(this);
         this.propertyContent.add(property);
+        property.setAvatar(this);
     }
 
     /**
