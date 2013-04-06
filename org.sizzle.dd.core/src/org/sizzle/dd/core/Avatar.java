@@ -1,7 +1,6 @@
 package org.sizzle.dd.core;
 
 import org.openide.util.lookup.ServiceProvider;
-import org.sizzle.dd.core.modifier.InitialAbilityScoreModifier;
 import org.sizzle.dd.core.properties.LevelProperty;
 import org.sizzle.dd.core.properties.AbilityModifierProperty;
 import org.sizzle.dd.core.properties.AbilityScoreProperty;
@@ -59,5 +58,6 @@ public class Avatar extends AbstractAvatar {
         
         this.addProperties(strScore, conScore, dexScore, intScore, wisScore, chaScore);
         this.addProperties(strModifier, conModifier, dexModifier, intModifier, wisModifier, chaModifier);
+        
     }
 }
