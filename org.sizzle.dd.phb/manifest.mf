@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+OpenIDE-Module: org.sizzle.dd.phb
+OpenIDE-Module-Localizing-Bundle: org/sizzle/dd/phb/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+
