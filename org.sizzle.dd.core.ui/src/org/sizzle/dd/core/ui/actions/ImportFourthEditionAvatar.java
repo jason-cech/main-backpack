@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.nio.file.FileSystem;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collection;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -23,13 +24,11 @@ import org.openide.awt.ActionRegistration;
 import org.openide.util.Exceptions;
 import org.openide.util.Lookup;
 import org.openide.util.NbBundle.Messages;
-import org.sizzle.dd.core.modifier.InitialAbilityScoreModifier;
-import org.sizzle.dd.core.properties.AbilityModifierProperty;
-import org.sizzle.dd.core.properties.AbilityScoreProperty;
+import org.openide.util.lookup.Lookups;
+import org.sizzle.dd.core.importer.FourtEditionAvatarImporter;
 import org.sizzle.rpg.core.AbstractAvatar;
-import org.sizzle.rpg.core.model.IModifier;
+import org.sizzle.rpg.core.importer.AvatarImporter;
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 @ActionID(
@@ -80,25 +79,15 @@ public final class ImportFourthEditionAvatar implements ActionListener {
         }
         
         if (document!=null) {
-            clearAbilityModifiers(avatar);
-            setAbilityInitialScores(avatar, document);
-        }
-    }
-    
-    @SuppressWarnings("unchecked")
-    private void clearAbilityModifiers(AbstractAvatar avatar) {
-        for(AbilityModifierProperty modifier : avatar.getLookup().lookupAll(AbilityModifierProperty.class)) {
-            for (IModifier<?> mod : modifier.getLookup().lookupAll(IModifier.class)) {
-                modifier.removeModifier((IModifier<Integer>)mod);
+            FourtEditionAvatarImporter baseImporter = Lookup.getDefault().lookup(FourtEditionAvatarImporter.class);
+            // Required
+            baseImporter.process(avatar, document);
+            
+            // Lookup any importers from other extension modules.  Say, PHB2 or Adventure's Vault
+            Collection<? extends AvatarImporter> bonusImporters = Lookups.exclude(Lookup.getDefault(), FourtEditionAvatarImporter.class).lookupAll(AvatarImporter.class);
+            for (AvatarImporter bonusImporter : bonusImporters) {
+                bonusImporter.process(avatar, document);
             }
         }
-    }
-    private void setAbilityInitialScores(AbstractAvatar avatar, Document doc) {
-        avatar.<Integer>find(AbilityScoreProperty.SLUG.STRENGTH_SCORE).addModifier(new InitialAbilityScoreModifier(Integer.parseInt(doc.getElementsByTagName("Strength").item(0).getAttributes().getNamedItem("score").getNodeValue())));
-        avatar.<Integer>find(AbilityScoreProperty.SLUG.CONSTITUTION_SCORE).addModifier(new InitialAbilityScoreModifier(Integer.parseInt(doc.getElementsByTagName("Constitution").item(0).getAttributes().getNamedItem("score").getNodeValue())));
-        avatar.<Integer>find(AbilityScoreProperty.SLUG.DEXTERITY_SCORE).addModifier(new InitialAbilityScoreModifier(Integer.parseInt(doc.getElementsByTagName("Dexterity").item(0).getAttributes().getNamedItem("score").getNodeValue())));
-        avatar.<Integer>find(AbilityScoreProperty.SLUG.INTELLIGENCE_SCORE).addModifier(new InitialAbilityScoreModifier(Integer.parseInt(doc.getElementsByTagName("Intelligence").item(0).getAttributes().getNamedItem("score").getNodeValue())));
-        avatar.<Integer>find(AbilityScoreProperty.SLUG.WISDOM_SCORE).addModifier(new InitialAbilityScoreModifier(Integer.parseInt(doc.getElementsByTagName("Wisdom").item(0).getAttributes().getNamedItem("score").getNodeValue())));
-        avatar.<Integer>find(AbilityScoreProperty.SLUG.CHARISMA_SCORE).addModifier(new InitialAbilityScoreModifier(Integer.parseInt(doc.getElementsByTagName("Charisma").item(0).getAttributes().getNamedItem("score").getNodeValue())));
     }
 }
