@@ -1,6 +1,5 @@
 package org.sizzle.rpg.core;
 
-import java.beans.PropertyChangeListener;
 import java.util.Collection;
 import org.openide.util.Lookup;
 import org.sizzle.rpg.core.model.IModifier;
@@ -24,7 +23,7 @@ public interface IProperty<T> extends Lookup.Provider {
     void addModifier(IModifier<T> modifier);
     void removeModifier(IModifier<T> modifier);
     
-    void addPropertyChangeListener(PropertyChangeListener listener);
-    void removePropertyChangeListener(PropertyChangeListener listener);
+    //void addPropertyChangeListener(PropertyChangeListener listener);
+    //void removePropertyChangeListener(PropertyChangeListener listener);
     void firePropertyChange(T oldValue, T newValue);
 }

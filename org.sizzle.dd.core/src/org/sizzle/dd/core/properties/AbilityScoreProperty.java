@@ -1,24 +1,14 @@
 package org.sizzle.dd.core.properties;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.Collection;
-import org.openide.util.Lookup;
-import org.openide.util.lookup.AbstractLookup;
-import org.sizzle.rpg.core.AbstractProperty;
 import org.sizzle.rpg.core.model.IModifier;
 
 /**
  *
  * @author Jason
  */
-public class AbilityScoreProperty extends AbstractProperty<Integer> {
-    protected final AbstractLookup modifierLookup;
-    public Collection<IModifier<Integer>> modifiers = new ArrayList<>(0);
+public class AbilityScoreProperty extends CoreProperty<Integer> {
     public AbilityScoreProperty(String...slugs) {
         super(slugs);
-        modifierLookup = new AbstractLookup(content);
     }
     
     @Override
@@ -40,16 +30,6 @@ public class AbilityScoreProperty extends AbstractProperty<Integer> {
         return score<1
                 ?1
                 :score;
-    }
-
-    @Override
-    public Collection<IModifier<Integer>> getModifiers() {
-        return this.modifiers;
-    }
-
-    @Override
-    public Lookup getLookup() {
-        return modifierLookup;
     }
     
     public static final class SLUG {

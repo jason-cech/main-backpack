@@ -2,10 +2,7 @@ package org.sizzle.dd.core.ui.windows;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
@@ -15,7 +12,6 @@ import javax.swing.text.JTextComponent;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
-import org.openide.util.Exceptions;
 import org.openide.util.Lookup;
 import org.openide.util.LookupEvent;
 import org.openide.util.LookupListener;
@@ -50,7 +46,7 @@ import org.sizzle.rpg.core.IProperty;
     "CTL_AbilitiesTopComponent=Abilities Window",
     "HINT_AbilitiesTopComponent=This is a Abilities window"
 })
-public final class AbilitiesTopComponent extends TopComponent implements LookupListener, PropertyChangeListener, Observer {
+public final class AbilitiesTopComponent extends TopComponent implements LookupListener, Observer {
 
     private Lookup.Result<AbstractAvatar> avatarResult = null;
     private Lookup.Result<AbilityScoreProperty> abilityScoreResult = null;
@@ -60,7 +56,6 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
     public AbilitiesTopComponent() {
         initComponents();
         setName(Bundle.CTL_AbilitiesTopComponent());
-        setToolTipText(Bundle.HINT_AbilitiesTopComponent());
         putClientProperty(TopComponent.PROP_MAXIMIZATION_DISABLED, Boolean.TRUE);
 
     }
@@ -588,7 +583,7 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
             avatar = avatarIterator.hasNext() ? avatarIterator.next() : null;
 
             resetAbilityResults(avatar);
-            connectListeners(avatar);
+            if(avatar!=null) connectListeners(avatar);
         } else if (src.getClass().isAssignableFrom(CoreProperty.class)) {
             // a property has changed! quick update the value
         }
@@ -602,7 +597,7 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
                 public void actionPerformed(ActionEvent e) {
                     ((AbstractProperty<Integer>) property).unsetValue();
                 }
-            });//add(new MenuItem("Clear User Value"));
+            });
             component.setComponentPopupMenu(pop);
             component.setBackground(Color.GREEN);
         } else {
@@ -623,37 +618,39 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
         if (null == avatar) {
             abilityScoreResult = null;
             abilityModifierResult = null;
+            setFieldText("?");
+            setFieldsEnabled(false);
         } else {
             abilityScoreResult = avatar.getLookup().lookupResult(AbilityScoreProperty.class);
             abilityScoreResult.addLookupListener(this);
             abilityModifierResult = avatar.getLookup().lookupResult(AbilityModifierProperty.class);
             abilityModifierResult.addLookupListener(this);
-        }
-        JTextComponent field;
-        for (AbilityScoreProperty abilityScoreProperty : abilityScoreResult.allInstances()) {
-            if      (abilityScoreProperty.hasAlias(AbilityScoreProperty.SLUG.STRENGTH_SCORE))       field = txtStrScore;
-            else if (abilityScoreProperty.hasAlias(AbilityScoreProperty.SLUG.CONSTITUTION_SCORE))   field = txtConScore;
-            else if (abilityScoreProperty.hasAlias(AbilityScoreProperty.SLUG.DEXTERITY_SCORE))      field = txtDexScore;
-            else if (abilityScoreProperty.hasAlias(AbilityScoreProperty.SLUG.INTELLIGENCE_SCORE))   field = txtIntScore;
-            else if (abilityScoreProperty.hasAlias(AbilityScoreProperty.SLUG.WISDOM_SCORE))         field = txtWisScore;
-            else if (abilityScoreProperty.hasAlias(AbilityScoreProperty.SLUG.CHARISMA_SCORE))       field = txtChaScore;
-            else
-                field = null;
-            
-            if (field!=null) updateAbilityProperty(abilityScoreProperty, field);
-        }
-        
-        for (AbilityModifierProperty abilityModifierProperty : abilityModifierResult.allInstances()) {
-            switch(abilityModifierProperty.aliases.iterator().next()) {
-                case AbilityModifierProperty.SLUG.STRENGTH_MODIFIER: field = txtStrMod; break;
-                case AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER: field = txtConMod; break;
-                case AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER: field = txtDexMod; break;
-                case AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER: field = txtIntMod; break;
-                case AbilityModifierProperty.SLUG.WISDOM_MODIFIER: field = txtWisMod; break;
-                case AbilityModifierProperty.SLUG.CHARISMA_MODIFIER: field = txtChaMod; break;
-                default: field = null;
+            JTextComponent field;
+            for (AbilityScoreProperty abilityScoreProperty : abilityScoreResult.allInstances()) {
+                if      (abilityScoreProperty.hasAlias(AbilityScoreProperty.SLUG.STRENGTH_SCORE))       field = txtStrScore;
+                else if (abilityScoreProperty.hasAlias(AbilityScoreProperty.SLUG.CONSTITUTION_SCORE))   field = txtConScore;
+                else if (abilityScoreProperty.hasAlias(AbilityScoreProperty.SLUG.DEXTERITY_SCORE))      field = txtDexScore;
+                else if (abilityScoreProperty.hasAlias(AbilityScoreProperty.SLUG.INTELLIGENCE_SCORE))   field = txtIntScore;
+                else if (abilityScoreProperty.hasAlias(AbilityScoreProperty.SLUG.WISDOM_SCORE))         field = txtWisScore;
+                else if (abilityScoreProperty.hasAlias(AbilityScoreProperty.SLUG.CHARISMA_SCORE))       field = txtChaScore;
+                else
+                    field = null;
+
+                if (field!=null) updateAbilityProperty(abilityScoreProperty, field);
             }
-            if (field!=null) updateAbilityProperty(abilityModifierProperty, field);
+
+            for (AbilityModifierProperty abilityModifierProperty : abilityModifierResult.allInstances()) {
+                switch(abilityModifierProperty.aliases.iterator().next()) {
+                    case AbilityModifierProperty.SLUG.STRENGTH_MODIFIER: field = txtStrMod; break;
+                    case AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER: field = txtConMod; break;
+                    case AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER: field = txtDexMod; break;
+                    case AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER: field = txtIntMod; break;
+                    case AbilityModifierProperty.SLUG.WISDOM_MODIFIER: field = txtWisMod; break;
+                    case AbilityModifierProperty.SLUG.CHARISMA_MODIFIER: field = txtChaMod; break;
+                    default: field = null;
+                }
+                if (field!=null) updateAbilityProperty(abilityModifierProperty, field);
+            }
         }
     }
 
@@ -702,35 +699,6 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
         txtChaMod.setText(text);
     }
 
-    //<editor-fold defaultstate="collapsed" desc="Property Change Listener Implementation">
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-//        Object src = evt.getSource();
-//        String anAlias = evt.getPropertyName();
-//
-//        switch (anAlias) {
-//            case AbilityScoreProperty.SLUG.STRENGTH_SCORE: updateAbilityProperty(AbilityScoreProperty.class.cast(src), txtStrScore); break;
-//            case AbilityScoreProperty.SLUG.CONSTITUTION_SCORE: updateAbilityProperty(AbilityScoreProperty.class.cast(src), txtConScore); break;
-//            case AbilityScoreProperty.SLUG.DEXTERITY_SCORE: updateAbilityProperty(AbilityScoreProperty.class.cast(src), txtDexScore); break;
-//            case AbilityScoreProperty.SLUG.INTELLIGENCE_SCORE: updateAbilityProperty(AbilityScoreProperty.class.cast(src), txtIntScore); break;
-//            case AbilityScoreProperty.SLUG.WISDOM_SCORE: updateAbilityProperty(AbilityScoreProperty.class.cast(src), txtWisScore); break;
-//            case AbilityScoreProperty.SLUG.CHARISMA_SCORE: updateAbilityProperty(AbilityScoreProperty.class.cast(src), txtChaScore); break;
-//            case AbilityModifierProperty.SLUG.STRENGTH_MODIFIER: updateAbilityProperty(AbilityModifierProperty.class.cast(src), txtStrMod); break;
-//            case AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER: updateAbilityProperty(AbilityModifierProperty.class.cast(src), txtConMod); break;
-//            case AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER: updateAbilityProperty(AbilityModifierProperty.class.cast(src), txtDexMod); break;
-//            case AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER: updateAbilityProperty(AbilityModifierProperty.class.cast(src), txtIntMod); break;
-//            case AbilityModifierProperty.SLUG.WISDOM_MODIFIER: updateAbilityProperty(AbilityModifierProperty.class.cast(src), txtWisMod); break;
-//            case AbilityModifierProperty.SLUG.CHARISMA_MODIFIER: updateAbilityProperty(AbilityModifierProperty.class.cast(src), txtChaMod); break;
-//            default:
-//                try {
-//                    //throw new Exception("Untracked alias " + anAlias);
-//                } catch (Exception ex) {
-//                    Exceptions.printStackTrace(ex);
-//                }
-//        }
-    }
-    //</editor-fold>
-
     @Override
     public void update(Observable o, Object arg) {
         @SuppressWarnings("unchecked")
@@ -738,7 +706,7 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
         
         @SuppressWarnings("unchecked")
         AbstractProperty<Integer> property = (AbstractProperty<Integer>) o;
-        JTextComponent field = null;
+        JTextComponent field;
 
         if      (aliases.contains(AbilityScoreProperty.SLUG.STRENGTH_SCORE))       field = txtStrScore;
         else if (aliases.contains(AbilityScoreProperty.SLUG.CONSTITUTION_SCORE))   field = txtConScore;

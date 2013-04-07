@@ -19,6 +19,7 @@ import org.sizzle.rpg.core.IAvatar;
 import org.sizzle.rpg.core.importer.AvatarImporter;
 import org.sizzle.rpg.core.model.IModifier;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -73,18 +74,23 @@ public class FourtEditionAvatarImporter extends AvatarImporter {
         avatar.<Integer>find(AbilityScoreProperty.SLUG.WISDOM_SCORE).addModifier(new InitialAbilityScoreModifier(Integer.parseInt(doc.getElementsByTagName("Wisdom").item(0).getAttributes().getNamedItem("score").getNodeValue())));
         avatar.<Integer>find(AbilityScoreProperty.SLUG.CHARISMA_SCORE).addModifier(new InitialAbilityScoreModifier(Integer.parseInt(doc.getElementsByTagName("Charisma").item(0).getAttributes().getNamedItem("score").getNodeValue())));
         
-//        NodeList ruleNodes = doc.getElementsByTagName("RulesElement");
-//        List<Node> abilityIncreaseNodes = new ArrayList<>(0);
-//        Node node;
-//        for (int i = 0; i < ruleNodes.getLength(); i++) {
-//            node = ruleNodes.item(i);
-//            if (node.hasAttributes() && node.getAttributes().getNamedItem("type")!=null && node.getAttributes().getNamedItem("type").getNodeValue().matches("Ability Increase.*")) {
-//                abilityIncreaseNodes.add(node);
-//            }
-//        }
+        NodeList ruleNodes, levelNodes = doc.getElementsByTagName("Level");
+        List<String> abilityIncreaseNodes = new ArrayList<>(0);
+        Node node;
+        for (int i = 0; i < levelNodes.getLength(); i++) {
+            node = levelNodes.item(i);
+            ruleNodes = Element.class.cast(node).getElementsByTagName("RulesElement");
+            for (int j = 0; j < ruleNodes.getLength(); j++) {
+                node = ruleNodes.item(j);
+                Element e = Element.class.cast(node);
+                if (e.hasAttribute("type") && e.getAttribute("type").matches("Ability Increase.*")) {
+                    abilityIncreaseNodes.add(e.getAttribute("name"));
+                }
+            }
+        }
 //
-//        for(Node abilityIncreaseNode : abilityIncreaseNodes)
-//            avatar.<Integer>find(abilityIncreaseNode.getAttributes().getNamedItem("name").getNodeValue()).addModifier(new AbilityScoreLevelIncreaseModifier());
+        for(String abilityIncreaseNode : abilityIncreaseNodes)
+            avatar.<Integer>find(abilityIncreaseNode).addModifier(new AbilityScoreLevelIncreaseModifier());
     }
 
     private void setRace(Avatar avatar, Document doc) {

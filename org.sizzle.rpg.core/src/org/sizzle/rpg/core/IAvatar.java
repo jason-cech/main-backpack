@@ -14,7 +14,7 @@ public interface IAvatar extends Lookup.Provider {
     <T> T findValueOf(String slug);
     
     <T> void addProperty(IProperty<T> property);
-    <T> void addProperties(IProperty<T>...properties);
+    void addProperties(IProperty<?>...properties);
     <T> void removeProperty(IProperty<T> property);
     <T> void removeAllProperties(Class<? extends IProperty<T>> propertyClass);
     

@@ -1,7 +1,5 @@
 package org.sizzle.rpg.core;
 
-import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -16,12 +14,11 @@ import org.sizzle.rpg.core.model.IModifier;
  *
  * @author Jason
  */
-public abstract class AbstractProperty<T> extends Observable implements IProperty<T> {
+public abstract class AbstractProperty<T> extends Observable implements IProperty<T>, Observer {
     protected InstanceContent content = new InstanceContent();
     protected IAvatar avatar;
     public Set<String> aliases = new HashSet<>(0);
     public T value;
-    protected Collection<PropertyChangeListener> listeners = new ArrayList<>(0);
     
     public AbstractProperty(String...aliases) {
         this.aliases.addAll(Arrays.asList(aliases));
@@ -77,23 +74,8 @@ public abstract class AbstractProperty<T> extends Observable implements IPropert
         return this.aliases.contains(alias);
     }
 
-    //<editor-fold defaultstate="collapsed" desc="Value Listeners">
-    @Override
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        this.listeners.add(listener);
-    }
-    
-    @Override
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        this.listeners.remove(listener);
-    }
-    //</editor-fold>
-
     @Override
     public void firePropertyChange(T oldValue, T newValue) {
-        for (PropertyChangeListener listener : this.listeners) {
-            listener.propertyChange(new PropertyChangeEvent(this, this.aliases, oldValue, newValue));
-        }
         this.notifyObservers(this.aliases);
     }
     //</editor-fold>
@@ -112,4 +94,11 @@ public abstract class AbstractProperty<T> extends Observable implements IPropert
     }
     
     protected abstract T calculate();
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if (!this.isUserSet())
+            this.setChanged();
+        this.notifyObservers(this.aliases);
+    }
 }

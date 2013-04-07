@@ -1,15 +1,12 @@
 package org.sizzle.dd.core.properties;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.Observable;
-import java.util.Observer;
+import org.sizzle.rpg.core.model.IModifier;
 
 /**
  *
  * @author Jason
  */
-public class AbilityModifierProperty extends CoreProperty<Integer> implements PropertyChangeListener, Observer {
+public class AbilityModifierProperty extends CoreProperty<Integer> {
 
     public AbilityModifierProperty(String slug) {
         super(slug);
@@ -26,25 +23,19 @@ public class AbilityModifierProperty extends CoreProperty<Integer> implements Pr
         }
         
         if (null!=usedAlias) {
-            Integer modifier = 0, score = avatar.findValueOf(usedAlias.replace("modifier", "score"));
+            Integer modifier, score = avatar.findValueOf(usedAlias.replace("modifier", "score"));
             modifier = score / 2 - 5;
+            
+            for (IModifier<Integer> mod : modifiers) {
+                if (mod.isEnabled(avatar)) {
+                    modifier += mod.getValue();
+                }
+            }
             return modifier;
         }
         return 0;
     }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        //this.unsetValue();
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        if (!this.isUserSet())
-            this.setChanged();
-        this.notifyObservers(this.aliases);
-    }
-    
     public static final class SLUG {
         public static final String STRENGTH_MODIFIER = "strength_modifier";
         public static final String CONSTITUTION_MODIFIER = "constitution_modifier";

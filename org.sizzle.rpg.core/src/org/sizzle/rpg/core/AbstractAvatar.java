@@ -73,8 +73,8 @@ public abstract class AbstractAvatar implements IAvatar {
      * @param properties
      */
     @Override
-    public <T> void addProperties(IProperty<T>... properties) {
-        for (IProperty<T> iProperty : properties) {
+    public void addProperties(IProperty<?>... properties) {
+        for (IProperty<?> iProperty : properties) {
             addProperty(iProperty);
         }
     }
