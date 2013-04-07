@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.sizzle.dd.core.importer;
 
 import java.util.ArrayList;
@@ -13,6 +9,7 @@ import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 import org.sizzle.dd.core.Avatar;
 import org.sizzle.dd.core.AvatarRace;
+import org.sizzle.dd.core.modifier.AbilityScoreLevelIncreaseModifier;
 import org.sizzle.dd.core.modifier.InitialAbilityScoreModifier;
 import org.sizzle.dd.core.properties.AbilityModifierProperty;
 import org.sizzle.dd.core.properties.AbilityScoreProperty;
@@ -41,9 +38,15 @@ public class FourtEditionAvatarImporter extends AvatarImporter {
         if(raceProperty!=null)
             avatar.removeProperty(raceProperty);
         
+        setDetails(Avatar.class.cast(avatar), document);
         setAbilityInitialScores(Avatar.class.cast(avatar), document);
         
         setRace(Avatar.class.cast(avatar), document);
+    }
+    
+    private void setDetails(Avatar avatar, Document doc) {
+        
+        doc.getElementsByTagName("Experience").item(0);
     }
 
     @SuppressWarnings("unchecked")
@@ -69,6 +72,19 @@ public class FourtEditionAvatarImporter extends AvatarImporter {
         avatar.<Integer>find(AbilityScoreProperty.SLUG.INTELLIGENCE_SCORE).addModifier(new InitialAbilityScoreModifier(Integer.parseInt(doc.getElementsByTagName("Intelligence").item(0).getAttributes().getNamedItem("score").getNodeValue())));
         avatar.<Integer>find(AbilityScoreProperty.SLUG.WISDOM_SCORE).addModifier(new InitialAbilityScoreModifier(Integer.parseInt(doc.getElementsByTagName("Wisdom").item(0).getAttributes().getNamedItem("score").getNodeValue())));
         avatar.<Integer>find(AbilityScoreProperty.SLUG.CHARISMA_SCORE).addModifier(new InitialAbilityScoreModifier(Integer.parseInt(doc.getElementsByTagName("Charisma").item(0).getAttributes().getNamedItem("score").getNodeValue())));
+        
+//        NodeList ruleNodes = doc.getElementsByTagName("RulesElement");
+//        List<Node> abilityIncreaseNodes = new ArrayList<>(0);
+//        Node node;
+//        for (int i = 0; i < ruleNodes.getLength(); i++) {
+//            node = ruleNodes.item(i);
+//            if (node.hasAttributes() && node.getAttributes().getNamedItem("type")!=null && node.getAttributes().getNamedItem("type").getNodeValue().matches("Ability Increase.*")) {
+//                abilityIncreaseNodes.add(node);
+//            }
+//        }
+//
+//        for(Node abilityIncreaseNode : abilityIncreaseNodes)
+//            avatar.<Integer>find(abilityIncreaseNode.getAttributes().getNamedItem("name").getNodeValue()).addModifier(new AbilityScoreLevelIncreaseModifier());
     }
 
     private void setRace(Avatar avatar, Document doc) {

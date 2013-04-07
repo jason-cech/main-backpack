@@ -1,12 +1,13 @@
 package org.sizzle.rpg.core;
 
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Set;
 import org.openide.util.lookup.InstanceContent;
 import org.sizzle.rpg.core.model.IModifier;
@@ -15,7 +16,7 @@ import org.sizzle.rpg.core.model.IModifier;
  *
  * @author Jason
  */
-public abstract class AbstractProperty<T> implements IProperty<T> {
+public abstract class AbstractProperty<T> extends Observable implements IProperty<T> {
     protected InstanceContent content = new InstanceContent();
     protected IAvatar avatar;
     public Set<String> aliases = new HashSet<>(0);
@@ -26,6 +27,7 @@ public abstract class AbstractProperty<T> implements IProperty<T> {
         this.aliases.addAll(Arrays.asList(aliases));
     }
     
+    //<editor-fold defaultstate="collapsed" desc="Abstract Implementation of IProperty">
     @Override
     public T getValue() {
         if(value!=null)
@@ -38,26 +40,12 @@ public abstract class AbstractProperty<T> implements IProperty<T> {
     public boolean isUserSet() {
         return value!=null;
     }
-
+    
     @Override
     @SuppressWarnings("unchecked")
     public Class<T> getType() {
         return (Class<T>) value.getClass();
     }
-    
-    public void setValue(T value) {
-        T oldValue = this.value;
-        this.value = value;
-        firePropertyChange(oldValue, getValue());
-    }
-    public void unsetValue() {
-        T oldValue = this.value;
-        value = null;
-        firePropertyChange(oldValue, getValue());
-    }
-    
-    protected abstract T calculate();
-
     @Override
     public void setAvatar(IAvatar avatar) {
         this.avatar = avatar;
@@ -72,6 +60,7 @@ public abstract class AbstractProperty<T> implements IProperty<T> {
     public void addModifier(IModifier<T> modifier) {
         T oldValue = getValue();
         getModifiers().add(modifier);
+        this.setChanged();
         firePropertyChange(oldValue, getValue());
     }
     
@@ -79,6 +68,7 @@ public abstract class AbstractProperty<T> implements IProperty<T> {
     public void removeModifier(IModifier<T> modifier) {
         T oldValue = getValue();
         getModifiers().remove(modifier);
+        this.setChanged();
         firePropertyChange(oldValue, getValue());
     }
     
@@ -102,7 +92,24 @@ public abstract class AbstractProperty<T> implements IProperty<T> {
     @Override
     public void firePropertyChange(T oldValue, T newValue) {
         for (PropertyChangeListener listener : this.listeners) {
-            listener.propertyChange(new PropertyChangeEvent(this, this.aliases.iterator().next(), oldValue, newValue));
+            listener.propertyChange(new PropertyChangeEvent(this, this.aliases, oldValue, newValue));
         }
+        this.notifyObservers(this.aliases);
     }
+    //</editor-fold>
+    
+    public void setValue(T value) {
+        T oldValue = this.value;
+        this.value = value;
+        this.setChanged();
+        firePropertyChange(oldValue, getValue());
+    }
+    public void unsetValue() {
+        T oldValue = this.value;
+        value = null;
+        this.setChanged();
+        firePropertyChange(oldValue, getValue());
+    }
+    
+    protected abstract T calculate();
 }

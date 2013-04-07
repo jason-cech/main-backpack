@@ -2,12 +2,14 @@ package org.sizzle.dd.core.properties;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  *
  * @author Jason
  */
-public class AbilityModifierProperty extends CoreProperty<Integer> implements PropertyChangeListener {
+public class AbilityModifierProperty extends CoreProperty<Integer> implements PropertyChangeListener, Observer {
 
     public AbilityModifierProperty(String slug) {
         super(slug);
@@ -33,7 +35,14 @@ public class AbilityModifierProperty extends CoreProperty<Integer> implements Pr
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        this.unsetValue();
+        //this.unsetValue();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if (!this.isUserSet())
+            this.setChanged();
+        this.notifyObservers(this.aliases);
     }
     
     public static final class SLUG {

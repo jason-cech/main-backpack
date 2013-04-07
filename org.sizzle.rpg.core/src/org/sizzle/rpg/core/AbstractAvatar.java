@@ -82,11 +82,12 @@ public abstract class AbstractAvatar implements IAvatar {
     @Override
     public <T> void removeProperty(IProperty<T> property) {
         @SuppressWarnings("unchecked")
-        Class<IProperty<T>> type = (Class<IProperty<T>>) property.getType();
+        Class<IProperty<T>> type = (Class<IProperty<T>>) property.getClass();
         String id = "[id]";
-        Lookup.Template<IProperty<T>> templatedProperty = new Lookup.Template<IProperty<T>>(type, id, property);
+        Lookup.Template<IProperty<T>> templatedProperty = new Lookup.Template<>(type, id, property);
         Lookup.Item<IProperty<T>> item = this.propertyLookup.lookupItem(templatedProperty);
-        this.propertyContent.remove(item.getInstance());
+        if (item!=null && item.getInstance()!=null)
+            this.propertyContent.remove(item.getInstance());
     }
 
     @Override

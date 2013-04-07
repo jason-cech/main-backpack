@@ -41,6 +41,12 @@ public class Avatar extends AbstractAvatar {
         AbilityScoreProperty intScore = new AbilityScoreProperty(AbilityScoreProperty.SLUG.INTELLIGENCE_SCORE);
         AbilityScoreProperty wisScore = new AbilityScoreProperty(AbilityScoreProperty.SLUG.WISDOM_SCORE);
         AbilityScoreProperty chaScore = new AbilityScoreProperty(AbilityScoreProperty.SLUG.CHARISMA_SCORE);
+        strScore.aliases.add("Strength");
+        conScore.aliases.add("Constitution");
+        dexScore.aliases.add("Dexterity");
+        intScore.aliases.add("Intelligence");
+        wisScore.aliases.add("Wisdom");
+        chaScore.aliases.add("Charisma");
         
         AbilityModifierProperty strModifier = new AbilityModifierProperty(AbilityModifierProperty.SLUG.STRENGTH_MODIFIER);
         AbilityModifierProperty conModifier = new AbilityModifierProperty(AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER);
@@ -49,12 +55,13 @@ public class Avatar extends AbstractAvatar {
         AbilityModifierProperty wisModifier = new AbilityModifierProperty(AbilityModifierProperty.SLUG.WISDOM_MODIFIER);
         AbilityModifierProperty chaModifier = new AbilityModifierProperty(AbilityModifierProperty.SLUG.CHARISMA_MODIFIER);
         
-        strScore.addPropertyChangeListener(strModifier);
-        conScore.addPropertyChangeListener(conModifier);
-        dexScore.addPropertyChangeListener(dexModifier);
-        intScore.addPropertyChangeListener(intModifier);
-        wisScore.addPropertyChangeListener(wisModifier);
-        chaScore.addPropertyChangeListener(chaModifier);
+        strScore.addObserver(strModifier);
+        strScore.addObserver(strModifier);
+        conScore.addObserver(conModifier);
+        dexScore.addObserver(dexModifier);
+        intScore.addObserver(intModifier);
+        wisScore.addObserver(wisModifier);
+        chaScore.addObserver(chaModifier);
         
         this.addProperties(strScore, conScore, dexScore, intScore, wisScore, chaScore);
         this.addProperties(strModifier, conModifier, dexModifier, intModifier, wisModifier, chaModifier);

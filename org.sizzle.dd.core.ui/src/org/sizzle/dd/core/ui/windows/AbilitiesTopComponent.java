@@ -5,6 +5,10 @@ import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Set;
 import javax.swing.AbstractAction;
 import javax.swing.JPopupMenu;
 import javax.swing.text.JTextComponent;
@@ -46,7 +50,7 @@ import org.sizzle.rpg.core.IProperty;
     "CTL_AbilitiesTopComponent=Abilities Window",
     "HINT_AbilitiesTopComponent=This is a Abilities window"
 })
-public final class AbilitiesTopComponent extends TopComponent implements LookupListener, PropertyChangeListener {
+public final class AbilitiesTopComponent extends TopComponent implements LookupListener, PropertyChangeListener, Observer {
 
     private Lookup.Result<AbstractAvatar> avatarResult = null;
     private Lookup.Result<AbilityScoreProperty> abilityScoreResult = null;
@@ -597,8 +601,6 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     ((AbstractProperty<Integer>) property).unsetValue();
-                    LookupEvent initialLookupEventOnComponentOpen = new LookupEvent(avatarResult);
-                    resultChanged(initialLookupEventOnComponentOpen);
                 }
             });//add(new MenuItem("Clear User Value"));
             component.setComponentPopupMenu(pop);
@@ -629,15 +631,15 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
         }
         JTextComponent field;
         for (AbilityScoreProperty abilityScoreProperty : abilityScoreResult.allInstances()) {
-            switch(abilityScoreProperty.aliases.iterator().next()) {
-                case AbilityScoreProperty.SLUG.STRENGTH_SCORE: field = txtStrScore; break;
-                case AbilityScoreProperty.SLUG.CONSTITUTION_SCORE: field = txtConScore; break;
-                case AbilityScoreProperty.SLUG.DEXTERITY_SCORE: field = txtDexScore; break;
-                case AbilityScoreProperty.SLUG.INTELLIGENCE_SCORE: field = txtIntScore; break;
-                case AbilityScoreProperty.SLUG.WISDOM_SCORE: field = txtWisScore; break;
-                case AbilityScoreProperty.SLUG.CHARISMA_SCORE: field = txtChaScore; break;
-                default: field = null;
-            }
+            if      (abilityScoreProperty.hasAlias(AbilityScoreProperty.SLUG.STRENGTH_SCORE))       field = txtStrScore;
+            else if (abilityScoreProperty.hasAlias(AbilityScoreProperty.SLUG.CONSTITUTION_SCORE))   field = txtConScore;
+            else if (abilityScoreProperty.hasAlias(AbilityScoreProperty.SLUG.DEXTERITY_SCORE))      field = txtDexScore;
+            else if (abilityScoreProperty.hasAlias(AbilityScoreProperty.SLUG.INTELLIGENCE_SCORE))   field = txtIntScore;
+            else if (abilityScoreProperty.hasAlias(AbilityScoreProperty.SLUG.WISDOM_SCORE))         field = txtWisScore;
+            else if (abilityScoreProperty.hasAlias(AbilityScoreProperty.SLUG.CHARISMA_SCORE))       field = txtChaScore;
+            else
+                field = null;
+            
             if (field!=null) updateAbilityProperty(abilityScoreProperty, field);
         }
         
@@ -656,19 +658,18 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
     }
 
     private void connectListeners(Avatar avatar) {
-        avatar.<Integer>find(AbilityScoreProperty.SLUG.STRENGTH_SCORE).addPropertyChangeListener(this);
-        avatar.<Integer>find(AbilityScoreProperty.SLUG.CONSTITUTION_SCORE).addPropertyChangeListener(this);
-        avatar.<Integer>find(AbilityScoreProperty.SLUG.DEXTERITY_SCORE).addPropertyChangeListener(this);
-        avatar.<Integer>find(AbilityScoreProperty.SLUG.INTELLIGENCE_SCORE).addPropertyChangeListener(this);
-        avatar.<Integer>find(AbilityScoreProperty.SLUG.WISDOM_SCORE).addPropertyChangeListener(this);
-        avatar.<Integer>find(AbilityScoreProperty.SLUG.CHARISMA_SCORE).addPropertyChangeListener(this);
-
-        avatar.<Integer>find(AbilityModifierProperty.SLUG.STRENGTH_MODIFIER).addPropertyChangeListener(this);
-        avatar.<Integer>find(AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER).addPropertyChangeListener(this);
-        avatar.<Integer>find(AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER).addPropertyChangeListener(this);
-        avatar.<Integer>find(AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER).addPropertyChangeListener(this);
-        avatar.<Integer>find(AbilityModifierProperty.SLUG.WISDOM_MODIFIER).addPropertyChangeListener(this);
-        avatar.<Integer>find(AbilityModifierProperty.SLUG.CHARISMA_MODIFIER).addPropertyChangeListener(this);
+        ((AbstractProperty<Integer>) avatar.<Integer>find(AbilityScoreProperty.SLUG.STRENGTH_SCORE)).addObserver(this);
+        ((AbstractProperty<Integer>) avatar.<Integer>find(AbilityScoreProperty.SLUG.CONSTITUTION_SCORE)).addObserver(this);
+        ((AbstractProperty<Integer>) avatar.<Integer>find(AbilityScoreProperty.SLUG.DEXTERITY_SCORE)).addObserver(this);
+        ((AbstractProperty<Integer>) avatar.<Integer>find(AbilityScoreProperty.SLUG.INTELLIGENCE_SCORE)).addObserver(this);
+        ((AbstractProperty<Integer>) avatar.<Integer>find(AbilityScoreProperty.SLUG.WISDOM_SCORE)).addObserver(this);
+        ((AbstractProperty<Integer>) avatar.<Integer>find(AbilityScoreProperty.SLUG.CHARISMA_SCORE)).addObserver(this);
+        ((AbstractProperty<Integer>) avatar.<Integer>find(AbilityModifierProperty.SLUG.STRENGTH_MODIFIER)).addObserver(this);
+        ((AbstractProperty<Integer>) avatar.<Integer>find(AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER)).addObserver(this);
+        ((AbstractProperty<Integer>) avatar.<Integer>find(AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER)).addObserver(this);
+        ((AbstractProperty<Integer>) avatar.<Integer>find(AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER)).addObserver(this);
+        ((AbstractProperty<Integer>) avatar.<Integer>find(AbilityModifierProperty.SLUG.WISDOM_MODIFIER)).addObserver(this);
+        ((AbstractProperty<Integer>) avatar.<Integer>find(AbilityModifierProperty.SLUG.CHARISMA_MODIFIER)).addObserver(this);
     }
 
     private void setFieldsEnabled(boolean flag) {
@@ -704,29 +705,56 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
     //<editor-fold defaultstate="collapsed" desc="Property Change Listener Implementation">
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        Object src = evt.getSource();
-        String anAlias = evt.getPropertyName();
-
-        switch (anAlias) {
-            case AbilityScoreProperty.SLUG.STRENGTH_SCORE: updateAbilityProperty(AbilityScoreProperty.class.cast(src), txtStrScore); break;
-            case AbilityScoreProperty.SLUG.CONSTITUTION_SCORE: updateAbilityProperty(AbilityScoreProperty.class.cast(src), txtConScore); break;
-            case AbilityScoreProperty.SLUG.DEXTERITY_SCORE: updateAbilityProperty(AbilityScoreProperty.class.cast(src), txtDexScore); break;
-            case AbilityScoreProperty.SLUG.INTELLIGENCE_SCORE: updateAbilityProperty(AbilityScoreProperty.class.cast(src), txtIntScore); break;
-            case AbilityScoreProperty.SLUG.WISDOM_SCORE: updateAbilityProperty(AbilityScoreProperty.class.cast(src), txtWisScore); break;
-            case AbilityScoreProperty.SLUG.CHARISMA_SCORE: updateAbilityProperty(AbilityScoreProperty.class.cast(src), txtChaScore); break;
-            case AbilityModifierProperty.SLUG.STRENGTH_MODIFIER: updateAbilityProperty(AbilityModifierProperty.class.cast(src), txtStrMod); break;
-            case AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER: updateAbilityProperty(AbilityModifierProperty.class.cast(src), txtConMod); break;
-            case AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER: updateAbilityProperty(AbilityModifierProperty.class.cast(src), txtDexMod); break;
-            case AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER: updateAbilityProperty(AbilityModifierProperty.class.cast(src), txtIntMod); break;
-            case AbilityModifierProperty.SLUG.WISDOM_MODIFIER: updateAbilityProperty(AbilityModifierProperty.class.cast(src), txtWisMod); break;
-            case AbilityModifierProperty.SLUG.CHARISMA_MODIFIER: updateAbilityProperty(AbilityModifierProperty.class.cast(src), txtChaMod); break;
-            default:
-                try {
-                    throw new Exception("Untracked alias " + anAlias);
-                } catch (Exception ex) {
-                    Exceptions.printStackTrace(ex);
-                }
-        }
+//        Object src = evt.getSource();
+//        String anAlias = evt.getPropertyName();
+//
+//        switch (anAlias) {
+//            case AbilityScoreProperty.SLUG.STRENGTH_SCORE: updateAbilityProperty(AbilityScoreProperty.class.cast(src), txtStrScore); break;
+//            case AbilityScoreProperty.SLUG.CONSTITUTION_SCORE: updateAbilityProperty(AbilityScoreProperty.class.cast(src), txtConScore); break;
+//            case AbilityScoreProperty.SLUG.DEXTERITY_SCORE: updateAbilityProperty(AbilityScoreProperty.class.cast(src), txtDexScore); break;
+//            case AbilityScoreProperty.SLUG.INTELLIGENCE_SCORE: updateAbilityProperty(AbilityScoreProperty.class.cast(src), txtIntScore); break;
+//            case AbilityScoreProperty.SLUG.WISDOM_SCORE: updateAbilityProperty(AbilityScoreProperty.class.cast(src), txtWisScore); break;
+//            case AbilityScoreProperty.SLUG.CHARISMA_SCORE: updateAbilityProperty(AbilityScoreProperty.class.cast(src), txtChaScore); break;
+//            case AbilityModifierProperty.SLUG.STRENGTH_MODIFIER: updateAbilityProperty(AbilityModifierProperty.class.cast(src), txtStrMod); break;
+//            case AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER: updateAbilityProperty(AbilityModifierProperty.class.cast(src), txtConMod); break;
+//            case AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER: updateAbilityProperty(AbilityModifierProperty.class.cast(src), txtDexMod); break;
+//            case AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER: updateAbilityProperty(AbilityModifierProperty.class.cast(src), txtIntMod); break;
+//            case AbilityModifierProperty.SLUG.WISDOM_MODIFIER: updateAbilityProperty(AbilityModifierProperty.class.cast(src), txtWisMod); break;
+//            case AbilityModifierProperty.SLUG.CHARISMA_MODIFIER: updateAbilityProperty(AbilityModifierProperty.class.cast(src), txtChaMod); break;
+//            default:
+//                try {
+//                    //throw new Exception("Untracked alias " + anAlias);
+//                } catch (Exception ex) {
+//                    Exceptions.printStackTrace(ex);
+//                }
+//        }
     }
     //</editor-fold>
+
+    @Override
+    public void update(Observable o, Object arg) {
+        @SuppressWarnings("unchecked")
+        Set<String> aliases = (Set<String>) arg;
+        
+        @SuppressWarnings("unchecked")
+        AbstractProperty<Integer> property = (AbstractProperty<Integer>) o;
+        JTextComponent field = null;
+
+        if      (aliases.contains(AbilityScoreProperty.SLUG.STRENGTH_SCORE))       field = txtStrScore;
+        else if (aliases.contains(AbilityScoreProperty.SLUG.CONSTITUTION_SCORE))   field = txtConScore;
+        else if (aliases.contains(AbilityScoreProperty.SLUG.DEXTERITY_SCORE))      field = txtDexScore;
+        else if (aliases.contains(AbilityScoreProperty.SLUG.INTELLIGENCE_SCORE))   field = txtIntScore;
+        else if (aliases.contains(AbilityScoreProperty.SLUG.WISDOM_SCORE))         field = txtWisScore;
+        else if (aliases.contains(AbilityScoreProperty.SLUG.CHARISMA_SCORE))       field = txtChaScore;
+        else if (aliases.contains(AbilityModifierProperty.SLUG.STRENGTH_MODIFIER))       field = txtStrMod;
+        else if (aliases.contains(AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER))   field = txtConMod;
+        else if (aliases.contains(AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER))      field = txtDexMod;
+        else if (aliases.contains(AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER))   field = txtIntMod;
+        else if (aliases.contains(AbilityModifierProperty.SLUG.WISDOM_MODIFIER))         field = txtWisMod;
+        else if (aliases.contains(AbilityModifierProperty.SLUG.CHARISMA_MODIFIER))       field = txtChaMod;
+        else
+            field = null;
+
+        if (field!=null) updateAbilityProperty(property, field);
+    }
 }
