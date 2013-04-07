@@ -1,12 +1,10 @@
 package org.sizzle.dd.core.properties;
 
-import org.sizzle.rpg.core.AbstractProperty;
-
 /**
  *
  * @author Jason
  */
-public class GenderProperty extends AbstractProperty<String> {
+public class GenderProperty extends CoreProperty<String> {
     
     public GenderProperty() {
         super("avatar_gender");

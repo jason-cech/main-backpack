@@ -1,10 +1,12 @@
 package org.sizzle.rpg.core;
 
+import org.openide.util.Lookup;
+
 /**
  *
  * @author Jason Cech
  */
-public interface IAvatar {
+public interface IAvatar extends Lookup.Provider {
 
     <C extends IProperty<T>, T> C find(Class<C> propertyClass);
     <T> IProperty<T> find(String slug);
@@ -12,9 +14,11 @@ public interface IAvatar {
     <T> T findValueOf(String slug);
     
     <T> void addProperty(IProperty<T> property);
-    <T> void addProperties(IProperty<T>...properties);
+    void addProperties(IProperty<?>...properties);
     <T> void removeProperty(IProperty<T> property);
     <T> void removeAllProperties(Class<? extends IProperty<T>> propertyClass);
     
     boolean hasState(Class<? extends IState> stateClass);
+    
+    void firePropertyChanged();
 }

@@ -2,13 +2,12 @@ package org.sizzle.dd.core.properties;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.sizzle.rpg.core.AbstractProperty;
 
 /**
  *
  * @author Jason
  */
-public class ExperienceProperty extends AbstractProperty<Integer>{
+public class ExperienceProperty extends CoreProperty<Integer>{
     private List<Integer> xpEntries = new ArrayList<Integer>(0);
     
     public ExperienceProperty() {

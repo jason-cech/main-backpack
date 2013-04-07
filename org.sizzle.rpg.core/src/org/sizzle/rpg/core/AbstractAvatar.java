@@ -9,6 +9,11 @@ import org.openide.util.lookup.InstanceContent;
  * @author Jason
  */
 public abstract class AbstractAvatar implements IAvatar {
+
+    @Override
+    public Lookup getLookup() {
+        return propertyLookup;
+    }
     protected InstanceContent propertyContent = new InstanceContent();
     protected Lookup propertyLookup = new AbstractLookup(propertyContent);
     protected InstanceContent stateContent = new InstanceContent();
@@ -58,8 +63,8 @@ public abstract class AbstractAvatar implements IAvatar {
     
     @Override
     public <T> void addProperty(IProperty<T> property) {
-        property.setAvatar(this);
         this.propertyContent.add(property);
+        property.setAvatar(this);
     }
 
     /**
@@ -68,8 +73,8 @@ public abstract class AbstractAvatar implements IAvatar {
      * @param properties
      */
     @Override
-    public <T> void addProperties(IProperty<T>... properties) {
-        for (IProperty<T> iProperty : properties) {
+    public void addProperties(IProperty<?>... properties) {
+        for (IProperty<?> iProperty : properties) {
             addProperty(iProperty);
         }
     }
@@ -77,11 +82,12 @@ public abstract class AbstractAvatar implements IAvatar {
     @Override
     public <T> void removeProperty(IProperty<T> property) {
         @SuppressWarnings("unchecked")
-        Class<IProperty<T>> type = (Class<IProperty<T>>) property.getType();
+        Class<IProperty<T>> type = (Class<IProperty<T>>) property.getClass();
         String id = "[id]";
-        Lookup.Template<IProperty<T>> templatedProperty = new Lookup.Template<IProperty<T>>(type, id, property);
+        Lookup.Template<IProperty<T>> templatedProperty = new Lookup.Template<>(type, id, property);
         Lookup.Item<IProperty<T>> item = this.propertyLookup.lookupItem(templatedProperty);
-        this.propertyContent.remove(item.getInstance());
+        if (item!=null && item.getInstance()!=null)
+            this.propertyContent.remove(item.getInstance());
     }
 
     @Override
@@ -90,4 +96,12 @@ public abstract class AbstractAvatar implements IAvatar {
             this.propertyContent.remove(property);
         }
     }
+
+    //<editor-fold defaultstate="collapsed" desc="Events">
+    @Override
+    public void firePropertyChanged() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    //</editor-fold>
 }

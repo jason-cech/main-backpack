@@ -50,6 +50,7 @@
             </test-dependencies>
             <public-packages>
                 <package>org.sizzle.rpg.core</package>
+                <package>org.sizzle.rpg.core.importer</package>
                 <package>org.sizzle.rpg.core.model</package>
             </public-packages>
         </data>

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.sizzle.rpg.core.model;
 
 import org.sizzle.rpg.core.IProperty;
@@ -12,6 +8,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.openide.util.Lookup;
 import org.sizzle.rpg.core.AbstractProperty;
 
 /**
@@ -44,6 +41,11 @@ public class IAvatarTest {
             @Override
             public boolean isInFullDefense() {
                 return false;
+            }
+
+            @Override
+            public void firePropertyChanged() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         };
     }
@@ -88,6 +90,11 @@ public class IAvatarTest {
             public boolean hasAlias(String alias) {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
+
+            @Override
+            public Lookup getLookup() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
         };
         AbstractProperty<Integer> propB = new AbstractProperty<Integer>("b") {
             @Override
@@ -97,6 +104,11 @@ public class IAvatarTest {
 
             @Override
             public boolean hasAlias(String alias) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public Lookup getLookup() {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         };
@@ -109,6 +121,11 @@ public class IAvatarTest {
 
             @Override
             public boolean hasAlias(String alias) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public Lookup getLookup() {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         };
@@ -132,6 +149,11 @@ public class IAvatarTest {
             public boolean hasAlias(String alias) {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
+
+            @Override
+            public Lookup getLookup() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
         };
         AbstractProperty<Integer> dexMod = new AbstractProperty<Integer>("dexterity_mod") {
             @Override
@@ -141,6 +163,11 @@ public class IAvatarTest {
 
             @Override
             public boolean hasAlias(String alias) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public Lookup getLookup() {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         };
@@ -170,6 +197,11 @@ public class IAvatarTest {
 
         @Override
         public boolean isInFullDefense() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public void firePropertyChanged() {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
     }
