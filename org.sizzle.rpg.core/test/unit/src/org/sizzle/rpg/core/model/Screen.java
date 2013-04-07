@@ -18,6 +18,11 @@ public class Screen {
             public boolean isInFullDefense() {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
+
+            @Override
+            public void firePropertyChanged() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
         };
         
         String myName = me.findValueOf(NameProperty.class);
