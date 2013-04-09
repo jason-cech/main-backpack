@@ -142,6 +142,11 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
                 txtConScoreActionPerformed(evt);
             }
         });
+        txtConScore.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtConScoreFocusLost(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -159,6 +164,11 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
                 txtDexScoreActionPerformed(evt);
             }
         });
+        txtDexScore.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDexScoreFocusLost(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
@@ -171,6 +181,16 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
         txtIntScore.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtIntScore.text")); // NOI18N
         txtIntScore.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255))), javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
         txtIntScore.setPreferredSize(new java.awt.Dimension(30, 26));
+        txtIntScore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIntScoreActionPerformed(evt);
+            }
+        });
+        txtIntScore.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtIntScoreFocusLost(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
@@ -183,6 +203,16 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
         txtWisScore.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtWisScore.text")); // NOI18N
         txtWisScore.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255))), javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
         txtWisScore.setPreferredSize(new java.awt.Dimension(30, 26));
+        txtWisScore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtWisScoreActionPerformed(evt);
+            }
+        });
+        txtWisScore.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtWisScoreFocusLost(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 8;
@@ -195,6 +225,16 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
         txtChaScore.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtChaScore.text")); // NOI18N
         txtChaScore.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255))), javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
         txtChaScore.setPreferredSize(new java.awt.Dimension(30, 26));
+        txtChaScore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtChaScoreActionPerformed(evt);
+            }
+        });
+        txtChaScore.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtChaScoreFocusLost(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 10;
@@ -210,6 +250,11 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
                 txtStrModActionPerformed(evt);
             }
         });
+        txtStrMod.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtStrModFocusLost(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
@@ -222,6 +267,16 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
         txtConMod.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtConMod.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtConMod.text")); // NOI18N
         txtConMod.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtConMod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtConModActionPerformed(evt);
+            }
+        });
+        txtConMod.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtConModFocusLost(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
@@ -234,6 +289,16 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
         txtDexMod.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtDexMod.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtDexMod.text")); // NOI18N
         txtDexMod.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtDexMod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDexModActionPerformed(evt);
+            }
+        });
+        txtDexMod.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDexModFocusLost(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 4;
@@ -251,6 +316,11 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
                 txtIntModActionPerformed(evt);
             }
         });
+        txtIntMod.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtIntModFocusLost(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 6;
@@ -263,6 +333,16 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
         txtWisMod.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtWisMod.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtWisMod.text")); // NOI18N
         txtWisMod.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtWisMod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtWisModActionPerformed(evt);
+            }
+        });
+        txtWisMod.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtWisModFocusLost(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 8;
@@ -275,6 +355,16 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
         txtChaMod.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtChaMod.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtChaMod.text")); // NOI18N
         txtChaMod.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtChaMod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtChaModActionPerformed(evt);
+            }
+        });
+        txtChaMod.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtChaModFocusLost(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 10;
@@ -465,48 +555,102 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtStrModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStrModActionPerformed
-        // TODO add your handling code here:
+        userSetAbilityProperty(txtStrMod, AbilityModifierProperty.SLUG.STRENGTH_MODIFIER);
     }//GEN-LAST:event_txtStrModActionPerformed
 
     private void txtDexScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDexScoreActionPerformed
-        // TODO add your handling code here:
+        userSetAbilityProperty(txtDexScore, AbilityScoreProperty.SLUG.DEXTERITY_SCORE);
     }//GEN-LAST:event_txtDexScoreActionPerformed
 
     private void txtIntModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIntModActionPerformed
-        // TODO add your handling code here:
+        userSetAbilityProperty(txtIntMod, AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER);
     }//GEN-LAST:event_txtIntModActionPerformed
 
     private void txtStrScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStrScoreActionPerformed
-        if (avatar == null) {
-            txtStrScore.setText("?");
-        } else {
-            ((AbstractProperty<Integer>) avatar.<Integer>find("strength_score")).setValue(Integer.parseInt(txtStrScore.getText()));
-            txtStrScore.setToolTipText("User Defined Value");
-            txtStrScore.transferFocus();
-        }
+        userSetAbilityProperty(txtStrScore, AbilityScoreProperty.SLUG.STRENGTH_SCORE);
     }//GEN-LAST:event_txtStrScoreActionPerformed
 
     private void txtConScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConScoreActionPerformed
-        // TODO add your handling code here:
+        userSetAbilityProperty(txtConScore, AbilityScoreProperty.SLUG.CONSTITUTION_SCORE);
     }//GEN-LAST:event_txtConScoreActionPerformed
 
     private void txtStrScoreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtStrScoreFocusLost
-        if (avatar == null) {
-            txtStrScore.setText("?");
-        } else {
-            IProperty<Integer> property = avatar.<Integer>find(AbilityScoreProperty.SLUG.STRENGTH_SCORE);
-            Integer textValue = Integer.parseInt(txtStrScore.getText());
-            Integer propertyValue = property.getValue();
-            int compareResult = textValue.compareTo(propertyValue);
-            if (compareResult!=0) {
-                ((AbstractProperty<Integer>) property).setValue(textValue);
-                txtStrScore.setToolTipText("User Defined Value");
-            } else {
-                txtStrScore.setToolTipText(null);
-            }
-        }
+        fieldFocusLoss(txtStrScore, AbilityScoreProperty.SLUG.STRENGTH_SCORE);
     }//GEN-LAST:event_txtStrScoreFocusLost
 
+    private void txtStrModFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtStrModFocusLost
+        fieldFocusLoss(txtStrMod, AbilityModifierProperty.SLUG.STRENGTH_MODIFIER);
+    }//GEN-LAST:event_txtStrModFocusLost
+
+    private void txtConScoreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtConScoreFocusLost
+        fieldFocusLoss(txtConScore, AbilityScoreProperty.SLUG.CONSTITUTION_SCORE);
+    }//GEN-LAST:event_txtConScoreFocusLost
+
+    private void txtConModFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtConModFocusLost
+        fieldFocusLoss(txtConMod, AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER);
+    }//GEN-LAST:event_txtConModFocusLost
+
+    private void txtDexScoreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDexScoreFocusLost
+        fieldFocusLoss(txtDexScore, AbilityScoreProperty.SLUG.DEXTERITY_SCORE);
+    }//GEN-LAST:event_txtDexScoreFocusLost
+
+    private void txtDexModFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDexModFocusLost
+        fieldFocusLoss(txtDexMod, AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER);
+    }//GEN-LAST:event_txtDexModFocusLost
+
+    private void txtIntScoreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIntScoreFocusLost
+        fieldFocusLoss(txtIntScore, AbilityScoreProperty.SLUG.INTELLIGENCE_SCORE);
+    }//GEN-LAST:event_txtIntScoreFocusLost
+
+    private void txtIntModFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIntModFocusLost
+        fieldFocusLoss(txtIntMod, AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER);
+    }//GEN-LAST:event_txtIntModFocusLost
+
+    private void txtWisScoreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtWisScoreFocusLost
+        fieldFocusLoss(txtWisScore, AbilityScoreProperty.SLUG.WISDOM_SCORE);
+    }//GEN-LAST:event_txtWisScoreFocusLost
+
+    private void txtWisModFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtWisModFocusLost
+        fieldFocusLoss(txtWisMod, AbilityModifierProperty.SLUG.WISDOM_MODIFIER);
+    }//GEN-LAST:event_txtWisModFocusLost
+
+    private void txtChaScoreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtChaScoreFocusLost
+        fieldFocusLoss(txtChaScore, AbilityScoreProperty.SLUG.CHARISMA_SCORE);
+    }//GEN-LAST:event_txtChaScoreFocusLost
+
+    private void txtChaModFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtChaModFocusLost
+        fieldFocusLoss(txtChaMod, AbilityModifierProperty.SLUG.CHARISMA_MODIFIER);
+    }//GEN-LAST:event_txtChaModFocusLost
+
+    private void txtConModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConModActionPerformed
+        userSetAbilityProperty(txtConMod, AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER);
+    }//GEN-LAST:event_txtConModActionPerformed
+
+    private void txtDexModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDexModActionPerformed
+        userSetAbilityProperty(txtDexMod, AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER);
+    }//GEN-LAST:event_txtDexModActionPerformed
+
+    private void txtIntScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIntScoreActionPerformed
+        userSetAbilityProperty(txtIntScore, AbilityScoreProperty.SLUG.INTELLIGENCE_SCORE);
+    }//GEN-LAST:event_txtIntScoreActionPerformed
+
+    private void txtWisScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtWisScoreActionPerformed
+        userSetAbilityProperty(txtWisScore, AbilityScoreProperty.SLUG.WISDOM_SCORE);
+    }//GEN-LAST:event_txtWisScoreActionPerformed
+
+    private void txtWisModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtWisModActionPerformed
+        userSetAbilityProperty(txtWisMod, AbilityModifierProperty.SLUG.WISDOM_MODIFIER);
+    }//GEN-LAST:event_txtWisModActionPerformed
+
+    private void txtChaScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtChaScoreActionPerformed
+        userSetAbilityProperty(txtChaScore, AbilityScoreProperty.SLUG.CHARISMA_SCORE);
+    }//GEN-LAST:event_txtChaScoreActionPerformed
+
+    private void txtChaModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtChaModActionPerformed
+        userSetAbilityProperty(txtChaMod, AbilityModifierProperty.SLUG.CHARISMA_MODIFIER);
+    }//GEN-LAST:event_txtChaModActionPerformed
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
@@ -699,6 +843,34 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
         txtChaMod.setText(text);
     }
 
+    private void userSetAbilityProperty(JTextComponent field, String propertySlug) {
+        if (avatar == null) {
+            field.setText("?");
+        } else {
+            ((AbstractProperty<Integer>) avatar.<Integer>find(propertySlug)).
+                    setValue(Integer.parseInt(field.getText()));
+            field.setToolTipText("User Defined Value");
+            field.transferFocus();
+        }
+    }
+    
+    private void fieldFocusLoss(JTextComponent field, String propertySlug) {
+        if (avatar == null) {
+            field.setText("?");
+        } else {
+            IProperty<Integer> property = avatar.<Integer>find(propertySlug);
+            Integer textValue = Integer.parseInt(field.getText());
+            Integer propertyValue = property.getValue();
+            int compareResult = textValue.compareTo(propertyValue);
+            if (compareResult!=0) {
+                ((AbstractProperty<Integer>) property).setValue(textValue);
+                field.setToolTipText("User Defined Value");
+            } else {
+                field.setToolTipText(null);
+            }
+        }
+    }
+    
     @Override
     public void update(Observable o, Object arg) {
         @SuppressWarnings("unchecked")
