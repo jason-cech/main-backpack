@@ -96,6 +96,12 @@ public abstract class AbstractProperty<T> extends Observable implements IPropert
     protected abstract T calculate();
 
     @Override
+    public synchronized void addObserver(Observer o) {
+        super.addObserver(o); //To change body of generated methods, choose Tools | Templates.
+        o.update(this, this.aliases);
+    }
+
+    @Override
     public void update(Observable o, Object arg) {
         if (!this.isUserSet())
             this.setChanged();

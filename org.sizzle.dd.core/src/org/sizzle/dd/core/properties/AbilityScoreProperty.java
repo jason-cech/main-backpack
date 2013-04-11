@@ -1,5 +1,6 @@
 package org.sizzle.dd.core.properties;
 
+import org.sizzle.rpg.core.IAvatar;
 import org.sizzle.rpg.core.model.IModifier;
 
 /**
@@ -7,8 +8,9 @@ import org.sizzle.rpg.core.model.IModifier;
  * @author Jason
  */
 public class AbilityScoreProperty extends CoreProperty<Integer> {
-    public AbilityScoreProperty(String...slugs) {
+    public AbilityScoreProperty(IAvatar avatar, String...slugs) {
         super(slugs);
+        this.avatar = avatar;
     }
     
     @Override

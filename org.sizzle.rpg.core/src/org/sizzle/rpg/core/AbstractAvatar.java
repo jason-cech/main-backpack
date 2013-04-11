@@ -80,6 +80,13 @@ public abstract class AbstractAvatar implements IAvatar {
     }
 
     @Override
+    public boolean hasProperty(String slug) {
+        Object property = find(slug);
+        
+        return property != null;
+    }
+
+    @Override
     public <T> void removeProperty(IProperty<T> property) {
         @SuppressWarnings("unchecked")
         Class<IProperty<T>> type = (Class<IProperty<T>>) property.getClass();
@@ -91,9 +98,16 @@ public abstract class AbstractAvatar implements IAvatar {
     }
 
     @Override
-    public <T> void removeAllProperties(Class<? extends IProperty<T>> propertyClass) {
+    public void removeAllProperties(Class<? extends IProperty<?>> propertyClass) {
         for (IProperty<?> property : this.propertyLookup.lookupAll(propertyClass)) {
             this.propertyContent.remove(property);
+        }
+    }
+
+    @Override
+    public void removeAllProperties() {
+        for (Object object : this.propertyLookup.lookupAll(Object.class)) {
+            this.propertyContent.remove(object);
         }
     }
 

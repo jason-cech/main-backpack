@@ -1,6 +1,7 @@
 package org.sizzle.dd.core.ui.windows;
 
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.util.Iterator;
 import java.util.Observable;
@@ -17,10 +18,11 @@ import org.openide.util.LookupEvent;
 import org.openide.util.LookupListener;
 import org.openide.windows.TopComponent;
 import org.openide.util.NbBundle.Messages;
+import org.openide.util.lookup.ServiceProvider;
 import org.sizzle.dd.core.Avatar;
+import org.sizzle.dd.core.importer.AvatarUserInterfaceConfigurer;
 import org.sizzle.dd.core.properties.AbilityModifierProperty;
 import org.sizzle.dd.core.properties.AbilityScoreProperty;
-import org.sizzle.dd.core.properties.CoreProperty;
 import org.sizzle.rpg.core.AbstractAvatar;
 import org.sizzle.rpg.core.AbstractProperty;
 import org.sizzle.rpg.core.IProperty;
@@ -46,11 +48,10 @@ import org.sizzle.rpg.core.IProperty;
     "CTL_AbilitiesTopComponent=Abilities Window",
     "HINT_AbilitiesTopComponent=This is a Abilities window"
 })
-public final class AbilitiesTopComponent extends TopComponent implements LookupListener, Observer {
+//@ServiceProvider(service = AvatarUserInterfaceConfigurer.class)
+public final class AbilitiesTopComponent extends TopComponent implements LookupListener, Observer {//, AvatarUserInterfaceConfigurer {
 
     private Lookup.Result<AbstractAvatar> avatarResult = null;
-    private Lookup.Result<AbilityScoreProperty> abilityScoreResult = null;
-    private Lookup.Result<AbilityModifierProperty> abilityModifierResult = null;
     private Avatar avatar;
 
     public AbilitiesTopComponent() {
@@ -113,6 +114,7 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
         txtStrScore.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtStrScore.text")); // NOI18N
         txtStrScore.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)), javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)))));
         txtStrScore.setMargin(new java.awt.Insets(5, 5, 5, 5));
+        txtStrScore.setName("txtStrScore"); // NOI18N
         txtStrScore.setPreferredSize(new java.awt.Dimension(30, 26));
         txtStrScore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,9 +135,10 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
 
         txtConScore.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtConScore.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtConScore.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtConScore.text")); // NOI18N
+        txtConScore.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtStrScore.text")); // NOI18N
         txtConScore.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255))), javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
         txtConScore.setMargin(new java.awt.Insets(5, 5, 5, 5));
+        txtConScore.setName("txtConScore"); // NOI18N
         txtConScore.setPreferredSize(new java.awt.Dimension(30, 26));
         txtConScore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,8 +159,9 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
 
         txtDexScore.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtDexScore.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtDexScore.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtDexScore.text")); // NOI18N
+        txtDexScore.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtStrScore.text")); // NOI18N
         txtDexScore.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255))), javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
+        txtDexScore.setName("txtDexScore"); // NOI18N
         txtDexScore.setPreferredSize(new java.awt.Dimension(30, 26));
         txtDexScore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -178,8 +182,9 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
 
         txtIntScore.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtIntScore.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtIntScore.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtIntScore.text")); // NOI18N
+        txtIntScore.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtStrScore.text")); // NOI18N
         txtIntScore.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255))), javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
+        txtIntScore.setName("txtIntScore"); // NOI18N
         txtIntScore.setPreferredSize(new java.awt.Dimension(30, 26));
         txtIntScore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -200,8 +205,9 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
 
         txtWisScore.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtWisScore.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtWisScore.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtWisScore.text")); // NOI18N
+        txtWisScore.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtStrScore.text")); // NOI18N
         txtWisScore.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255))), javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
+        txtWisScore.setName("txtWisScore"); // NOI18N
         txtWisScore.setPreferredSize(new java.awt.Dimension(30, 26));
         txtWisScore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,8 +228,9 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
 
         txtChaScore.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtChaScore.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtChaScore.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtChaScore.text")); // NOI18N
+        txtChaScore.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtStrScore.text")); // NOI18N
         txtChaScore.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255))), javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
+        txtChaScore.setName("txtChaScore"); // NOI18N
         txtChaScore.setPreferredSize(new java.awt.Dimension(30, 26));
         txtChaScore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -243,8 +250,9 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
         add(txtChaScore, gridBagConstraints);
 
         txtStrMod.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtStrMod.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtStrMod.text")); // NOI18N
+        txtStrMod.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtStrScore.text")); // NOI18N
         txtStrMod.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtStrMod.setName("txtStrMod"); // NOI18N
         txtStrMod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtStrModActionPerformed(evt);
@@ -265,8 +273,9 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
         add(txtStrMod, gridBagConstraints);
 
         txtConMod.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtConMod.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtConMod.text")); // NOI18N
+        txtConMod.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtStrScore.text")); // NOI18N
         txtConMod.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtConMod.setName("txtConMod"); // NOI18N
         txtConMod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtConModActionPerformed(evt);
@@ -287,8 +296,9 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
         add(txtConMod, gridBagConstraints);
 
         txtDexMod.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtDexMod.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtDexMod.text")); // NOI18N
+        txtDexMod.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtStrScore.text")); // NOI18N
         txtDexMod.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtDexMod.setName("txtDexMod"); // NOI18N
         txtDexMod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDexModActionPerformed(evt);
@@ -309,8 +319,9 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
         add(txtDexMod, gridBagConstraints);
 
         txtIntMod.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtIntMod.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtIntMod.text")); // NOI18N
+        txtIntMod.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtStrScore.text")); // NOI18N
         txtIntMod.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtIntMod.setName("txtIntMod"); // NOI18N
         txtIntMod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIntModActionPerformed(evt);
@@ -331,8 +342,9 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
         add(txtIntMod, gridBagConstraints);
 
         txtWisMod.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtWisMod.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtWisMod.text")); // NOI18N
+        txtWisMod.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtStrScore.text")); // NOI18N
         txtWisMod.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtWisMod.setName("txtWisMod"); // NOI18N
         txtWisMod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtWisModActionPerformed(evt);
@@ -353,8 +365,9 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
         add(txtWisMod, gridBagConstraints);
 
         txtChaMod.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtChaMod.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtChaMod.text")); // NOI18N
+        txtChaMod.setText(org.openide.util.NbBundle.getMessage(AbilitiesTopComponent.class, "AbilitiesTopComponent.txtStrScore.text")); // NOI18N
         txtChaMod.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtChaMod.setName("txtChaMod"); // NOI18N
         txtChaMod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtChaModActionPerformed(evt);
@@ -718,59 +731,54 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
     @Override
     public void resultChanged(LookupEvent ev) {
         Object src = ev.getSource();
-
+        if (src==null)
+            throw new NullPointerException("The source is null");
+        if (avatarResult==null)
+            throw new NullPointerException("The avatarResult is null");
+        
         if (src.getClass().isAssignableFrom(avatarResult.getClass())) {
             // avatar has changed, so we must update our property Lookup.Results
             @SuppressWarnings("unchecked")
             Lookup.Result<Avatar> r = (Lookup.Result<Avatar>) ev.getSource();
             Iterator<? extends Avatar> avatarIterator = r.allInstances().iterator();
             avatar = avatarIterator.hasNext() ? avatarIterator.next() : null;
-
             resetAbilityResults(avatar);
-            if(avatar!=null) connectListeners(avatar);
-        } else if (src.getClass().isAssignableFrom(CoreProperty.class)) {
-            // a property has changed! quick update the value
+            configure(avatar);
         }
     }
 
-    private void updateAbilityProperty(final IProperty<Integer> property, JTextComponent component) {
-        if (property.isUserSet()) {
-            JPopupMenu pop = new JPopupMenu();
-            pop.add(new AbstractAction("Clear User Value") {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    ((AbstractProperty<Integer>) property).unsetValue();
+    private void updateAbilityProperty(final IProperty<Integer> property, final JTextComponent component) {
+        EventQueue.invokeLater(new Runnable() {
+//
+            @Override
+            public void run() {
+                if (property.isUserSet()) {
+                    System.out.println("User overriding a property value");
+                    JPopupMenu pop = new JPopupMenu();
+                    pop.add(new AbstractAction("Clear User Value") {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            ((AbstractProperty<Integer>) property).unsetValue();
+                        }
+                    });
+                    component.setComponentPopupMenu(pop);
+                    component.setBackground(Color.GREEN);
+                } else {
+                    component.setComponentPopupMenu(null);
+                    component.setBackground(Color.WHITE);
                 }
-            });
-            component.setComponentPopupMenu(pop);
-            component.setBackground(Color.GREEN);
-        } else {
-            component.setComponentPopupMenu(null);
-            component.setBackground(Color.WHITE);
-        }
-        component.setText(property.getValue().toString());
+                component.setText(property.getValue().toString());
+            }
+        });
     }
 
     private void resetAbilityResults(Avatar avatar) {
-        if (abilityScoreResult != null) {
-            abilityScoreResult.removeLookupListener(this);// avatar has changed, we no longer want to listen to IT'S scores
-        }
-        if (abilityModifierResult != null) {
-            abilityModifierResult.removeLookupListener(this);
-        }
-
         if (null == avatar) {
-            abilityScoreResult = null;
-            abilityModifierResult = null;
             setFieldText("?");
             setFieldsEnabled(false);
         } else {
-            abilityScoreResult = avatar.getLookup().lookupResult(AbilityScoreProperty.class);
-            abilityScoreResult.addLookupListener(this);
-            abilityModifierResult = avatar.getLookup().lookupResult(AbilityModifierProperty.class);
-            abilityModifierResult.addLookupListener(this);
             JTextComponent field;
-            for (AbilityScoreProperty abilityScoreProperty : abilityScoreResult.allInstances()) {
+            for (AbilityScoreProperty abilityScoreProperty : avatar.getLookup().lookupAll(AbilityScoreProperty.class)) {
                 if      (abilityScoreProperty.hasAlias(AbilityScoreProperty.SLUG.STRENGTH_SCORE))       field = txtStrScore;
                 else if (abilityScoreProperty.hasAlias(AbilityScoreProperty.SLUG.CONSTITUTION_SCORE))   field = txtConScore;
                 else if (abilityScoreProperty.hasAlias(AbilityScoreProperty.SLUG.DEXTERITY_SCORE))      field = txtDexScore;
@@ -783,34 +791,19 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
                 if (field!=null) updateAbilityProperty(abilityScoreProperty, field);
             }
 
-            for (AbilityModifierProperty abilityModifierProperty : abilityModifierResult.allInstances()) {
-                switch(abilityModifierProperty.aliases.iterator().next()) {
-                    case AbilityModifierProperty.SLUG.STRENGTH_MODIFIER: field = txtStrMod; break;
-                    case AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER: field = txtConMod; break;
-                    case AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER: field = txtDexMod; break;
-                    case AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER: field = txtIntMod; break;
-                    case AbilityModifierProperty.SLUG.WISDOM_MODIFIER: field = txtWisMod; break;
-                    case AbilityModifierProperty.SLUG.CHARISMA_MODIFIER: field = txtChaMod; break;
-                    default: field = null;
-                }
+            for (AbilityModifierProperty abilityModifierProperty : avatar.getLookup().lookupAll(AbilityModifierProperty.class)) {
+                if      (abilityModifierProperty.hasAlias(AbilityModifierProperty.SLUG.STRENGTH_MODIFIER)) field = txtStrMod;
+                else if (abilityModifierProperty.hasAlias(AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER)) field = txtConMod;
+                else if (abilityModifierProperty.hasAlias(AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER)) field = txtDexMod;
+                else if (abilityModifierProperty.hasAlias(AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER)) field = txtIntMod;
+                else if (abilityModifierProperty.hasAlias(AbilityModifierProperty.SLUG.WISDOM_MODIFIER)) field = txtWisMod;
+                else if (abilityModifierProperty.hasAlias(AbilityModifierProperty.SLUG.CHARISMA_MODIFIER)) field = txtChaMod;
+                else
+                    field = null;
+                
                 if (field!=null) updateAbilityProperty(abilityModifierProperty, field);
             }
         }
-    }
-
-    private void connectListeners(Avatar avatar) {
-        ((AbstractProperty<Integer>) avatar.<Integer>find(AbilityScoreProperty.SLUG.STRENGTH_SCORE)).addObserver(this);
-        ((AbstractProperty<Integer>) avatar.<Integer>find(AbilityScoreProperty.SLUG.CONSTITUTION_SCORE)).addObserver(this);
-        ((AbstractProperty<Integer>) avatar.<Integer>find(AbilityScoreProperty.SLUG.DEXTERITY_SCORE)).addObserver(this);
-        ((AbstractProperty<Integer>) avatar.<Integer>find(AbilityScoreProperty.SLUG.INTELLIGENCE_SCORE)).addObserver(this);
-        ((AbstractProperty<Integer>) avatar.<Integer>find(AbilityScoreProperty.SLUG.WISDOM_SCORE)).addObserver(this);
-        ((AbstractProperty<Integer>) avatar.<Integer>find(AbilityScoreProperty.SLUG.CHARISMA_SCORE)).addObserver(this);
-        ((AbstractProperty<Integer>) avatar.<Integer>find(AbilityModifierProperty.SLUG.STRENGTH_MODIFIER)).addObserver(this);
-        ((AbstractProperty<Integer>) avatar.<Integer>find(AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER)).addObserver(this);
-        ((AbstractProperty<Integer>) avatar.<Integer>find(AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER)).addObserver(this);
-        ((AbstractProperty<Integer>) avatar.<Integer>find(AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER)).addObserver(this);
-        ((AbstractProperty<Integer>) avatar.<Integer>find(AbilityModifierProperty.SLUG.WISDOM_MODIFIER)).addObserver(this);
-        ((AbstractProperty<Integer>) avatar.<Integer>find(AbilityModifierProperty.SLUG.CHARISMA_MODIFIER)).addObserver(this);
     }
 
     private void setFieldsEnabled(boolean flag) {
@@ -855,11 +848,14 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
     }
     
     private void fieldFocusLoss(JTextComponent field, String propertySlug) {
-        if (avatar == null) {
+        if (avatar == null || !avatar.hasProperty(propertySlug)) {
             field.setText("?");
         } else {
             IProperty<Integer> property = avatar.<Integer>find(propertySlug);
-            Integer textValue = Integer.parseInt(field.getText());
+            Integer textValue = field.getText().matches("\\d*")
+                    ? Integer.parseInt(field.getText())
+                    : 0;
+
             Integer propertyValue = property.getValue();
             int compareResult = textValue.compareTo(propertyValue);
             if (compareResult!=0) {
@@ -896,5 +892,26 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
             field = null;
 
         if (field!=null) updateAbilityProperty(property, field);
+    }
+
+    //@Override
+    public void configure(Avatar t) {
+        avatar = Lookup.getDefault().lookup(Avatar.class);
+        
+        if (avatar.hasProperty(AbilityScoreProperty.SLUG.STRENGTH_SCORE)) AbilityScoreProperty.class.cast(avatar.find(AbilityScoreProperty.SLUG.STRENGTH_SCORE)).addObserver(this);
+        if (avatar.hasProperty(AbilityScoreProperty.SLUG.CONSTITUTION_SCORE)) AbilityScoreProperty.class.cast(avatar.find(AbilityScoreProperty.SLUG.CONSTITUTION_SCORE)).addObserver(this);
+        if (avatar.hasProperty(AbilityScoreProperty.SLUG.DEXTERITY_SCORE)) AbilityScoreProperty.class.cast(avatar.find(AbilityScoreProperty.SLUG.DEXTERITY_SCORE)).addObserver(this);
+        if (avatar.hasProperty(AbilityScoreProperty.SLUG.INTELLIGENCE_SCORE)) AbilityScoreProperty.class.cast(avatar.find(AbilityScoreProperty.SLUG.INTELLIGENCE_SCORE)).addObserver(this);
+        if (avatar.hasProperty(AbilityScoreProperty.SLUG.WISDOM_SCORE)) AbilityScoreProperty.class.cast(avatar.find(AbilityScoreProperty.SLUG.WISDOM_SCORE)).addObserver(this);
+        if (avatar.hasProperty(AbilityScoreProperty.SLUG.CHARISMA_SCORE)) AbilityScoreProperty.class.cast(avatar.find(AbilityScoreProperty.SLUG.CHARISMA_SCORE)).addObserver(this);
+        
+        if (avatar.hasProperty(AbilityModifierProperty.SLUG.STRENGTH_MODIFIER)) AbilityModifierProperty.class.cast(avatar.find(AbilityModifierProperty.SLUG.STRENGTH_MODIFIER)).addObserver(this);
+        if (avatar.hasProperty(AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER)) AbilityModifierProperty.class.cast(avatar.find(AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER)).addObserver(this);
+        if (avatar.hasProperty(AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER)) AbilityModifierProperty.class.cast(avatar.find(AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER)).addObserver(this);
+        if (avatar.hasProperty(AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER)) AbilityModifierProperty.class.cast(avatar.find(AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER)).addObserver(this);
+        if (avatar.hasProperty(AbilityModifierProperty.SLUG.WISDOM_MODIFIER)) AbilityModifierProperty.class.cast(avatar.find(AbilityModifierProperty.SLUG.WISDOM_MODIFIER)).addObserver(this);
+        if (avatar.hasProperty(AbilityModifierProperty.SLUG.CHARISMA_MODIFIER)) AbilityModifierProperty.class.cast(avatar.find(AbilityModifierProperty.SLUG.CHARISMA_MODIFIER)).addObserver(this);
+        
+        //resetAbilityResults(t);
     }
 }

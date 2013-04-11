@@ -15,8 +15,10 @@ public interface IAvatar extends Lookup.Provider {
     
     <T> void addProperty(IProperty<T> property);
     void addProperties(IProperty<?>...properties);
+    boolean hasProperty(String slug);
     <T> void removeProperty(IProperty<T> property);
-    <T> void removeAllProperties(Class<? extends IProperty<T>> propertyClass);
+    void removeAllProperties(Class<? extends IProperty<?>> propertyClass);
+    void removeAllProperties();
     
     boolean hasState(Class<? extends IState> stateClass);
     
