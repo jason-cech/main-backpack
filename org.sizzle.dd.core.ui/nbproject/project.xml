@@ -66,5 +66,11 @@
             </module-dependencies>
             <public-packages/>
         </data>
+        <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
+            <word>CHA</word>
+            <word>DEX</word>
+            <word>INT</word>
+            <word>STR</word>
+        </spellchecker-wordlist>
     </configuration>
 </project>

@@ -8,7 +8,7 @@ import java.util.List;
  * @author Jason
  */
 public class ExperienceProperty extends CoreProperty<Integer>{
-    private List<Integer> xpEntries = new ArrayList<Integer>(0);
+    private List<Integer> xpEntries = new ArrayList<>(0);
     
     public ExperienceProperty() {
         super("avatar_experience");

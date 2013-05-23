@@ -97,12 +97,11 @@ public abstract class D20Avatar implements IAvatar {
         this.content.add(property);
     }
     
-    @Override
-    public <T> void addProperties(IProperty<T>...properties) {
-        for (IProperty<T> property : properties) {
-            addProperty(property);
-        }
-    }
+//        public <T> void addProperties(IProperty<T>...properties) {
+//        for (IProperty<T> property : properties) {
+//            addProperty(property);
+//        }
+//    }
     
     @Override
     public <T> void removeProperty(IProperty<T> property) {
@@ -115,10 +114,10 @@ public abstract class D20Avatar implements IAvatar {
         this.content.remove(item.getInstance());
     }
 
-    @Override
-    public <T> void removeAllProperties(Class<? extends IProperty<T>> propertyClass) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//    @Override
+//    public <T> void removeAllProperties(Class<? extends IProperty<T>> propertyClass) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
     
     /**
      *
