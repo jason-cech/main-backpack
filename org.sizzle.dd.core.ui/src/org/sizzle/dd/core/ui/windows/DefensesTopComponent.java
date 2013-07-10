@@ -25,6 +25,8 @@ import org.openide.util.NbBundle.Messages;
 import org.sizzle.dd.core.Avatar;
 import org.sizzle.dd.core.properties.ArmorClassProperty;
 import org.sizzle.dd.core.properties.FortitudeProperty;
+import org.sizzle.dd.core.properties.ReflexProperty;
+import org.sizzle.dd.core.properties.WillProperty;
 import org.sizzle.rpg.core.AbstractAvatar;
 import org.sizzle.rpg.core.AbstractProperty;
 import org.sizzle.rpg.core.IProperty;
@@ -52,7 +54,6 @@ import org.sizzle.rpg.core.IProperty;
 })
 public final class DefensesTopComponent extends TopComponent implements LookupListener, Observer {
 
-	private Lookup.Result<AbstractAvatar> avatarResult = null;
 	private Avatar avatar;
 
 	public DefensesTopComponent() {
@@ -299,15 +300,15 @@ public final class DefensesTopComponent extends TopComponent implements LookupLi
   }//GEN-LAST:event_txtArmorClassActionPerformed
 
   private void txtFortitudeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFortitudeActionPerformed
-		// TODO add your handling code here:
+		userSetProperty(txtFortitude, FortitudeProperty.SLUG);
   }//GEN-LAST:event_txtFortitudeActionPerformed
 
   private void txtReflexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtReflexActionPerformed
-		// TODO add your handling code here:
+		userSetProperty(txtReflex, ReflexProperty.SLUG);
   }//GEN-LAST:event_txtReflexActionPerformed
 
   private void txtWillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtWillActionPerformed
-		// TODO add your handling code here:
+		userSetProperty(txtWill, WillProperty.SLUG);
   }//GEN-LAST:event_txtWillActionPerformed
 
   private void txtArmorClassFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtArmorClassFocusLost
@@ -315,15 +316,15 @@ public final class DefensesTopComponent extends TopComponent implements LookupLi
   }//GEN-LAST:event_txtArmorClassFocusLost
 
   private void txtFortitudeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFortitudeFocusLost
-		// TODO add your handling code here:
+		fieldFocusLoss(txtFortitude, FortitudeProperty.SLUG);
   }//GEN-LAST:event_txtFortitudeFocusLost
 
   private void txtReflexFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtReflexFocusLost
-		// TODO add your handling code here:
+		fieldFocusLoss(txtReflex, ReflexProperty.SLUG);
   }//GEN-LAST:event_txtReflexFocusLost
 
   private void txtWillFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtWillFocusLost
-		// TODO add your handling code here:
+		fieldFocusLoss(txtWill, WillProperty.SLUG);
   }//GEN-LAST:event_txtWillFocusLost
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JLabel lblArmorClass;
@@ -346,16 +347,18 @@ public final class DefensesTopComponent extends TopComponent implements LookupLi
 
 	@Override
 	public void componentOpened() {
-		avatarResult = Lookup.getDefault().lookupResult(AbstractAvatar.class);
-		avatarResult.addLookupListener(this);
-		LookupEvent initialLookupEventOnComponentOpen = new LookupEvent(avatarResult);
-		resultChanged(initialLookupEventOnComponentOpen);
+		avatar = Lookup.getDefault().lookup(Avatar.class);
+//		avatarResult.addLookupListener(this);
+//		LookupEvent initialLookupEventOnComponentOpen = new LookupEvent(avatarResult);
+//		resultChanged(initialLookupEventOnComponentOpen);
+		resetDefenseResults(avatar);
+		configure(avatar);
 	}
 
 	@Override
 	public void componentClosed() {
-		avatarResult.removeLookupListener(this);
-		avatarResult = null;
+//		avatarResult.removeLookupListener(this);
+//		avatarResult = null;
 	}
 
 	void writeProperties(java.util.Properties p) {
@@ -390,23 +393,23 @@ public final class DefensesTopComponent extends TopComponent implements LookupLi
 
 	@Override
 	public void resultChanged(LookupEvent ev) {
-		Object src = ev.getSource();
-		if (src == null) {
-			throw new NullPointerException("The source is null");
-		}
-		if (avatarResult == null) {
-			throw new NullPointerException("The avatarResult is null");
-		}
-
-		if (src.getClass().isAssignableFrom(avatarResult.getClass())) {
-			// avatar has changed, so we must update our property Lookup.Results
-			@SuppressWarnings("unchecked")
-			Lookup.Result<Avatar> r = (Lookup.Result<Avatar>) ev.getSource();
-			Iterator<? extends Avatar> avatarIterator = r.allInstances().iterator();
-			avatar = avatarIterator.hasNext() ? avatarIterator.next() : null;
-			resetDefenseResults(avatar);
-			configure(avatar);
-		}
+//		Object src = ev.getSource();
+//		if (src == null) {
+//			throw new NullPointerException("The source is null");
+//		}
+//		if (avatarResult == null) {
+//			throw new NullPointerException("The avatarResult is null");
+//		}
+//
+//		if (src.getClass().isAssignableFrom(avatarResult.getClass())) {
+//			// avatar has changed, so we must update our property Lookup.Results
+//			@SuppressWarnings("unchecked")
+//			Lookup.Result<Avatar> r = (Lookup.Result<Avatar>) ev.getSource();
+//			Iterator<? extends Avatar> avatarIterator = r.allInstances().iterator();
+//			avatar = avatarIterator.hasNext() ? avatarIterator.next() : null;
+//			resetDefenseResults(avatar);
+//			configure(avatar);
+//		}
 	}
 
 	@Override
