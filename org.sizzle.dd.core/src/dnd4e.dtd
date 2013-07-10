@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<!--
+    TODO define vocabulary identification data
+    PUBLIC ID  : -//vendor//vocabulary//EN
+    SYSTEM ID  : http://server/path/__NAME__
+-->
+
+<!-- TODO define your own vocabulary/syntax. Example follows:  -->
+<!ELEMENT D20Character (CharacterSheet,Level+,Grabbag,textstring+)>
+	<!ELEMENT CharacterSheet (Details,AbilityScores,StatBlock,RulesElementTally,LootTally,PowerStats,Companions,Journal)>
+		<!ELEMENT Details (name,Level,Player,Height,Weight,Gender,Age,Alignment,Company,Portrait,Experience,CarriedMoney,StoredMoney,Traits,Appearance,Companions,Notes)>
+		<!ELEMENT AbilityScores (Strength,Constitution,Dexterity,Intelligence,Wisdom,Charisma)>
+			<!ELEMENT Strength (#PCDATA)>
+			<!ELEMENT Constitution (#PCDATA)>
+			<!ELEMENT Dexterity (#PCDATA)>
+			<!ELEMENT Intelligence (#PCDATA)>
+			<!ELEMENT Wisdom (#PCDATA)>
+			<!ELEMENT Charisma  (#PCDATA)>
+		<!ELEMENT StatBlock (Stat+)>
+			<!ELEMENT Stat (alias+,statadd+)>
+		<!ELEMENT RulesElementTally (RulesElement+)>
+		<!ELEMENT LootTally (loot+)>
+		<!ELEMENT PowerStats (Power+)>
+		<!ELEMENT Companions (#PCDATA)>
+		<!ELEMENT Journal (#PCDATA)>
+	<!ELEMENT Level (RulesElement,loot+)>		
+	<!ELEMENT Grabbag (RulesElement+,rules)>
+	<!ELEMENT loot (RulesElement+)>
+	<!ELEMENT Power (specific+,Weapon+)>
+	<!ELEMENT Weapon (RulesElement,AttackBonus,Damage,AttackStat,Defense,HitComponents,DamageComponents,CritDamage,CritRange)>
+	<!ELEMENT RulesElement (RulesElement+,specific+)>
+	<!ELEMENT rules (grant)>
+	<!ELEMENT textstring (#PCDATA)>
+	<!ELEMENT name (#PCDATA)>
+	<!ELEMENT Level (#PCDATA)>
+	<!ELEMENT Player (#PCDATA)>
+	<!ELEMENT Height (#PCDATA)>
+	<!ELEMENT Width (#PCDATA)>
+	<!ELEMENT Gender (#PCDATA)>
+	<!ELEMENT Age (#PCDATA)>
+	<!ELEMENT Alignment (#PCDATA)>
+	<!ELEMENT Company (#PCDATA)>
+	<!ELEMENT Portrait (#PCDATA)>
+	<!ELEMENT Experience (#PCDATA)>
+	<!ELEMENT CarriedMoney (#PCDATA)>
+	<!ELEMENT StoredMoney (#PCDATA)>
+	<!ELEMENT Traits (#PCDATA)>
+	<!ELEMENT Appearance (#PCDATA)>
+	<!ELEMENT Companions (#PCDATA)>
+	<!ELEMENT Notes (#PCDATA)>
+

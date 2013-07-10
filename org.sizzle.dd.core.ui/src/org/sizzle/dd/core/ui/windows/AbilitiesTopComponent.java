@@ -3,7 +3,6 @@ package org.sizzle.dd.core.ui.windows;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
-import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
@@ -18,12 +17,9 @@ import org.openide.util.LookupEvent;
 import org.openide.util.LookupListener;
 import org.openide.windows.TopComponent;
 import org.openide.util.NbBundle.Messages;
-import org.openide.util.lookup.ServiceProvider;
 import org.sizzle.dd.core.Avatar;
-import org.sizzle.dd.core.importer.AvatarUserInterfaceConfigurer;
 import org.sizzle.dd.core.properties.AbilityModifierProperty;
 import org.sizzle.dd.core.properties.AbilityScoreProperty;
-import org.sizzle.rpg.core.AbstractAvatar;
 import org.sizzle.rpg.core.AbstractProperty;
 import org.sizzle.rpg.core.IProperty;
 
@@ -51,7 +47,6 @@ import org.sizzle.rpg.core.IProperty;
 //@ServiceProvider(service = AvatarUserInterfaceConfigurer.class)
 public final class AbilitiesTopComponent extends TopComponent implements LookupListener, Observer {//, AvatarUserInterfaceConfigurer {
 
-    private Lookup.Result<AbstractAvatar> avatarResult = null;
     private Avatar avatar;
 
     public AbilitiesTopComponent() {
@@ -704,16 +699,13 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
 
     @Override
     public void componentOpened() {
-        avatarResult = Lookup.getDefault().lookupResult(AbstractAvatar.class);
-        avatarResult.addLookupListener(this);
-        LookupEvent initialLookupEventOnComponentOpen = new LookupEvent(avatarResult);
-        resultChanged(initialLookupEventOnComponentOpen);
+        avatar = Lookup.getDefault().lookup(Avatar.class);
+				resetAbilityResults(avatar);
+				configure(avatar);
     }
 
     @Override
     public void componentClosed() {
-        avatarResult.removeLookupListener(this);
-        avatarResult = null;
     }
 
     void writeProperties(java.util.Properties p) {
@@ -730,21 +722,21 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
 
     @Override
     public void resultChanged(LookupEvent ev) {
-        Object src = ev.getSource();
-        if (src==null)
-            throw new NullPointerException("The source is null");
-        if (avatarResult==null)
-            throw new NullPointerException("The avatarResult is null");
-        
-        if (src.getClass().isAssignableFrom(avatarResult.getClass())) {
-            // avatar has changed, so we must update our property Lookup.Results
-            @SuppressWarnings("unchecked")
-            Lookup.Result<Avatar> r = (Lookup.Result<Avatar>) ev.getSource();
-            Iterator<? extends Avatar> avatarIterator = r.allInstances().iterator();
-            avatar = avatarIterator.hasNext() ? avatarIterator.next() : null;
-            resetAbilityResults(avatar);
-            configure(avatar);
-        }
+//        Object src = ev.getSource();
+//        if (src==null)
+//            throw new NullPointerException("The source is null");
+//        if (avatarResult==null)
+//            throw new NullPointerException("The avatarResult is null");
+//        
+//        if (src.getClass().isAssignableFrom(avatarResult.getClass())) {
+//            // avatar has changed, so we must update our property Lookup.Results
+//            @SuppressWarnings("unchecked")
+//            Lookup.Result<Avatar> r = (Lookup.Result<Avatar>) ev.getSource();
+//            Iterator<? extends Avatar> avatarIterator = r.allInstances().iterator();
+//            avatar = avatarIterator.hasNext() ? avatarIterator.next() : null;
+//            resetAbilityResults(avatar);
+//            configure(avatar);
+//        }
     }
 
     private void updateAbilityProperty(final IProperty<Integer> property, final JTextComponent component) {
@@ -852,7 +844,7 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
             field.setText("?");
         } else {
             IProperty<Integer> property = avatar.<Integer>find(propertySlug);
-            Integer textValue = field.getText().matches("\\d*")
+            Integer textValue = field.getText().matches("(-)?\\d*")
                     ? Integer.parseInt(field.getText())
                     : 0;
 
@@ -897,13 +889,13 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
     //@Override
     public void configure(Avatar t) {
         avatar = Lookup.getDefault().lookup(Avatar.class);
-        
-        if (avatar.hasProperty(AbilityScoreProperty.SLUG.STRENGTH_SCORE)) AbilityScoreProperty.class.cast(avatar.find(AbilityScoreProperty.SLUG.STRENGTH_SCORE)).addObserver(this);
-        if (avatar.hasProperty(AbilityScoreProperty.SLUG.CONSTITUTION_SCORE)) AbilityScoreProperty.class.cast(avatar.find(AbilityScoreProperty.SLUG.CONSTITUTION_SCORE)).addObserver(this);
-        if (avatar.hasProperty(AbilityScoreProperty.SLUG.DEXTERITY_SCORE)) AbilityScoreProperty.class.cast(avatar.find(AbilityScoreProperty.SLUG.DEXTERITY_SCORE)).addObserver(this);
-        if (avatar.hasProperty(AbilityScoreProperty.SLUG.INTELLIGENCE_SCORE)) AbilityScoreProperty.class.cast(avatar.find(AbilityScoreProperty.SLUG.INTELLIGENCE_SCORE)).addObserver(this);
-        if (avatar.hasProperty(AbilityScoreProperty.SLUG.WISDOM_SCORE)) AbilityScoreProperty.class.cast(avatar.find(AbilityScoreProperty.SLUG.WISDOM_SCORE)).addObserver(this);
-        if (avatar.hasProperty(AbilityScoreProperty.SLUG.CHARISMA_SCORE)) AbilityScoreProperty.class.cast(avatar.find(AbilityScoreProperty.SLUG.CHARISMA_SCORE)).addObserver(this);
+				
+        if (avatar.hasProperty(AbilityScoreProperty.SLUG.STRENGTH_SCORE))			AbilityScoreProperty.class.cast(avatar.find(AbilityScoreProperty.SLUG.STRENGTH_SCORE)).addObserver(this);
+        if (avatar.hasProperty(AbilityScoreProperty.SLUG.CONSTITUTION_SCORE))	AbilityScoreProperty.class.cast(avatar.find(AbilityScoreProperty.SLUG.CONSTITUTION_SCORE)).addObserver(this);
+        if (avatar.hasProperty(AbilityScoreProperty.SLUG.DEXTERITY_SCORE))		AbilityScoreProperty.class.cast(avatar.find(AbilityScoreProperty.SLUG.DEXTERITY_SCORE)).addObserver(this);
+        if (avatar.hasProperty(AbilityScoreProperty.SLUG.INTELLIGENCE_SCORE))	AbilityScoreProperty.class.cast(avatar.find(AbilityScoreProperty.SLUG.INTELLIGENCE_SCORE)).addObserver(this);
+        if (avatar.hasProperty(AbilityScoreProperty.SLUG.WISDOM_SCORE))				AbilityScoreProperty.class.cast(avatar.find(AbilityScoreProperty.SLUG.WISDOM_SCORE)).addObserver(this);
+        if (avatar.hasProperty(AbilityScoreProperty.SLUG.CHARISMA_SCORE))			AbilityScoreProperty.class.cast(avatar.find(AbilityScoreProperty.SLUG.CHARISMA_SCORE)).addObserver(this);
         
         if (avatar.hasProperty(AbilityModifierProperty.SLUG.STRENGTH_MODIFIER)) AbilityModifierProperty.class.cast(avatar.find(AbilityModifierProperty.SLUG.STRENGTH_MODIFIER)).addObserver(this);
         if (avatar.hasProperty(AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER)) AbilityModifierProperty.class.cast(avatar.find(AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER)).addObserver(this);
