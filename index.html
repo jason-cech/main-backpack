@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Main-backpack : " />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Main-backpack</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/jason-cech/main-backpack">View on GitHub</a>
+
+          <h1 id="project_title">MAIN-BACKPACK</h1>
+          <h2 id="project_tagline"></h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/jason-cech/main-backpack/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/jason-cech/main-backpack/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h3>Welcome to Backpack.</h3>
+
+        <p>This project has been in many iterative cycles. Mostly in trying to find the best codebase or architecture that would allow for easy expansion.</p>
+        <p>Here is an initial screen shot of the first 'window' or component. From what is being displayed, all twelve (12) fields are calculated. The fields that you see highlighted in green (later to be a user preference) are fields that the user has supplied their own values. When any field looses focus, if the value shown is different than that of the calculated value, it's new value is that which the user has entered. Furthermore, if there are any properties that are observing a particular field, they will also be updated to take into account the new value in there respective calculations.<img src="images/Abilities.png" alt="Abilities Window Preview" />For example, you see that the Strength Score is 13. This value was supplied by the user. Once he transferred his focus to the Constitution score, the Strength score property ran it's comparison, found that the user has supplied a different value, and updated it's own value. This triggered a different property, Strength modifier, that was observing the Strength score to update it's calculated value.</p>
+        <p>The reason that this becomes so powerful, is that once the base architecture is layed out and you have a complete structure of properties with modifiers that are observing other properties, any change that affects a property will have an update chain that ripples through all observing properties.</p>
+        <p>Imagine if you will, your playing along and a party member casts a spell that increases everyone's Strength score by 2 (or whatever the spells calculation is). Your character, if he/she is in range or eligible for the bonus will automatically have a modifier added to their Strength score. This would cause a calculated update only if the property does not have a user supplied value. But don't worry about 'missing' the buff. The modifier is already added in. This brings me to the last part of the window.</p>
+        <p>Lastly, if you were to no longer want to use your supplied value, you can easily right click on the highlighted field and choose 'Clear User Value'. This will revert the property to using the calculated value. As you would expect, if there are any observing properties, their values (if not user defined) will be recalculated.</p>
+        <p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+
+<pre><code>$ cd your_repo_root/repo_name
+$ git fetch origin
+$ git checkout gh-pages
+</code></pre>
+
+<p>In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+
+<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+
+<h3>Support or Contact</h3>
+
+<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Main-backpack maintained by <a href="https://github.com/jason-cech">jason-cech</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+        Jekyll
+    </div>
+
+    
+
+  </body>
+</html>
