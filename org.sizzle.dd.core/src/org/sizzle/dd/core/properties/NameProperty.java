@@ -6,13 +6,14 @@ package org.sizzle.dd.core.properties;
  */
 public class NameProperty extends CoreProperty<String> {
 
-    public NameProperty() {
-        super("avatar_name");
-    }
-    
-    @Override
-    protected String calculate() {
-        return "[No-Name]";
-    }
-    
+	public static final String SLUG = "avatar_name";
+
+	public NameProperty() {
+		super(SLUG);
+	}
+
+	@Override
+	protected String calculate() {
+		return "[No-Name]";
+	}
 }
