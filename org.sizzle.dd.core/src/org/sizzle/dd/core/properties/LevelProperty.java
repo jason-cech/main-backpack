@@ -17,7 +17,7 @@ public class LevelProperty extends CoreProperty<Integer> {
 	protected Integer calculate() {
 		Integer xp = avatar.<Integer>findValueOf("avatar_experience");
 		int level = 0;
-		while (xp > levels[level]) {
+		while (level < levels.length && xp > levels[level]) {
 			level++;
 		}
 		return level;

@@ -85,7 +85,7 @@ public class FourtEditionAvatarImporter extends AvatarImporter {
         avatar.addProperty(avatarHeightProperty);
         
         WeightProperty avatarWeightProperty = new WeightProperty();
-        avatarWeightProperty.setValue(170);
+        avatarWeightProperty.setValue(170.0);
         avatar.addProperty(avatarWeightProperty);
         
         LevelProperty avatarLevelProperty = new LevelProperty();

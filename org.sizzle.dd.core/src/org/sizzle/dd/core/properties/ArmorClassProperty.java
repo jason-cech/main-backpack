@@ -4,9 +4,11 @@
  */
 package org.sizzle.dd.core.properties;
 
+import org.sizzle.dd.core.Avatar;
 import org.sizzle.dd.core.modifier.ArmorBonusModifier;
 import org.sizzle.dd.core.modifier.BaseDefenseModifier;
 import org.sizzle.dd.core.modifier.ShieldBonusModifier;
+import org.sizzle.rpg.core.IAvatar;
 import org.sizzle.rpg.core.model.IModifier;
 
 /**
@@ -17,11 +19,13 @@ public class ArmorClassProperty extends CoreProperty<Integer> {
 	public static final String SLUG = "armor_class";
 	public static final IModifier<Integer> BASE_ARMOR_CLASS = new BaseDefenseModifier();
 	
-	public ArmorClassProperty() {
+	public ArmorClassProperty(Avatar avatar) {
 		super(SLUG);
 		modifiers.add(BASE_ARMOR_CLASS);
 		modifiers.add(new ArmorBonusModifier());
 		modifiers.add(new ShieldBonusModifier());
+		this.avatar = avatar;
+		this.avatar.find(LevelProperty.class).addObserver(this);
 	}
 
 	@Override
@@ -32,6 +36,12 @@ public class ArmorClassProperty extends CoreProperty<Integer> {
 			if (modifier.isEnabled(avatar)) score += modifier.getValue();
 		}
 		return score;
+	}
+
+	@Override
+	public void setAvatar(IAvatar avatar) {
+		super.setAvatar(avatar); //To change body of generated methods, choose Tools | Templates.
+		avatar.find(LevelProperty.class).addObserver(this);
 	}
 	
 }

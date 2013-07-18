@@ -5,15 +5,15 @@ package org.sizzle.dd.core.properties;
  *
  * @author Jason
  */
-public class WeightProperty extends CoreProperty<Number> {
+public class WeightProperty extends CoreProperty<Double> {
     
     public WeightProperty() {
         super("avatar_weight");
     }
 
     @Override
-    protected Number calculate() {
-        return 1;
+    protected Double calculate() {
+        return 1.0;
     }
     
 }

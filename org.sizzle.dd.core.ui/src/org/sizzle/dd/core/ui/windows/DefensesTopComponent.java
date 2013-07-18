@@ -7,7 +7,6 @@ package org.sizzle.dd.core.ui.windows;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
-import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
@@ -27,7 +26,6 @@ import org.sizzle.dd.core.properties.ArmorClassProperty;
 import org.sizzle.dd.core.properties.FortitudeProperty;
 import org.sizzle.dd.core.properties.ReflexProperty;
 import org.sizzle.dd.core.properties.WillProperty;
-import org.sizzle.rpg.core.AbstractAvatar;
 import org.sizzle.rpg.core.AbstractProperty;
 import org.sizzle.rpg.core.IProperty;
 

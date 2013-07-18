@@ -4,6 +4,9 @@
  */
 package org.sizzle.dd.core.properties;
 
+import org.sizzle.dd.core.Avatar;
+import org.sizzle.rpg.core.IAvatar;
+
 /**
  *
  * @author Jason
@@ -11,8 +14,10 @@ package org.sizzle.dd.core.properties;
 public class FortitudeProperty extends CoreProperty<Integer> {
 	public static final String SLUG = "fortitude";
 	
-	public FortitudeProperty() {
+	public FortitudeProperty(Avatar avatar) {
 		super(SLUG);
+		this.avatar = avatar;
+		this.avatar.find(LevelProperty.class).addObserver(this);
 	}
 
 	@Override
@@ -20,6 +25,12 @@ public class FortitudeProperty extends CoreProperty<Integer> {
 		Integer score = 0;
 		
 		return score;
+	}
+
+	@Override
+	public void setAvatar(IAvatar avatar) {
+		super.setAvatar(avatar); //To change body of generated methods, choose Tools | Templates.
+		this.avatar.find(LevelProperty.class).addObserver(this);
 	}
 	
 }

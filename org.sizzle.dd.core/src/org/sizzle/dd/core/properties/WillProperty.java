@@ -4,6 +4,8 @@
  */
 package org.sizzle.dd.core.properties;
 
+import org.sizzle.dd.core.Avatar;
+
 /**
  *
  * @author Jason
@@ -11,7 +13,7 @@ package org.sizzle.dd.core.properties;
 public class WillProperty extends CoreProperty<Integer> {
 	public static final String SLUG = "will";
 	
-	public WillProperty() { super(SLUG); }
+	public WillProperty(Avatar avatar) { super(SLUG); }
 
 	@Override
 	protected Integer calculate() {

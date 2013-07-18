@@ -9,12 +9,16 @@ import org.openide.util.Lookup;
 import org.sizzle.dd.core.properties.AbilityModifierProperty;
 import org.sizzle.dd.core.properties.AbilityScoreProperty;
 import org.sizzle.dd.core.properties.AgeProperty;
+import org.sizzle.dd.core.properties.ArmorClassProperty;
 import org.sizzle.dd.core.properties.ExperienceProperty;
+import org.sizzle.dd.core.properties.FortitudeProperty;
 import org.sizzle.dd.core.properties.HeightProperty;
 import org.sizzle.dd.core.properties.LevelProperty;
 import org.sizzle.dd.core.properties.NameProperty;
 import org.sizzle.dd.core.properties.PlayerNameProperty;
+import org.sizzle.dd.core.properties.ReflexProperty;
 import org.sizzle.dd.core.properties.WeightProperty;
+import org.sizzle.dd.core.properties.WillProperty;
 
 public class Installer extends ModuleInstall {
 
@@ -42,7 +46,7 @@ public class Installer extends ModuleInstall {
 		avatar.addProperty(avatarHeightProperty);
 
 		WeightProperty avatarWeightProperty = new WeightProperty();
-		avatarWeightProperty.setValue(170);
+		avatarWeightProperty.setValue(170.0);
 		avatar.addProperty(avatarWeightProperty);
 
 		LevelProperty avatarLevelProperty = new LevelProperty();
@@ -51,6 +55,7 @@ public class Installer extends ModuleInstall {
 		avatarExperienceProperty.addObserver(avatarLevelProperty);
 		avatarExperienceProperty.setValue(0);
 		avatar.addProperty(avatarLevelProperty);
+		avatar.addProperty(avatarExperienceProperty);
 		
 		// Add the 6 core ability score properties
 		if (!avatar.hasProperty(AbilityScoreProperty.SLUG.STRENGTH_SCORE))			avatar.addProperty(new AbilityScoreProperty(avatar, AbilityScoreProperty.SLUG.STRENGTH_SCORE));
@@ -69,6 +74,9 @@ public class Installer extends ModuleInstall {
 		if (!avatar.hasProperty(AbilityModifierProperty.SLUG.CHARISMA_MODIFIER))avatar.addProperty(new AbilityModifierProperty(avatar, AbilityModifierProperty.SLUG.CHARISMA_MODIFIER));
 
 		// Add the 4 core defense properties
-		
+		if (!avatar.hasProperty(ArmorClassProperty.SLUG))avatar.addProperty(new ArmorClassProperty(avatar));
+		if (!avatar.hasProperty(FortitudeProperty.SLUG))avatar.addProperty(new FortitudeProperty(avatar));
+		if (!avatar.hasProperty(ReflexProperty.SLUG))avatar.addProperty(new ReflexProperty(avatar));
+		if (!avatar.hasProperty(WillProperty.SLUG))avatar.addProperty(new WillProperty(avatar));
 	}
 }

@@ -19,10 +19,6 @@ public class AvatarDefensesUserInterfaceImporter implements AvatarUserInterfaceC
 
 	@Override
 	public void configure(Avatar t) {
-		t.addProperties(
-						new ArmorClassProperty(),
-						new FortitudeProperty()
-						);
 		Mode editorMode = WindowManager.getDefault().findMode("editor");
 		TopComponent[] findTopComponent = WindowManager.getDefault().getOpenedTopComponents(editorMode);
 		for (TopComponent topComponent : findTopComponent) {

@@ -4,25 +4,36 @@
  */
 package org.sizzle.dd.core.ui.windows;
 
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
+import javax.swing.AbstractAction;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JPopupMenu;
 import javax.swing.text.JTextComponent;
+import org.netbeans.api.annotations.common.StaticResource;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.Notification;
 import org.openide.awt.NotificationDisplayer;
 import org.openide.util.Exceptions;
+import org.openide.util.ImageUtilities;
 import org.openide.util.Lookup;
 import org.openide.windows.TopComponent;
 import org.openide.util.NbBundle.Messages;
 import org.sizzle.dd.core.Avatar;
+import org.sizzle.dd.core.properties.AgeProperty;
 import org.sizzle.dd.core.properties.CoreProperty;
 import org.sizzle.dd.core.properties.ExperienceProperty;
 import org.sizzle.dd.core.properties.LevelProperty;
 import org.sizzle.dd.core.properties.NameProperty;
 import org.sizzle.dd.core.properties.PlayerNameProperty;
+import org.sizzle.dd.core.properties.WeightProperty;
 import org.sizzle.rpg.core.AbstractProperty;
 import org.sizzle.rpg.core.IProperty;
 
@@ -48,6 +59,10 @@ import org.sizzle.rpg.core.IProperty;
 	"HINT_BasicInformationTopComponent=This is a BasicInformation window"
 })
 public final class BasicInformationTopComponent extends TopComponent implements Observer {
+
+	@StaticResource()
+	private static final String WARNING_ICON_RESOURCE_LOCATION = "org/sizzle/dd/core/ui/exclamation.png";
+	private static final Icon WARNING_ICON = new ImageIcon(WARNING_ICON_RESOURCE_LOCATION);
 	private Avatar avatar;
 
 	public BasicInformationTopComponent() {
@@ -287,78 +302,112 @@ public final class BasicInformationTopComponent extends TopComponent implements 
   }// </editor-fold>//GEN-END:initComponents
 
   private void txtCharacterNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCharacterNameActionPerformed
-    this.userSetAbilityProperty(txtCharacterName, txtCharacterName.getText(), avatar.find(NameProperty.class));
+		this.userSetProperty(txtCharacterName, txtCharacterName.getText(), avatar.find(NameProperty.class));
   }//GEN-LAST:event_txtCharacterNameActionPerformed
 
   private void txtPlayerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlayerNameActionPerformed
-    this.userSetAbilityProperty(txtPlayerName, txtPlayerName.getText(), avatar.find(PlayerNameProperty.class));
+		this.userSetProperty(txtPlayerName, txtPlayerName.getText(), avatar.find(PlayerNameProperty.class));
   }//GEN-LAST:event_txtPlayerNameActionPerformed
 
   private void txtExperienceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtExperienceActionPerformed
-    Integer attemptedValue, value = avatar.findValueOf(ExperienceProperty.class);
+		Integer attemptedValue = null;
+		Integer value = avatar.findValueOf(ExperienceProperty.class);
 		try {
 			attemptedValue = Integer.parseInt(txtExperience.getText());
-			if (attemptedValue > 0)
-				NotificationDisplayer.getDefault().notify("Invalid Data Type", null, "Experience must be a positive number", null);
+			if (attemptedValue < 0) {
+				NotificationDisplayer.getDefault().notify("Invalid Data Type", WARNING_ICON, "Experience must be a positive number", null);
+			}
 		} catch (NumberFormatException nfe) {
 			Exceptions.attachSeverity(nfe, Level.OFF);
-			NotificationDisplayer.getDefault().notify("Invalid Data Type", null, "Experience must be a whole number", null);
+			NotificationDisplayer.getDefault().notify("Invalid Data Type", WARNING_ICON, "Experience must be a whole number", null);
 		}
-		this.userSetAbilityProperty(txtExperience, value, avatar.find(ExperienceProperty.class));
+		this.userSetProperty(txtExperience, attemptedValue != null ? attemptedValue : value, avatar.find(ExperienceProperty.class));
   }//GEN-LAST:event_txtExperienceActionPerformed
 
   private void txtLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLevelActionPerformed
-    // TODO add your handling code here:
+		Integer attemptedValue = null;
+		Integer value = avatar.findValueOf(LevelProperty.class);
+		try {
+			attemptedValue = Integer.parseInt(txtLevel.getText());
+			if (attemptedValue < 0) {
+				NotificationDisplayer.getDefault().notify("Invalid Data Type", WARNING_ICON, "Experience must be a positive number", null);
+			}
+		} catch (NumberFormatException nfe) {
+			Exceptions.attachSeverity(nfe, Level.OFF);
+			NotificationDisplayer.getDefault().notify("Invalid Data Type", WARNING_ICON, "Experience must be a whole number", null);
+		}
+		this.userSetProperty(txtLevel, attemptedValue != null ? attemptedValue : value, avatar.find(LevelProperty.class));
   }//GEN-LAST:event_txtLevelActionPerformed
 
   private void txtAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAgeActionPerformed
-    // TODO add your handling code here:
+		Float attemptedValue = null;
+		Float value = avatar.findValueOf(AgeProperty.class);
+		try {
+			attemptedValue = Float.parseFloat(txtAge.getText());
+			if (attemptedValue < 0) {
+				NotificationDisplayer.getDefault().notify("Invalid Data Type", WARNING_ICON, "Experience must be a positive number", null);
+			}
+		} catch (NumberFormatException nfe) {
+			Exceptions.attachSeverity(nfe, Level.OFF);
+			NotificationDisplayer.getDefault().notify("Invalid Data Type", WARNING_ICON, "Experience must be a whole number", null);
+		}
+		this.userSetProperty(txtAge, attemptedValue != null ? attemptedValue : value, avatar.find(AgeProperty.class));
   }//GEN-LAST:event_txtAgeActionPerformed
 
   private void txtHeightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHeightActionPerformed
-    // TODO add your handling code here:
+		this.userSetProperty(txtHeight, txtHeight.getText(), avatar.find(PlayerNameProperty.class));
   }//GEN-LAST:event_txtHeightActionPerformed
 
   private void txtWeightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtWeightActionPerformed
-    // TODO add your handling code here:
+		Double attemptedValue = null;
+		Double value = avatar.findValueOf(WeightProperty.class);
+		try {
+			attemptedValue = Double.parseDouble(txtWeight.getText());
+			if (attemptedValue < 0) {
+				NotificationDisplayer.getDefault().notify("Invalid Data Type", WARNING_ICON, "Experience must be a positive number", null);
+			}
+		} catch (NumberFormatException nfe) {
+			Exceptions.attachSeverity(nfe, Level.OFF);
+			NotificationDisplayer.getDefault().notify("Invalid Data Type", WARNING_ICON, "Experience must be a whole number", null);
+		}
+		this.userSetProperty(txtWeight, attemptedValue != null ? attemptedValue : value, avatar.find(WeightProperty.class));
   }//GEN-LAST:event_txtWeightActionPerformed
 
   private void txtSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSizeActionPerformed
-    // TODO add your handling code here:
+		this.userSetProperty(txtSize, txtSize.getText(), avatar.find(PlayerNameProperty.class));
   }//GEN-LAST:event_txtSizeActionPerformed
 
   private void txtCharacterNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCharacterNameFocusLost
-    // TODO add your handling code here:
+		// TODO add your handling code here:
   }//GEN-LAST:event_txtCharacterNameFocusLost
 
   private void txtPlayerNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPlayerNameFocusLost
-    // TODO add your handling code here:
+		// TODO add your handling code here:
   }//GEN-LAST:event_txtPlayerNameFocusLost
 
   private void txtExperienceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtExperienceFocusLost
-    // TODO add your handling code here:
+		// TODO add your handling code here:
   }//GEN-LAST:event_txtExperienceFocusLost
 
   private void txtLevelFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLevelFocusLost
-    // TODO add your handling code here:
+		// TODO add your handling code here:
   }//GEN-LAST:event_txtLevelFocusLost
 
   private void txtAgeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAgeFocusLost
-    // TODO add your handling code here:
+		// TODO add your handling code here:
   }//GEN-LAST:event_txtAgeFocusLost
 
   private void txtHeightFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtHeightFocusLost
-    // TODO add your handling code here:
+		// TODO add your handling code here:
   }//GEN-LAST:event_txtHeightFocusLost
 
   private void txtWeightFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtWeightFocusLost
-    // TODO add your handling code here:
+		// TODO add your handling code here:
   }//GEN-LAST:event_txtWeightFocusLost
 
   private void txtSizeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSizeFocusLost
-    // TODO add your handling code here:
+		// TODO add your handling code here:
   }//GEN-LAST:event_txtSizeFocusLost
-
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JLabel lblAge;
   private javax.swing.JLabel lblExperience;
@@ -380,9 +429,12 @@ public final class BasicInformationTopComponent extends TopComponent implements 
 	@Override
 	public void componentOpened() {
 		avatar = Lookup.getDefault().lookup(Avatar.class);
-		
+
 		// add this topcomponent as an observer to the avatar's properties
-		if (avatar.hasProperty(LevelProperty.SLUG)) avatar.find(LevelProperty.class).addObserver(this);
+		if (avatar.hasProperty(LevelProperty.SLUG)) {
+			avatar.find(LevelProperty.class).addObserver(this);
+		}
+		if (avatar.hasProperty(ExperienceProperty.SLUG)) avatar.find(ExperienceProperty.class).addObserver(this);
 	}
 
 	@Override
@@ -404,10 +456,21 @@ public final class BasicInformationTopComponent extends TopComponent implements 
 
 	@Override
 	public void update(Observable o, Object arg) {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		if (o instanceof ExperienceProperty) {
+			updateUIProperty(ExperienceProperty.class.cast(o), txtExperience);
+		}
+		if (o instanceof NameProperty) {
+			updateUIProperty(NameProperty.class.cast(o), txtCharacterName);
+		}
+		if (o instanceof PlayerNameProperty) {
+			updateUIProperty(PlayerNameProperty.class.cast(o), txtPlayerName);
+		}
+		if (o instanceof LevelProperty) {
+			updateUIProperty(LevelProperty.class.cast(o), txtLevel);
+		}
 	}
 
-	private <T> void userSetAbilityProperty(JTextComponent field, T value, CoreProperty<T> property) {
+	private <T> void userSetProperty(JTextComponent field, T value, CoreProperty<T> property) {
 		if (null == avatar) {
 			field.setText("?");
 		} else {
@@ -416,6 +479,7 @@ public final class BasicInformationTopComponent extends TopComponent implements 
 			field.transferFocus();
 		}
 	}
+
 	private void userSetAbilityProperty(JTextComponent field, String propertySlug) {
 		if (avatar == null) {
 			field.setText("?");
@@ -445,5 +509,30 @@ public final class BasicInformationTopComponent extends TopComponent implements 
 				field.setToolTipText(null);
 			}
 		}
+	}
+
+	private <T> void updateUIProperty(final IProperty<T> property, final JTextComponent component) {
+		EventQueue.invokeLater(new Runnable() {
+//
+			@Override
+			public void run() {
+				if (property.isUserSet()) {
+					System.out.println("User overriding a property value");
+					JPopupMenu pop = new JPopupMenu();
+					pop.add(new AbstractAction("Clear User Value") {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							((AbstractProperty<T>) property).unsetValue();
+						}
+					});
+					component.setComponentPopupMenu(pop);
+					component.setBackground(Color.GREEN);
+				} else {
+					component.setComponentPopupMenu(null);
+					component.setBackground(Color.WHITE);
+				}
+				component.setText(property.getValue().toString());
+			}
+		});
 	}
 }
