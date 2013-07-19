@@ -10,6 +10,7 @@ import org.sizzle.dd.core.properties.AbilityModifierProperty;
 import org.sizzle.dd.core.properties.AbilityScoreProperty;
 import org.sizzle.dd.core.properties.AgeProperty;
 import org.sizzle.dd.core.properties.ArmorClassProperty;
+import org.sizzle.dd.core.properties.ClassProperty;
 import org.sizzle.dd.core.properties.ExperienceProperty;
 import org.sizzle.dd.core.properties.FortitudeProperty;
 import org.sizzle.dd.core.properties.HeightProperty;
@@ -29,13 +30,17 @@ public class Installer extends ModuleInstall {
 		
 		// Start wiring up the avatar's known D&D Core properties and modifiers
 		// Add the core information properties
-		NameProperty avatarNameProperty = new NameProperty();
-		avatarNameProperty.setValue("My Name");
-		avatar.addProperty(avatarNameProperty);
-
 		PlayerNameProperty avatarPlayerNameProperty = new PlayerNameProperty();
 		avatarPlayerNameProperty.setValue("Jason");
 		avatar.addProperty(avatarPlayerNameProperty);
+
+		ClassProperty avatarClassProperty = new ClassProperty();
+		avatarClassProperty.setValue(null);
+		avatar.addProperty(avatarClassProperty);
+		
+		NameProperty avatarNameProperty = new NameProperty();
+		avatarNameProperty.setValue("My Name");
+		avatar.addProperty(avatarNameProperty);
 
 		AgeProperty avatarAgeProperty = new AgeProperty();
 		avatarAgeProperty.setValue(142F);
