@@ -6,6 +6,7 @@ package org.sizzle.dd.core.properties;
 
 import org.sizzle.dd.core.Avatar;
 import org.sizzle.rpg.core.IAvatar;
+import org.sizzle.rpg.core.model.IModifier;
 
 /**
  *
@@ -23,7 +24,12 @@ public class FortitudeProperty extends CoreProperty<Integer> {
 	@Override
 	protected Integer calculate() {
 		Integer score = 0;
-		
+		score += avatar.findValueOf(LevelProperty.class) / 2;
+		for (IModifier<Integer> modifier : modifiers) {
+			if (modifier.isEnabled(avatar)) {
+				score += modifier.getValue();
+			}
+		}
 		return score;
 	}
 

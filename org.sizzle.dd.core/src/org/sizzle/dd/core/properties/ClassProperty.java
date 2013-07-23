@@ -1,5 +1,6 @@
 package org.sizzle.dd.core.properties;
 
+import org.sizzle.dd.core.Avatar;
 import org.sizzle.dd.core.AvatarClass;
 
 /**
@@ -15,8 +16,12 @@ public class ClassProperty extends CoreProperty<AvatarClass> {
 
 	@Override
 	public void setValue(AvatarClass value) {
-		super.setValue(value);
-		
+		if (Avatar.class.isInstance(avatar)) {
+			if (null!=getValue())
+				getValue().deconfigure(Avatar.class.cast(avatar));
+			super.setValue(value);
+			value.configure(Avatar.class.cast(avatar));
+		}
 	}
 	
 }
