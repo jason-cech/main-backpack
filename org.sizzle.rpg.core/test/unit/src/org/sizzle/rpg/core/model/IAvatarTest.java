@@ -67,6 +67,11 @@ public class IAvatarTest {
 					public void removeAllProperties() {
 						throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 					}
+
+					@Override
+					public <C extends IProperty<T>, T> C find(String slug, Class<C> propertyClass) {
+						throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+					}
         };
     }
     
@@ -242,6 +247,11 @@ public class IAvatarTest {
 
 		@Override
 		public void removeAllProperties() {
+			throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		}
+
+		@Override
+		public <C extends IProperty<T>, T> C find(String slug, Class<C> propertyClass) {
 			throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 		}
     }

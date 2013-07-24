@@ -7,6 +7,6 @@ import org.sizzle.rpg.core.IAvatar;
  * @author Jason
  */
 public interface IModifier<T> {
-    T getValue();
+    T getValue(IAvatar avatar);
     boolean isEnabled(IAvatar avatar);
 }

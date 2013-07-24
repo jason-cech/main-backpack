@@ -14,7 +14,7 @@ import org.sizzle.rpg.core.model.IModifier;
 public class BaseDefenseModifier implements IModifier<Integer> {
 
 	@Override
-	public Integer getValue() {
+	public Integer getValue(IAvatar avatar) {
 		return 10;
 	}
 

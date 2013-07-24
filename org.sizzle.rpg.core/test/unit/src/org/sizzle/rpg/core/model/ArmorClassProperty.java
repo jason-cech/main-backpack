@@ -19,7 +19,7 @@ public class ArmorClassProperty extends AbstractProperty<Integer>{
         modifiers.add(new IModifier<Integer>() {
 
             @Override
-            public Integer getValue() {
+            public Integer getValue(IAvatar avatar) {
                 return 4;
             }
 
@@ -46,7 +46,7 @@ public class ArmorClassProperty extends AbstractProperty<Integer>{
         // Include any modifiers
         for (IModifier<Integer> modifier : getModifiers()) {
             if (modifier.isEnabled(avatar)) {
-                ac += modifier.getValue();
+                ac += modifier.getValue(avatar);
             }
         }
         

@@ -10,7 +10,7 @@ import org.sizzle.rpg.core.IState;
 public class FullDefense implements IModifier<Integer>, IState {
     
     @Override
-    public Integer getValue() {
+    public Integer getValue(IAvatar avatar) {
         return 1;
     }
 

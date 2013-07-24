@@ -15,7 +15,7 @@ public class InitialAbilityScoreModifier implements IModifier<Integer> {
     }
     
     @Override
-    public Integer getValue() {
+    public Integer getValue(IAvatar avatar) {
         return val;
     }
 

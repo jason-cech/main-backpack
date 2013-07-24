@@ -10,6 +10,7 @@ public interface IAvatar extends Lookup.Provider {
 
     <C extends IProperty<T>, T> C find(Class<C> propertyClass);
     <T> IProperty<T> find(String slug);
+		<C extends IProperty<T>, T> C find(String slug, Class<C> propertyClass);
     <C extends IProperty<T>, T> T findValueOf(Class<C> propertyClass);
     <T> T findValueOf(String slug);
     

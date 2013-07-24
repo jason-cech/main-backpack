@@ -14,7 +14,7 @@ import org.sizzle.rpg.core.model.IModifier;
 public class ArmorBonusModifier implements IModifier<Integer> {
 
 	@Override
-	public Integer getValue() {
+	public Integer getValue(IAvatar avatar) {
 		// query the avatar's worn equipment for chest piece
 		// get the value of it
 		return 1;

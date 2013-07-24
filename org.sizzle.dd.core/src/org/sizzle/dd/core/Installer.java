@@ -13,6 +13,7 @@ import org.sizzle.dd.core.properties.ArmorClassProperty;
 import org.sizzle.dd.core.properties.ClassProperty;
 import org.sizzle.dd.core.properties.ExperienceProperty;
 import org.sizzle.dd.core.properties.FortitudeProperty;
+import org.sizzle.dd.core.properties.HealthProperty;
 import org.sizzle.dd.core.properties.HeightProperty;
 import org.sizzle.dd.core.properties.LevelProperty;
 import org.sizzle.dd.core.properties.NameProperty;
@@ -37,6 +38,9 @@ public class Installer extends ModuleInstall {
 		ClassProperty avatarClassProperty = new ClassProperty();
 		avatarClassProperty.setValue(null);
 		avatar.addProperty(avatarClassProperty);
+		
+		HealthProperty avatarHealthProperty = new HealthProperty();
+		avatar.addProperty(avatarHealthProperty);
 		
 		NameProperty avatarNameProperty = new NameProperty();
 		avatarNameProperty.setValue("My Name");

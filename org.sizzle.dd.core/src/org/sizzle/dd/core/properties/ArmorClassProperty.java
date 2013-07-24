@@ -33,7 +33,7 @@ public class ArmorClassProperty extends CoreProperty<Integer> {
 		Integer score = 0;
 		score += avatar.findValueOf(LevelProperty.class) / 2;
 		for (IModifier<Integer> modifier : modifiers) {
-			if (modifier.isEnabled(avatar)) score += modifier.getValue();
+			if (modifier.isEnabled(avatar)) score += modifier.getValue(avatar);
 		}
 		return score;
 	}

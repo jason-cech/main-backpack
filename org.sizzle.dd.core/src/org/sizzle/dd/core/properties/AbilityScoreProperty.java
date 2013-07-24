@@ -24,7 +24,7 @@ public class AbilityScoreProperty extends CoreProperty<Integer> {
         // - 
         for (IModifier<Integer> modifier : modifiers) {
             if (modifier.isEnabled(avatar)) {
-                score += modifier.getValue();
+                score += modifier.getValue(avatar);
             }
         }
         

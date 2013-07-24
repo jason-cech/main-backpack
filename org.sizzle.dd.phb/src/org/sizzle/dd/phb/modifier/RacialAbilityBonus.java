@@ -23,7 +23,7 @@ public class RacialAbilityBonus implements IModifier<Integer>{
         this.bonus = bonus;
     }
     @Override
-    public Integer getValue() {
+    public Integer getValue(IAvatar avatar) {
         return bonus;
     }
 

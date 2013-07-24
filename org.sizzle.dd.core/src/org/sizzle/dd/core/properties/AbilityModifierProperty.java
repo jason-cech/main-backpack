@@ -34,7 +34,7 @@ public class AbilityModifierProperty extends CoreProperty<Integer> {
             
             for (IModifier<Integer> mod : modifiers) {
                 if (mod.isEnabled(avatar)) {
-                    modifier += mod.getValue();
+                    modifier += mod.getValue(avatar);
                 }
             }
             return modifier;

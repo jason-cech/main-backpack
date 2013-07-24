@@ -41,6 +41,11 @@ public abstract class AbstractAvatar implements IAvatar {
         }
         return result;
     }
+		
+		public <C extends IProperty<T>, T> C find(String slug, Class<C> propertyClass) {
+			C property = propertyClass.cast(find(slug));
+			return property;
+		}
 
     @Override
     public <C extends IProperty<T>, T> T findValueOf(Class<C> propertyClass) {

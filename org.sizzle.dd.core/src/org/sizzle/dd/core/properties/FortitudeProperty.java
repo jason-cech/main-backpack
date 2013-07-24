@@ -27,7 +27,7 @@ public class FortitudeProperty extends CoreProperty<Integer> {
 		score += avatar.findValueOf(LevelProperty.class) / 2;
 		for (IModifier<Integer> modifier : modifiers) {
 			if (modifier.isEnabled(avatar)) {
-				score += modifier.getValue();
+				score += modifier.getValue(avatar);
 			}
 		}
 		return score;

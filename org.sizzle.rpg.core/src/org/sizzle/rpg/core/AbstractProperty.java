@@ -57,6 +57,7 @@ public abstract class AbstractProperty<T> extends Observable implements IPropert
     public void addModifier(IModifier<T> modifier) {
         T oldValue = getValue();
         getModifiers().add(modifier);
+				content.add(modifier);
         this.setChanged();
         firePropertyChange(oldValue, getValue());
     }
@@ -65,6 +66,7 @@ public abstract class AbstractProperty<T> extends Observable implements IPropert
     public void removeModifier(IModifier<T> modifier) {
         T oldValue = getValue();
         getModifiers().remove(modifier);
+				content.remove(modifier);
         this.setChanged();
         firePropertyChange(oldValue, getValue());
     }
