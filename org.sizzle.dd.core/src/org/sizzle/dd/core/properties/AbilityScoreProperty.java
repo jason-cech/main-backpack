@@ -1,6 +1,7 @@
 package org.sizzle.dd.core.properties;
 
 import org.sizzle.rpg.core.IAvatar;
+import org.sizzle.rpg.core.IProperty;
 import org.sizzle.rpg.core.model.IModifier;
 
 /**

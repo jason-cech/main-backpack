@@ -21,6 +21,7 @@ import org.sizzle.dd.core.properties.PlayerNameProperty;
 import org.sizzle.dd.core.properties.ReflexProperty;
 import org.sizzle.dd.core.properties.WeightProperty;
 import org.sizzle.dd.core.properties.WillProperty;
+import org.sizzle.dd.core.skills.AcrobatSkill;
 
 public class Installer extends ModuleInstall {
 
@@ -87,5 +88,8 @@ public class Installer extends ModuleInstall {
 		if (!avatar.hasProperty(FortitudeProperty.SLUG))avatar.addProperty(new FortitudeProperty(avatar));
 		if (!avatar.hasProperty(ReflexProperty.SLUG))avatar.addProperty(new ReflexProperty(avatar));
 		if (!avatar.hasProperty(WillProperty.SLUG))avatar.addProperty(new WillProperty(avatar));
+		
+		// Add the x core skill properties
+		if (!avatar.hasProperty(AcrobatSkill.SLUG))avatar.addProperty(new AcrobatSkill(avatar, AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER));
 	}
 }
