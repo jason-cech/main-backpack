@@ -5,22 +5,15 @@
 package org.sizzle.dd.core.skills;
 
 import org.sizzle.dd.core.Avatar;
-import org.sizzle.dd.core.properties.CoreProperty;
 
 /**
  *
  * @author Jason
  */
-public class InsightSkill extends CoreProperty<Integer> {
-	public static String SLUG;
+public class InsightSkill extends CoreSkillProperty {
+	public static String SLUG = "insight";
 
 	public InsightSkill(Avatar avatar, String WISDOM_MODIFIER) {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		super(SLUG, avatar, WISDOM_MODIFIER);
 	}
-
-	@Override
-	protected Integer calculate() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-	}
-	
 }

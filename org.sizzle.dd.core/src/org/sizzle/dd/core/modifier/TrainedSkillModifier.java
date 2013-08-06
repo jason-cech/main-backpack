@@ -1,13 +1,16 @@
 package org.sizzle.dd.core.modifier;
 
 import org.sizzle.rpg.core.IAvatar;
-import org.sizzle.rpg.core.model.IModifier;
 
 /**
  *
  * @author Jason
  */
-public class TrainedSkillModifier implements IModifier<Integer> {
+public class TrainedSkillModifier extends BonusModifier<Integer, UntypedBonusModifierType> {
+	
+	public TrainedSkillModifier() {
+		super(UntypedBonusModifierType.class);
+	}
 
 	@Override
 	public Integer getValue(IAvatar avatar) {

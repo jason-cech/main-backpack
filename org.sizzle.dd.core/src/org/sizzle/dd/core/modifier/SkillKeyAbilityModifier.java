@@ -6,16 +6,16 @@ package org.sizzle.dd.core.modifier;
 
 import org.sizzle.dd.core.properties.AbilityModifierProperty;
 import org.sizzle.rpg.core.IAvatar;
-import org.sizzle.rpg.core.model.IModifier;
 
 /**
  *
  * @author Jason
  */
-public class SkillKeyAbilityModifier implements IModifier<Integer> {
+public class SkillKeyAbilityModifier extends BonusModifier<Integer, UntypedBonusModifierType> {
 	private final String abilityModifierSlug;
 	
 	public SkillKeyAbilityModifier(String abilityModifierSlug) {
+		super(UntypedBonusModifierType.class);
 		this.abilityModifierSlug = abilityModifierSlug;
 	}
 	@Override

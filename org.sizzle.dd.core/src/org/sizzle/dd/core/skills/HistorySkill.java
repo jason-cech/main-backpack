@@ -5,22 +5,15 @@
 package org.sizzle.dd.core.skills;
 
 import org.sizzle.dd.core.Avatar;
-import org.sizzle.dd.core.properties.CoreProperty;
 
 /**
  *
  * @author Jason
  */
-public class HistorySkill extends CoreProperty<Integer> {
-	public static String SLUG;
+public class HistorySkill extends CoreSkillProperty {
+	public static String SLUG = "history";
 
 	public HistorySkill(Avatar avatar, String INTELLIGENCE_MODIFIER) {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		super(SLUG, avatar, INTELLIGENCE_MODIFIER);
 	}
-
-	@Override
-	protected Integer calculate() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-	}
-	
 }

@@ -5,14 +5,17 @@
 package org.sizzle.dd.core.modifier;
 
 import org.sizzle.rpg.core.IAvatar;
-import org.sizzle.rpg.core.model.IModifier;
 
 /**
  *
  * @author Jason
  */
-public class ArmorBonusModifier implements IModifier<Integer> {
+public class ArmorBonusModifier extends BonusModifier<Integer, ArmorBonusModifierType> {
 
+	public ArmorBonusModifier() {
+		super(ArmorBonusModifierType.class);
+	}
+	
 	@Override
 	public Integer getValue(IAvatar avatar) {
 		// query the avatar's worn equipment for chest piece

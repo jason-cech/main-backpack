@@ -5,22 +5,15 @@
 package org.sizzle.dd.core.skills;
 
 import org.sizzle.dd.core.Avatar;
-import org.sizzle.dd.core.properties.CoreProperty;
 
 /**
  *
  * @author Jason
  */
-public class DungeoneeringSkill extends CoreProperty<Integer> {
-	public static String SLUG;
+public class DungeoneeringSkill extends CoreSkillProperty {
+	public static String SLUG = "dungeoneering";
 
 	public DungeoneeringSkill(Avatar avatar, String WISDOM_MODIFIER) {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		super(SLUG, avatar, WISDOM_MODIFIER);
 	}
-
-	@Override
-	protected Integer calculate() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-	}
-	
 }

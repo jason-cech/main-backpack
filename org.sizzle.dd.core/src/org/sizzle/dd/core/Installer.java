@@ -31,6 +31,13 @@ import org.sizzle.dd.core.skills.EnduranceSkill;
 import org.sizzle.dd.core.skills.HealSkill;
 import org.sizzle.dd.core.skills.HistorySkill;
 import org.sizzle.dd.core.skills.InsightSkill;
+import org.sizzle.dd.core.skills.IntimidateSkill;
+import org.sizzle.dd.core.skills.NatureSkill;
+import org.sizzle.dd.core.skills.PerceptionSkill;
+import org.sizzle.dd.core.skills.ReligionSkill;
+import org.sizzle.dd.core.skills.StealthSkill;
+import org.sizzle.dd.core.skills.StreetwiseSkill;
+import org.sizzle.dd.core.skills.ThieverySkill;
 
 public class Installer extends ModuleInstall {
 
@@ -98,7 +105,7 @@ public class Installer extends ModuleInstall {
 		if (!avatar.hasProperty(ReflexProperty.SLUG))avatar.addProperty(new ReflexProperty(avatar));
 		if (!avatar.hasProperty(WillProperty.SLUG))avatar.addProperty(new WillProperty(avatar));
 		
-		// Add the x core skill properties
+		// Add the 17 core skill properties
 		if (!avatar.hasProperty(AcrobatSkill.SLUG))avatar.addProperty(new AcrobatSkill(avatar, AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER));
 		if (!avatar.hasProperty(ArcanaSkill.SLUG))avatar.addProperty(new ArcanaSkill(avatar, AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER));
 		if (!avatar.hasProperty(AthleticSkill.SLUG))avatar.addProperty(new AthleticSkill(avatar, AbilityModifierProperty.SLUG.STRENGTH_MODIFIER));

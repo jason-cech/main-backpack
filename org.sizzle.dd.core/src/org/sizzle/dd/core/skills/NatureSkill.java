@@ -10,10 +10,11 @@ import org.sizzle.dd.core.Avatar;
  *
  * @author Jason
  */
-public class HealSkill extends CoreSkillProperty {
-	public static String SLUG = "heal";
-
-	public HealSkill(Avatar avatar, String WISDOM_MODIFIER) {
-		super(SLUG, avatar, WISDOM_MODIFIER);
+public class NatureSkill extends CoreSkillProperty {
+	public static String SLUG = "nature";
+	
+	public NatureSkill(Avatar avatar, String abilityModifierSlug) {
+		super(SLUG, avatar, abilityModifierSlug);
 	}
+	
 }

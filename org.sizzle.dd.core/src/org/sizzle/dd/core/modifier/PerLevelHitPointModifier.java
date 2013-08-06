@@ -1,11 +1,11 @@
 package org.sizzle.dd.core.modifier;
 
-import org.sizzle.rpg.core.model.IModifier;
-
 /**
  *
  * @author Jason
  */
-public abstract class PerLevelHitPointModifier implements IModifier<Integer> {
-
+public abstract class PerLevelHitPointModifier extends BonusModifier<Integer, UntypedBonusModifierType> {
+	public PerLevelHitPointModifier() {
+		super(UntypedBonusModifierType.class);
+	}
 }

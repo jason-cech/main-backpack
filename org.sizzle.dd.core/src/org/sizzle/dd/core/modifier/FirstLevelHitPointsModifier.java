@@ -1,14 +1,17 @@
 package org.sizzle.dd.core.modifier;
 
 import org.sizzle.rpg.core.IAvatar;
-import org.sizzle.rpg.core.model.IModifier;
 
 /**
  *
  * @author Jason
  */
-public abstract class FirstLevelHitPointsModifier implements IModifier<Integer> {
+public abstract class FirstLevelHitPointsModifier extends BonusModifier<Integer, UntypedBonusModifierType> {
 
+	public FirstLevelHitPointsModifier() {
+		super(UntypedBonusModifierType.class);
+	}
+	
 	@Override
 	public boolean isEnabled(IAvatar avatar) {
 		return true;

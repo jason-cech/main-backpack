@@ -5,22 +5,15 @@
 package org.sizzle.dd.core.skills;
 
 import org.sizzle.dd.core.Avatar;
-import org.sizzle.dd.core.properties.CoreProperty;
 
 /**
  *
  * @author Jason
  */
-public class EnduranceSkill extends CoreProperty<Integer> {
-	public static String SLUG;
+public class EnduranceSkill extends CoreSkillProperty {
+	public static String SLUG = "endurance";
 
 	public EnduranceSkill(Avatar avatar, String CONSTITUTION_MODIFIER) {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		super(SLUG, avatar, CONSTITUTION_MODIFIER);
 	}
-
-	@Override
-	protected Integer calculate() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-	}
-	
 }
