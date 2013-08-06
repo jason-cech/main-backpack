@@ -4,11 +4,13 @@ import org.openide.util.lookup.ServiceProvider;
 import org.sizzle.dd.core.Avatar;
 import org.sizzle.dd.core.AvatarClass;
 import org.sizzle.dd.core.modifier.FirstLevelHitPointsModifier;
+import org.sizzle.dd.core.modifier.InitialAbilityScoreModifier;
 import org.sizzle.dd.core.modifier.PerLevelHitPointModifier;
 import org.sizzle.dd.core.properties.AbilityScoreProperty;
 import org.sizzle.dd.core.properties.ClassProperty;
 import org.sizzle.dd.core.properties.FortitudeProperty;
 import org.sizzle.dd.core.properties.HealthProperty;
+import org.sizzle.dd.phb.modifier.RacialAbilityBonus;
 import org.sizzle.rpg.core.IAvatar;
 import org.sizzle.rpg.core.model.IModifier;
 
@@ -34,8 +36,17 @@ public class ClericClass implements AvatarClass {
 
 		@Override
 		public Integer getValue(IAvatar avatar) {
-			Integer constitutionScore = avatar.findValueOf(AbilityScoreProperty.SLUG.CONSTITUTION_SCORE);
-			return 12 + constitutionScore;
+			AbilityScoreProperty constitutionScoreProperty = avatar.find(AbilityScoreProperty.SLUG.CONSTITUTION_SCORE, AbilityScoreProperty.class);
+			InitialAbilityScoreModifier initialConstitutionScoreModifier = constitutionScoreProperty.getLookup().lookup(InitialAbilityScoreModifier.class);
+			RacialAbilityBonus racialAbilityBonus = constitutionScoreProperty.getLookup().lookup(RacialAbilityBonus.class);
+			
+			Integer initialConstitutionScore = 0, racialAbilityBonusScore = 0;
+			if (null != initialConstitutionScoreModifier && initialConstitutionScoreModifier.isEnabled(avatar))
+				initialConstitutionScore = initialConstitutionScoreModifier.getValue(avatar);
+			if (null != racialAbilityBonus && racialAbilityBonus.isEnabled(avatar))
+				racialAbilityBonusScore = racialAbilityBonus.getValue(avatar);
+			
+			return 12 + initialConstitutionScore + racialAbilityBonusScore;
 		}
 	};
 	public static final PerLevelHitPointModifier PER_LEVEL_HIT_POINT_MODIFIER = new PerLevelHitPointModifier() {

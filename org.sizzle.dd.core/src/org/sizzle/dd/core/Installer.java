@@ -22,6 +22,15 @@ import org.sizzle.dd.core.properties.ReflexProperty;
 import org.sizzle.dd.core.properties.WeightProperty;
 import org.sizzle.dd.core.properties.WillProperty;
 import org.sizzle.dd.core.skills.AcrobatSkill;
+import org.sizzle.dd.core.skills.ArcanaSkill;
+import org.sizzle.dd.core.skills.AthleticSkill;
+import org.sizzle.dd.core.skills.BluffSkill;
+import org.sizzle.dd.core.skills.DiplomacySkill;
+import org.sizzle.dd.core.skills.DungeoneeringSkill;
+import org.sizzle.dd.core.skills.EnduranceSkill;
+import org.sizzle.dd.core.skills.HealSkill;
+import org.sizzle.dd.core.skills.HistorySkill;
+import org.sizzle.dd.core.skills.InsightSkill;
 
 public class Installer extends ModuleInstall {
 
@@ -91,5 +100,21 @@ public class Installer extends ModuleInstall {
 		
 		// Add the x core skill properties
 		if (!avatar.hasProperty(AcrobatSkill.SLUG))avatar.addProperty(new AcrobatSkill(avatar, AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER));
+		if (!avatar.hasProperty(ArcanaSkill.SLUG))avatar.addProperty(new ArcanaSkill(avatar, AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER));
+		if (!avatar.hasProperty(AthleticSkill.SLUG))avatar.addProperty(new AthleticSkill(avatar, AbilityModifierProperty.SLUG.STRENGTH_MODIFIER));
+		if (!avatar.hasProperty(BluffSkill.SLUG))avatar.addProperty(new BluffSkill(avatar, AbilityModifierProperty.SLUG.CHARISMA_MODIFIER));
+		if (!avatar.hasProperty(DiplomacySkill.SLUG))avatar.addProperty(new DiplomacySkill(avatar, AbilityModifierProperty.SLUG.CHARISMA_MODIFIER));
+		if (!avatar.hasProperty(DungeoneeringSkill.SLUG))avatar.addProperty(new DungeoneeringSkill(avatar, AbilityModifierProperty.SLUG.WISDOM_MODIFIER));
+		if (!avatar.hasProperty(EnduranceSkill.SLUG))avatar.addProperty(new EnduranceSkill(avatar, AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER));
+		if (!avatar.hasProperty(HealSkill.SLUG))avatar.addProperty(new HealSkill(avatar, AbilityModifierProperty.SLUG.WISDOM_MODIFIER));
+		if (!avatar.hasProperty(HistorySkill.SLUG))avatar.addProperty(new HistorySkill(avatar, AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER));
+		if (!avatar.hasProperty(InsightSkill.SLUG))avatar.addProperty(new InsightSkill(avatar, AbilityModifierProperty.SLUG.WISDOM_MODIFIER));
+		if (!avatar.hasProperty(IntimidateSkill.SLUG))avatar.addProperty(new IntimidateSkill(avatar, AbilityModifierProperty.SLUG.CHARISMA_MODIFIER));
+		if (!avatar.hasProperty(NatureSkill.SLUG))avatar.addProperty(new NatureSkill(avatar, AbilityModifierProperty.SLUG.WISDOM_MODIFIER));
+		if (!avatar.hasProperty(PerceptionSkill.SLUG))avatar.addProperty(new PerceptionSkill(avatar, AbilityModifierProperty.SLUG.WISDOM_MODIFIER));
+		if (!avatar.hasProperty(ReligionSkill.SLUG))avatar.addProperty(new ReligionSkill(avatar, AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER));
+		if (!avatar.hasProperty(StealthSkill.SLUG))avatar.addProperty(new StealthSkill(avatar, AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER));
+		if (!avatar.hasProperty(StreetwiseSkill.SLUG))avatar.addProperty(new StreetwiseSkill(avatar, AbilityModifierProperty.SLUG.CHARISMA_MODIFIER));
+		if (!avatar.hasProperty(ThieverySkill.SLUG))avatar.addProperty(new ThieverySkill(avatar, AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER));
 	}
 }
