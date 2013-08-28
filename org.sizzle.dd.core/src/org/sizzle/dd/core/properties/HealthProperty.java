@@ -18,9 +18,12 @@ public class HealthProperty extends CoreProperty<Integer> {
 		
 		Integer avatarLevel = avatar.findValueOf(LevelProperty.class);
 		
-		health += firstLevelHealth.getValue(avatar);
+		if (null != firstLevelHealth && firstLevelHealth.isEnabled(avatar))
+			health += firstLevelHealth.getValue(avatar);
+		
 		for (int level = 1; level < avatarLevel; level++) {
-			health += healthPerLevel.getValue(avatar);
+			if (null != healthPerLevel && healthPerLevel.isEnabled(avatar))
+				health += healthPerLevel.getValue(avatar);
 		}
 		return health;
 	}

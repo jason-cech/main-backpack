@@ -380,12 +380,12 @@ public final class DefensesTopComponent extends TopComponent implements LookupLi
 		if (avatar.hasProperty(FortitudeProperty.SLUG)) {
 			FortitudeProperty.class.cast(avatar.find(FortitudeProperty.SLUG)).addObserver(this);
 		}
-//		if (avatar.hasProperty(ArmorClassProperty.SLUG)) {
-//			ArmorClassProperty.class.cast(avatar.find(ArmorClassProperty.SLUG)).addObserver(this);
-//		}
-//		if (avatar.hasProperty(ArmorClassProperty.SLUG)) {
-//			ArmorClassProperty.class.cast(avatar.find(ArmorClassProperty.SLUG)).addObserver(this);
-//		}
+		if (avatar.hasProperty(ReflexProperty.SLUG)) {
+			ReflexProperty.class.cast(avatar.find(ReflexProperty.SLUG)).addObserver(this);
+		}
+		if (avatar.hasProperty(WillProperty.SLUG)) {
+			WillProperty.class.cast(avatar.find(WillProperty.SLUG)).addObserver(this);
+		}
 
 	}
 
@@ -424,6 +424,10 @@ public final class DefensesTopComponent extends TopComponent implements LookupLi
 			field = txtArmorClass;
 		} else if (aliases.contains(FortitudeProperty.SLUG)) {
 			field = txtFortitude;
+		} else if (aliases.contains(ReflexProperty.SLUG)) {
+			field = txtReflex;
+		} else if (aliases.contains(WillProperty.SLUG)) {
+			field = txtWill;
 		} else {
 			field = null;
 		}
