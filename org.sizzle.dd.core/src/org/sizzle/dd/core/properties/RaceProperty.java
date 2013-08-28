@@ -8,23 +8,27 @@ import org.sizzle.rpg.core.IAvatar;
  *
  * @author Jason
  */
-public class RaceProperty extends CoreProperty<AvatarRace>{
-    private AvatarRace race;
-    
-    public RaceProperty(AvatarRace race) {
-        this.race = race;
-    }
+public class RaceProperty extends CoreProperty<AvatarRace> {
 
-    @Override
-    protected AvatarRace calculate() {
-        return race;
-    }
+	private AvatarRace race;
 
-    @Override
-    public void setAvatar(IAvatar avatar) {
-        System.out.println("HERE!!");
-        super.setAvatar(avatar); //To change body of generated methods, choose Tools | Templates.
-        race.blarg(Avatar.class.cast(avatar));
-    }
-    
+	public RaceProperty(AvatarRace race) {
+		this.race = race;
+	}
+
+	@Override
+	protected AvatarRace calculate() {
+		return race;
+	}
+
+	@Override
+	public void setAvatar(IAvatar avatar) {
+		if (Avatar.class.isInstance(avatar)) {
+			if (null != getValue()) {
+				getValue().deconfigure(Avatar.class.cast(avatar));
+			}
+			super.setValue(value);
+			value.configure(Avatar.class.cast(avatar));
+		}
+	}
 }

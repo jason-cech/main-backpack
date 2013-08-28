@@ -82,5 +82,10 @@ public class ClericClass implements AvatarClass {
 	public String getClassName() {
 		return "Cleric";
 	}
+
+	@Override
+	public String[] getKeyAbilities() {
+		return new String[] { };
+	}
 	
 }

@@ -17,14 +17,19 @@ import org.sizzle.dd.phb.modifier.RacialAbilityBonus;
 @ServiceProvider(service = AvatarRace.class)
 public class Dwarf extends AvatarRace {
 
-    public Dwarf() {
-        super("Dwarf");
-    }
-    
-    @Override
-    public void blarg(Avatar avatar) {
-        avatar.<Integer>find(AbilityScoreProperty.SLUG.CONSTITUTION_SCORE).addModifier(new RacialAbilityBonus(Dwarf.class, 2));
-        avatar.<Integer>find(AbilityScoreProperty.SLUG.WISDOM_SCORE).addModifier(new RacialAbilityBonus(Dwarf.class, 2));
-    }
+	public Dwarf() {
+		super("Dwarf");
+	}
 
+	@Override
+	public void configure(Avatar avatar) {
+		avatar.find(AbilityScoreProperty.SLUG.CONSTITUTION_SCORE, AbilityScoreProperty.class).addModifier(new RacialAbilityBonus(Dwarf.class, 2));
+		avatar.find(AbilityScoreProperty.SLUG.WISDOM_SCORE, AbilityScoreProperty.class).addModifier(new RacialAbilityBonus(Dwarf.class, 2));
+	}
+
+	@Override
+	public void deconfigure(Avatar avatar) {
+		avatar.find(AbilityScoreProperty.SLUG.CONSTITUTION_SCORE, AbilityScoreProperty.class).addModifier(new RacialAbilityBonus(Dwarf.class, 2));
+		avatar.find(AbilityScoreProperty.SLUG.WISDOM_SCORE, AbilityScoreProperty.class).addModifier(new RacialAbilityBonus(Dwarf.class, 2));
+	}
 }

@@ -46,6 +46,7 @@ import org.sizzle.dd.phb.ClericClass;
 	"HINT_ClassChooserTopComponent=This is a ClassChooser window"
 })
 public final class ClassChooserTopComponent extends TopComponent {
+
 	private Avatar avatar;
 
 	public ClassChooserTopComponent() {
@@ -89,22 +90,22 @@ public final class ClassChooserTopComponent extends TopComponent {
   }// </editor-fold>//GEN-END:initComponents
 
   private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
-    if (ItemEvent.SELECTED==evt.getStateChange()) {
+		if (ItemEvent.SELECTED == evt.getStateChange()) {
 			Object avatarClass = evt.getItem();
 			if (null != avatar && avatarClass instanceof AvatarClass) {
 				avatar.find(ClassProperty.class).setValue(AvatarClass.class.cast(avatarClass));
 			}
 		}
   }//GEN-LAST:event_jComboBox1ItemStateChanged
-
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JComboBox<AvatarClass> jComboBox1;
   // End of variables declaration//GEN-END:variables
+
 	@Override
 	public void componentOpened() {
 		// TODO add custom code on component opening
 		avatar = Lookup.getDefault().lookup(Avatar.class);
-		
+
 		Collection<? extends AvatarClass> avatarClasses = Lookup.getDefault().lookupAll(AvatarClass.class);
 		AvatarClass[] avatarClassArray = new AvatarClass[avatarClasses.size()];
 		avatarClassArray = avatarClasses.toArray(avatarClassArray);
@@ -114,17 +115,15 @@ public final class ClassChooserTopComponent extends TopComponent {
 						null == avatar.findValueOf(ClassProperty.class)
 						? new SelectClass()
 						: avatar.findValueOf(ClassProperty.class));
-		jComboBox1.setRenderer(new DefaultListCellRenderer(){
-
+		jComboBox1.setRenderer(new DefaultListCellRenderer() {
 			@Override
 			public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 				Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus); //To change body of generated methods, choose Tools | Templates.
-				if (null!=value) {
+				if (null != value) {
 					JLabel.class.cast(c).setText(AvatarClass.class.cast(value).getClassName());
 				}
 				return c;
 			}
-			
 		});
 	}
 
@@ -144,7 +143,7 @@ public final class ClassChooserTopComponent extends TopComponent {
 		String version = p.getProperty("version");
 		// TODO read your settings according to their version
 	}
-	
+
 	@ServiceProvider(service = AvatarClass.class)
 	public static class SelectClass implements AvatarClass {
 
@@ -160,6 +159,10 @@ public final class ClassChooserTopComponent extends TopComponent {
 		@Override
 		public void deconfigure(Avatar avatar) {
 		}
-		
+
+		@Override
+		public String[] getKeyAbilities() {
+			return new String[]{};
+		}
 	}
 }
