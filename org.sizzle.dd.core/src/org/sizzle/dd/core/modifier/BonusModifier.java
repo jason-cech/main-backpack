@@ -9,6 +9,8 @@ import org.sizzle.rpg.core.model.IModifier;
 /**
  *
  * @author Jason
+ * @param <T> The type of value the modifier grants
+ * @param <Type> Modifier type
  */
 public abstract class BonusModifier<T, Type extends BonusModifierType> implements IModifier<T>{
 	public final Class<Type> BONUS_TYPE;

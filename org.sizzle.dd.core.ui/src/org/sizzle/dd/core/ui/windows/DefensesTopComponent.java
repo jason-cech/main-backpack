@@ -17,8 +17,6 @@ import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.util.Lookup;
-import org.openide.util.LookupEvent;
-import org.openide.util.LookupListener;
 import org.openide.windows.TopComponent;
 import org.openide.util.NbBundle.Messages;
 import org.sizzle.dd.core.Avatar;
@@ -50,7 +48,7 @@ import org.sizzle.rpg.core.IProperty;
 	"CTL_DefensesTopComponent=Defenses Window",
 	"HINT_DefensesTopComponent=This is a Defenses window"
 })
-public final class DefensesTopComponent extends TopComponent implements LookupListener, Observer {
+public final class DefensesTopComponent extends TopComponent implements Observer {
 
 	private Avatar avatar;
 
@@ -363,12 +361,10 @@ public final class DefensesTopComponent extends TopComponent implements LookupLi
 		// better to version settings since initial version as advocated at
 		// http://wiki.apidesign.org/wiki/PropertyFiles
 		p.setProperty("version", "1.0");
-		// TODO store your settings
 	}
 
 	void readProperties(java.util.Properties p) {
 		String version = p.getProperty("version");
-		// TODO read your settings according to their version
 	}
 
 	public void configure(Avatar _avatar) {
@@ -387,27 +383,6 @@ public final class DefensesTopComponent extends TopComponent implements LookupLi
 			WillProperty.class.cast(avatar.find(WillProperty.SLUG)).addObserver(this);
 		}
 
-	}
-
-	@Override
-	public void resultChanged(LookupEvent ev) {
-//		Object src = ev.getSource();
-//		if (src == null) {
-//			throw new NullPointerException("The source is null");
-//		}
-//		if (avatarResult == null) {
-//			throw new NullPointerException("The avatarResult is null");
-//		}
-//
-//		if (src.getClass().isAssignableFrom(avatarResult.getClass())) {
-//			// avatar has changed, so we must update our property Lookup.Results
-//			@SuppressWarnings("unchecked")
-//			Lookup.Result<Avatar> r = (Lookup.Result<Avatar>) ev.getSource();
-//			Iterator<? extends Avatar> avatarIterator = r.allInstances().iterator();
-//			avatar = avatarIterator.hasNext() ? avatarIterator.next() : null;
-//			resetDefenseResults(avatar);
-//			configure(avatar);
-//		}
 	}
 
 	@Override

@@ -41,6 +41,7 @@
             </module-dependencies>
             <public-packages>
                 <package>org.sizzle.dd.core</package>
+                <package>org.sizzle.dd.core.feats</package>
                 <package>org.sizzle.dd.core.importer</package>
                 <package>org.sizzle.dd.core.modifier</package>
                 <package>org.sizzle.dd.core.properties</package>

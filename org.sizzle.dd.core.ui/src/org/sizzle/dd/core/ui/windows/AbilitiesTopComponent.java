@@ -45,7 +45,7 @@ import org.sizzle.rpg.core.IProperty;
     "HINT_AbilitiesTopComponent=This is a Abilities window"
 })
 //@ServiceProvider(service = AvatarUserInterfaceConfigurer.class)
-public final class AbilitiesTopComponent extends TopComponent implements LookupListener, Observer {//, AvatarUserInterfaceConfigurer {
+public final class AbilitiesTopComponent extends TopComponent implements Observer {
 
     private Avatar avatar;
 
@@ -712,33 +712,17 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
         // better to version settings since initial version as advocated at
         // http://wiki.apidesign.org/wiki/PropertyFiles
         p.setProperty("version", "1.0");
-        // TODO store your settings
     }
 
     void readProperties(java.util.Properties p) {
         String version = p.getProperty("version");
-        // TODO read your settings according to their version
     }
 
-    @Override
-    public void resultChanged(LookupEvent ev) {
-//        Object src = ev.getSource();
-//        if (src==null)
-//            throw new NullPointerException("The source is null");
-//        if (avatarResult==null)
-//            throw new NullPointerException("The avatarResult is null");
-//        
-//        if (src.getClass().isAssignableFrom(avatarResult.getClass())) {
-//            // avatar has changed, so we must update our property Lookup.Results
-//            @SuppressWarnings("unchecked")
-//            Lookup.Result<Avatar> r = (Lookup.Result<Avatar>) ev.getSource();
-//            Iterator<? extends Avatar> avatarIterator = r.allInstances().iterator();
-//            avatar = avatarIterator.hasNext() ? avatarIterator.next() : null;
-//            resetAbilityResults(avatar);
-//            configure(avatar);
-//        }
-    }
-
+		/**
+		 * 
+		 * @param property
+		 * @param component 
+		 */
     private void updateAbilityProperty(final IProperty<Integer> property, final JTextComponent component) {
         EventQueue.invokeLater(new Runnable() {
 //
@@ -764,6 +748,10 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
         });
     }
 
+		/**
+		 * 
+		 * @param avatar 
+		 */
     private void resetAbilityResults(Avatar avatar) {
         if (null == avatar) {
             setFieldText("?");
@@ -903,7 +891,5 @@ public final class AbilitiesTopComponent extends TopComponent implements LookupL
         if (avatar.hasProperty(AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER)) AbilityModifierProperty.class.cast(avatar.find(AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER)).addObserver(this);
         if (avatar.hasProperty(AbilityModifierProperty.SLUG.WISDOM_MODIFIER)) AbilityModifierProperty.class.cast(avatar.find(AbilityModifierProperty.SLUG.WISDOM_MODIFIER)).addObserver(this);
         if (avatar.hasProperty(AbilityModifierProperty.SLUG.CHARISMA_MODIFIER)) AbilityModifierProperty.class.cast(avatar.find(AbilityModifierProperty.SLUG.CHARISMA_MODIFIER)).addObserver(this);
-        
-        //resetAbilityResults(t);
     }
 }

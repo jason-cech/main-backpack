@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.sizzle.dd.phb.window;
 
 import java.awt.Component;
@@ -22,7 +18,6 @@ import org.openide.util.lookup.ServiceProvider;
 import org.sizzle.dd.core.Avatar;
 import org.sizzle.dd.core.AvatarClass;
 import org.sizzle.dd.core.properties.ClassProperty;
-import org.sizzle.dd.phb.ClericClass;
 
 /**
  * Top component which displays something.
@@ -103,7 +98,6 @@ public final class ClassChooserTopComponent extends TopComponent {
 
 	@Override
 	public void componentOpened() {
-		// TODO add custom code on component opening
 		avatar = Lookup.getDefault().lookup(Avatar.class);
 
 		Collection<? extends AvatarClass> avatarClasses = Lookup.getDefault().lookupAll(AvatarClass.class);
@@ -129,19 +123,19 @@ public final class ClassChooserTopComponent extends TopComponent {
 
 	@Override
 	public void componentClosed() {
-		// TODO add custom code on component closing
+		avatar = null;
+		
+		// Remove Any Listeners or Observers
 	}
 
 	void writeProperties(java.util.Properties p) {
 		// better to version settings since initial version as advocated at
 		// http://wiki.apidesign.org/wiki/PropertyFiles
 		p.setProperty("version", "1.0");
-		// TODO store your settings
 	}
 
 	void readProperties(java.util.Properties p) {
 		String version = p.getProperty("version");
-		// TODO read your settings according to their version
 	}
 
 	@ServiceProvider(service = AvatarClass.class)

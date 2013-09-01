@@ -50,7 +50,7 @@ import org.sizzle.dd.core.skills.CoreSkillProperty;
 })
 public final class SkillTopComponent extends TopComponent implements ExplorerManager.Provider {
 
-	private ExplorerManager explorerManager = new ExplorerManager();
+	private final ExplorerManager explorerManager = new ExplorerManager();
 	private SkillChildFactory skillChildFactory = null;
 	
 	public SkillTopComponent() {
@@ -98,19 +98,17 @@ public final class SkillTopComponent extends TopComponent implements ExplorerMan
 
 	@Override
 	public void componentClosed() {
-		// TODO add custom code on component closing
+		skillChildFactory = null;
 	}
 
 	void writeProperties(java.util.Properties p) {
 		// better to version settings since initial version as advocated at
 		// http://wiki.apidesign.org/wiki/PropertyFiles
 		p.setProperty("version", "1.0");
-		// TODO store your settings
 	}
 
 	void readProperties(java.util.Properties p) {
 		String version = p.getProperty("version");
-		// TODO read your settings according to their version
 	}
 
 	@Override
@@ -166,6 +164,11 @@ public final class SkillTopComponent extends TopComponent implements ExplorerMan
 		public SkillChildFactory(Avatar avatar) {
 			this.avatar = avatar;
 			skillProperties = avatar.getLookup().lookupAll(CoreSkillProperty.class);
+			
+			attachToSkillProperties();
+		}
+		
+		private void attachToSkillProperties() {
 			for (CoreSkillProperty skillProperty : skillProperties) {
 				skillProperty.addObserver(this);
 			}

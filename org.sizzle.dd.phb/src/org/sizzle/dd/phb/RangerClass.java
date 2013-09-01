@@ -77,6 +77,7 @@ public class RangerClass implements AvatarClass {
 			return true;
 		}
 	};
+	public static final String RANGER_CLASS_NAME = "Ranger";
 
 	@Override
 	public void configure(Avatar avatar) {
@@ -122,7 +123,7 @@ public class RangerClass implements AvatarClass {
 
 	@Override
 	public String getClassName() {
-		return "Ranger";
+		return RANGER_CLASS_NAME;
 	}
 
 	@Override
