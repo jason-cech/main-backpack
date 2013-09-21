@@ -20,11 +20,15 @@ public class ArmorClassProperty extends CoreProperty<Integer> {
 	public static final IModifier<Integer> BASE_ARMOR_CLASS = new BaseDefenseModifier();
 	
 	public ArmorClassProperty(Avatar avatar) {
-		super(SLUG);
+		super(avatar, SLUG);
+		this.avatar = avatar;
 		modifiers.add(BASE_ARMOR_CLASS);
 		modifiers.add(new ArmorBonusModifier());
 		modifiers.add(new ShieldBonusModifier());
-		this.avatar = avatar;
+		
+		if (!this.avatar.hasProperty(LevelProperty.class)) {
+			this.avatar.addProperty(new LevelProperty(avatar));
+		}
 		this.avatar.find(LevelProperty.class).addObserver(this);
 	}
 

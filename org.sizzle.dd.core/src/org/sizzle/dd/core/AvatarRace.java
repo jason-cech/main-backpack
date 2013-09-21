@@ -1,10 +1,12 @@
 package org.sizzle.dd.core;
 
+import org.sizzle.rpg.core.IGrantor;
+
 /**
  *
  * @author Jason
  */
-public abstract class AvatarRace {
+public abstract class AvatarRace implements IGrantor {
 
 	public final String name;
 

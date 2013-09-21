@@ -8,6 +8,7 @@ package org.sizzle.dd.phb.modifier;
 import org.sizzle.dd.core.AvatarRace;
 import org.sizzle.dd.core.properties.RaceProperty;
 import org.sizzle.rpg.core.IAvatar;
+import org.sizzle.rpg.core.IGrantor;
 import org.sizzle.rpg.core.model.IModifier;
 
 /**
@@ -36,6 +37,11 @@ public class RacialDefenseModifier implements IModifier<Integer> {
 			return raceClass.isInstance(avatarRace.getValue());
 		}
 		return false;
+	}
+
+	@Override
+	public IGrantor grantedBy() {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 
 }

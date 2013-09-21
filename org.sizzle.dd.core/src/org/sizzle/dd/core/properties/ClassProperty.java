@@ -8,6 +8,11 @@ import org.sizzle.dd.core.AvatarClass;
  * @author Jason
  */
 public class ClassProperty extends CoreProperty<AvatarClass> {
+	public static final String SLUG = "class";
+	
+	public ClassProperty(Avatar avatar) {
+		super(avatar, SLUG);
+	}
 
 	@Override
 	protected AvatarClass calculate() {

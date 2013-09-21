@@ -2,6 +2,7 @@ package org.sizzle.dd.core.properties;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.sizzle.dd.core.Avatar;
 
 /**
  *
@@ -12,8 +13,8 @@ public class ExperienceProperty extends CoreProperty<Integer> {
 	public static final String SLUG = "avatar_experience";
 	private List<Integer> xpEntries = new ArrayList<>(0);
 
-	public ExperienceProperty() {
-		super(SLUG);
+	public ExperienceProperty(Avatar avatar) {
+		super(avatar, SLUG);
 	}
 
 	@Override

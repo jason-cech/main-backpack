@@ -7,9 +7,9 @@ import org.sizzle.rpg.core.model.IModifier;
  *
  * @author Jason
  */
-public class AbilityScoreProperty extends CoreProperty<Integer> {
+public abstract class AbilityScoreProperty extends CoreProperty<Integer> {
     public AbilityScoreProperty(IAvatar avatar, String...slugs) {
-        super(slugs);
+        super(avatar, slugs);
         this.avatar = avatar;
     }
     

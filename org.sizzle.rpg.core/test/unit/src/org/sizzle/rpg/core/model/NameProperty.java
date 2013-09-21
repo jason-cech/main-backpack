@@ -2,6 +2,7 @@ package org.sizzle.rpg.core.model;
 
 import org.openide.util.Lookup;
 import org.sizzle.rpg.core.AbstractProperty;
+import org.sizzle.rpg.core.IGrantor;
 
 /**
  *
@@ -9,8 +10,8 @@ import org.sizzle.rpg.core.AbstractProperty;
  */
 public class NameProperty extends AbstractProperty<String>{
     
-    public NameProperty() { super("avatar_name"); }
-    public NameProperty(String name) { super("avatar_name"); setValue(name);}
+    public NameProperty(IGrantor grantor) { super(grantor, "avatar_name"); }
+    public NameProperty(IGrantor grantor, String name) { super(grantor, "avatar_name"); setValue(name);}
 
     @Override
     protected String calculate() {

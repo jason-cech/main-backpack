@@ -1,5 +1,6 @@
 package org.sizzle.dd.core.properties;
 
+import org.sizzle.dd.core.Avatar;
 import org.sizzle.rpg.core.model.IModifier;
 
 /**
@@ -8,6 +9,10 @@ import org.sizzle.rpg.core.model.IModifier;
  */
 public class SpeedProperty extends CoreProperty<Integer> {
 	public static final String SLUG = "speed";
+	
+	public SpeedProperty(Avatar avatar) {
+		super(avatar, SLUG);
+	}
 
 	@Override
 	protected Integer calculate() {

@@ -13,7 +13,10 @@ import org.sizzle.dd.core.properties.WillProperty;
 import org.sizzle.dd.phb.modifier.RacialAbilityBonus;
 import org.sizzle.dd.phb.modifier.RacialDefenseModifier;
 import org.sizzle.dd.phb.properties.CommonLanguageProperty;
+import org.sizzle.dd.phb.properties.VisionType;
 import org.sizzle.rpg.core.IAvatar;
+import org.sizzle.rpg.core.IGrantor;
+import org.sizzle.rpg.core.model.AbstractModifier;
 import org.sizzle.rpg.core.model.IModifier;
 
 /**
@@ -36,19 +39,31 @@ public class HumanRace extends AvatarRace {
 			avatar.find(chosenAbilitySlug, AbilityScoreProperty.class).addModifier(new RacialAbilityBonus(HumanRace.class, 2));
 		
 		// set size to medium
-		if (!avatar.hasProperty(SizeProperty.SLUG)) avatar.addProperty(new SizeProperty());
+		if (!avatar.hasProperty(SizeProperty.SLUG)) avatar.addProperty(new SizeProperty(avatar));
 		avatar.find(SizeProperty.class).setValue("Medium");
 		
 		// set vision to normal
-		if (!avatar.hasProperty(VisionProperty.SLUG)) avatar.addProperty(new VisionProperty());
-		avatar.find(VisionProperty.class).setValue("Normal");
+		if (!avatar.hasProperty(VisionProperty.class)) avatar.addProperty(new VisionProperty(avatar));
+		VisionProperty visionProperty = avatar.find(VisionProperty.class);
+		visionProperty.addModifier(new AbstractModifier<org.sizzle.dd.core.properties.types.VisionType>(this) {
+
+			@Override
+			public org.sizzle.dd.core.properties.types.VisionType getValue(IAvatar avatar) {
+				return VisionType.COMMON;
+			}
+
+			@Override
+			public boolean isEnabled(IAvatar avatar) {
+				return true;
+			}
+		});
 		
 		// add racial speed modifier
-		if (!avatar.hasProperty(SpeedProperty.SLUG)) avatar.addProperty(new SpeedProperty());
-		avatar.find(SpeedProperty.class).addModifier(new RacialSpeedModifier());
+		if (!avatar.hasProperty(SpeedProperty.SLUG)) avatar.addProperty(new SpeedProperty(avatar));
+		avatar.find(SpeedProperty.class).addModifier(new RacialSpeedModifier(this));
 		
 		// add Common language
-		avatar.addProperty(new CommonLanguageProperty());
+		avatar.addProperty(new CommonLanguageProperty(avatar));
 		// allow user to choose one other language
 		//avatar.addProperty(new _______LaunguageProperty());
 		
@@ -89,6 +104,11 @@ public class HumanRace extends AvatarRace {
 	
 	//<editor-fold defaultstate="collapsed" desc="Human Racial Modifiers">
 	public class RacialSpeedModifier implements IModifier<Integer> {
+		private final IGrantor grantor;
+		
+		public RacialSpeedModifier(IGrantor grantor) {
+			this.grantor = grantor;
+		}
 		
 		@Override
 		public Integer getValue(IAvatar avatar) {
@@ -99,6 +119,11 @@ public class HumanRace extends AvatarRace {
 		public boolean isEnabled(IAvatar avatar) {
 			// if race is human
 			return HumanRace.class.isInstance(avatar.findValueOf(RaceProperty.class));
+		}
+
+		@Override
+		public IGrantor grantedBy() {
+			return grantor;
 		}
 	}
 	

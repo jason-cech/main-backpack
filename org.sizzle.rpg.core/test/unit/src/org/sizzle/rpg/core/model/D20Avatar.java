@@ -28,7 +28,7 @@ public abstract class D20Avatar implements IAvatar {
     protected Lookup stateLookup = new AbstractLookup(stateContent);
     
     public D20Avatar() {
-        content.add(new NameProperty());
+        content.add(new NameProperty(this));
     }
     
     public String getName() { return findValueOf(NameProperty.class); }

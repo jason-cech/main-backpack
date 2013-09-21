@@ -1,13 +1,16 @@
 package org.sizzle.dd.core.properties;
 
+import org.sizzle.dd.core.Avatar;
+
 /**
  *
  * @author Jason
  */
 public class HeightProperty extends CoreProperty<String> {
-    
-    public HeightProperty() {
-        super("avatar_height");
+	public static final String SLUG = "avatar_height";
+	
+    public HeightProperty(Avatar avatar) {
+        super(avatar, SLUG);
     }
     
     @Override

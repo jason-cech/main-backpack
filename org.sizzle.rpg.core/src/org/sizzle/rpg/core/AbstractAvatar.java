@@ -83,6 +83,11 @@ public abstract class AbstractAvatar implements IAvatar {
             addProperty(iProperty);
         }
     }
+		
+		@Override
+		public <C extends IProperty<T>, T> boolean hasProperty(Class<C> propertyClass) {
+			return null != find(propertyClass);
+		}
 
     @Override
     public boolean hasProperty(String slug) {

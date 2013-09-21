@@ -1,6 +1,7 @@
 package org.sizzle.rpg.core.model;
 
 import org.sizzle.rpg.core.IAvatar;
+import org.sizzle.rpg.core.IGrantor;
 import org.sizzle.rpg.core.IState;
 
 /**
@@ -23,5 +24,10 @@ public class FullDefense implements IModifier<Integer>, IState {
     public boolean isStackable() {
         return false;
     }
+
+	@Override
+	public IGrantor grantedBy() {
+		return null;
+	}
     
 }

@@ -18,8 +18,7 @@ public class FortitudeProperty extends CoreProperty<Integer> {
 	public static final String SLUG = "fortitude";
 	
 	public FortitudeProperty(Avatar avatar) {
-		super(SLUG);
-		this.avatar = avatar;
+		super(avatar, SLUG);
 		this.avatar.find(LevelProperty.class).addObserver(this);
 		this.avatar.find(AbilityModifierProperty.SLUG.STRENGTH_MODIFIER, AbilityModifierProperty.class).addObserver(this);
 		this.avatar.find(AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER, AbilityModifierProperty.class).addObserver(this);

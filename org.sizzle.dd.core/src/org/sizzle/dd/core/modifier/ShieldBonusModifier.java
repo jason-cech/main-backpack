@@ -5,13 +5,14 @@
 package org.sizzle.dd.core.modifier;
 
 import org.sizzle.rpg.core.IAvatar;
+import org.sizzle.rpg.core.IGrantor;
 
 /**
  *
  * @author Jason
  */
 public class ShieldBonusModifier extends BonusModifier<Integer, ShieldBonusModifierType> {
-	
+
 	public ShieldBonusModifier() {
 		super(ShieldBonusModifierType.class);
 	}
@@ -25,5 +26,10 @@ public class ShieldBonusModifier extends BonusModifier<Integer, ShieldBonusModif
 	public boolean isEnabled(IAvatar avatar) {
 		return true;
 	}
-	
+
+	@Override
+	public IGrantor grantedBy() {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+
 }

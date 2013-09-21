@@ -7,6 +7,7 @@ import org.sizzle.dd.core.modifier.UntypedBonusModifierType;
 import org.sizzle.dd.core.properties.RaceProperty;
 import org.sizzle.dd.phb.race.HumanRace;
 import org.sizzle.rpg.core.IAvatar;
+import org.sizzle.rpg.core.IGrantor;
 
 /**
  *
@@ -59,6 +60,11 @@ public class ActionSurgeFeat implements IFeat {
 			boolean isActionPointUsed = false;
 			
 			return isFeatGrantedToAvatar && isActionPointUsed;
+		}
+
+		@Override
+		public IGrantor grantedBy() {
+			throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 		}
 		
 	}

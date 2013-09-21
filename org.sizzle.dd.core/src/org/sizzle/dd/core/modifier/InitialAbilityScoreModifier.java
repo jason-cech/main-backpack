@@ -1,6 +1,7 @@
 package org.sizzle.dd.core.modifier;
 
 import org.sizzle.rpg.core.IAvatar;
+import org.sizzle.rpg.core.IGrantor;
 
 /**
  *
@@ -23,5 +24,10 @@ public class InitialAbilityScoreModifier extends BonusModifier<Integer, UntypedB
 	@Override
 	public boolean isEnabled(IAvatar avatar) {
 		return true;
+	}
+
+	@Override
+	public IGrantor grantedBy() {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 }

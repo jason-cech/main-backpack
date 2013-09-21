@@ -5,6 +5,7 @@
  */
 package org.sizzle.dd.phb.properties;
 
+import org.sizzle.dd.core.Avatar;
 import org.sizzle.dd.core.properties.CoreProperty;
 
 /**
@@ -14,6 +15,10 @@ import org.sizzle.dd.core.properties.CoreProperty;
 public class CommonLanguageProperty extends CoreProperty<String> implements ILanguageProperty {
 	public static final String SLUG = "language-common";
 
+	public CommonLanguageProperty(Avatar avatar) {
+		super(avatar, SLUG);
+	}
+	
 	@Override
 	protected String calculate() {
 		return "Common";

@@ -5,6 +5,7 @@
 package org.sizzle.dd.core.modifier;
 
 import org.sizzle.rpg.core.IAvatar;
+import org.sizzle.rpg.core.IGrantor;
 
 /**
  *
@@ -15,7 +16,7 @@ public class ArmorBonusModifier extends BonusModifier<Integer, ArmorBonusModifie
 	public ArmorBonusModifier() {
 		super(ArmorBonusModifierType.class);
 	}
-	
+
 	@Override
 	public Integer getValue(IAvatar avatar) {
 		// query the avatar's worn equipment for chest piece
@@ -29,5 +30,10 @@ public class ArmorBonusModifier extends BonusModifier<Integer, ArmorBonusModifie
 		// if he is wearing any return true, else false
 		return true;
 	}
-	
+
+	@Override
+	public IGrantor grantedBy() {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+
 }

@@ -17,8 +17,7 @@ public class ReflexProperty extends CoreProperty<Integer> {
 	public static final String SLUG = "reflex";
 	
 	public ReflexProperty(Avatar avatar) {
-		super(SLUG);
-		this.avatar = avatar;
+		super(avatar, SLUG);
 		this.avatar.find(LevelProperty.class).addObserver(this);
 		this.avatar.find(AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER, AbilityModifierProperty.class).addObserver(this);
 		this.avatar.find(AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER, AbilityModifierProperty.class).addObserver(this);

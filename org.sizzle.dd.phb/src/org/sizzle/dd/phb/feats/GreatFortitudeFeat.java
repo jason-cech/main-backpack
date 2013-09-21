@@ -6,6 +6,7 @@ import org.sizzle.dd.core.modifier.BonusModifier;
 import org.sizzle.dd.core.modifier.FeatBonusModifierType;
 import org.sizzle.dd.core.properties.FortitudeProperty;
 import org.sizzle.rpg.core.IAvatar;
+import org.sizzle.rpg.core.IGrantor;
 
 /**
  *
@@ -14,6 +15,10 @@ import org.sizzle.rpg.core.IAvatar;
 public class GreatFortitudeFeat extends FeatProperty {
 	protected final static String GREAT_FORTITUDE_FEAT_NAME = "Great Fortitude";
 
+	public GreatFortitudeFeat(Avatar avatar) {
+		super(avatar, GREAT_FORTITUDE_FEAT_NAME);
+	}
+	
 	@Override
 	public String getName() {
 		return GREAT_FORTITUDE_FEAT_NAME;
@@ -25,7 +30,7 @@ public class GreatFortitudeFeat extends FeatProperty {
 	}
 	
 	public static GreatFortitudeFeat apply(Avatar avatar) {
-		GreatFortitudeFeat gff = new GreatFortitudeFeat();
+		GreatFortitudeFeat gff = new GreatFortitudeFeat(avatar);
 		avatar.addProperty(gff);
 		gff.applyTo(avatar);
 		return gff;
@@ -56,5 +61,10 @@ public class GreatFortitudeFeat extends FeatProperty {
 				return avatar.findValueOf(GreatFortitudeFeat.class)
 								.canBeAppliedTo(Avatar.class.cast(avatar));
 			}
+
+		@Override
+		public IGrantor grantedBy() {
+			return grantor;
+		}
 		};
 }

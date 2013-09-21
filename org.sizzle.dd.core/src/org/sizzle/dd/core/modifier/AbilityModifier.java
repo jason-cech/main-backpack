@@ -6,6 +6,7 @@ package org.sizzle.dd.core.modifier;
 
 import org.sizzle.dd.core.properties.AbilityModifierProperty;
 import org.sizzle.rpg.core.IAvatar;
+import org.sizzle.rpg.core.IGrantor;
 import org.sizzle.rpg.core.model.IModifier;
 
 /**
@@ -27,6 +28,11 @@ public class AbilityModifier implements IModifier<Integer> {
 	@Override
 	public boolean isEnabled(IAvatar avatar) {
 		return avatar.hasProperty(SLUG);
+	}
+
+	@Override
+	public IGrantor grantedBy() {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 	
 }

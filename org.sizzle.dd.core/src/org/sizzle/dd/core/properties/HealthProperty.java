@@ -1,5 +1,6 @@
 package org.sizzle.dd.core.properties;
 
+import org.sizzle.dd.core.Avatar;
 import org.sizzle.dd.core.modifier.FirstLevelHitPointsModifier;
 import org.sizzle.dd.core.modifier.PerLevelHitPointModifier;
 import org.sizzle.rpg.core.model.IModifier;
@@ -9,6 +10,11 @@ import org.sizzle.rpg.core.model.IModifier;
  * @author Jason
  */
 public class HealthProperty extends CoreProperty<Integer> {
+	public static final String SLUG = "health_points";
+	
+	public HealthProperty(Avatar avatar) {
+		super(avatar, SLUG);
+	}
 
 	@Override
 	protected Integer calculate() {

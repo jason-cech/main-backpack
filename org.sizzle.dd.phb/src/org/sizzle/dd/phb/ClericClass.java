@@ -12,6 +12,7 @@ import org.sizzle.dd.core.properties.FortitudeProperty;
 import org.sizzle.dd.core.properties.HealthProperty;
 import org.sizzle.dd.phb.modifier.RacialAbilityBonus;
 import org.sizzle.rpg.core.IAvatar;
+import org.sizzle.rpg.core.IGrantor;
 import org.sizzle.rpg.core.model.IModifier;
 
 /**
@@ -20,18 +21,24 @@ import org.sizzle.rpg.core.model.IModifier;
  */
 @ServiceProvider(service = AvatarClass.class)
 public class ClericClass implements AvatarClass {
+
 	public static final IModifier<Integer> FORTITUDE_DEFENSE_BONUS = new IModifier<Integer>() {
 
-			@Override
-			public Integer getValue(IAvatar avatar) {
-				return 2;
-			}
+		@Override
+		public Integer getValue(IAvatar avatar) {
+			return 2;
+		}
 
-			@Override
-			public boolean isEnabled(IAvatar avatar) {
-				return avatar.find(ClassProperty.class).getValue().getClass().isAssignableFrom(ClericClass.class);
-			}
-		};
+		@Override
+		public boolean isEnabled(IAvatar avatar) {
+			return avatar.find(ClassProperty.class).getValue().getClass().isAssignableFrom(ClericClass.class);
+		}
+
+		@Override
+		public IGrantor grantedBy() {
+			return null;
+		}
+	};
 	public static final FirstLevelHitPointsModifier FIRST_LEVEL_HIT_POINTS_MODIFIER = new FirstLevelHitPointsModifier() {
 
 		@Override
@@ -39,14 +46,21 @@ public class ClericClass implements AvatarClass {
 			AbilityScoreProperty constitutionScoreProperty = avatar.find(AbilityScoreProperty.SLUG.CONSTITUTION_SCORE, AbilityScoreProperty.class);
 			InitialAbilityScoreModifier initialConstitutionScoreModifier = constitutionScoreProperty.getLookup().lookup(InitialAbilityScoreModifier.class);
 			RacialAbilityBonus racialAbilityBonus = constitutionScoreProperty.getLookup().lookup(RacialAbilityBonus.class);
-			
+
 			Integer initialConstitutionScore = 0, racialAbilityBonusScore = 0;
-			if (null != initialConstitutionScoreModifier && initialConstitutionScoreModifier.isEnabled(avatar))
+			if (null != initialConstitutionScoreModifier && initialConstitutionScoreModifier.isEnabled(avatar)) {
 				initialConstitutionScore = initialConstitutionScoreModifier.getValue(avatar);
-			if (null != racialAbilityBonus && racialAbilityBonus.isEnabled(avatar))
+			}
+			if (null != racialAbilityBonus && racialAbilityBonus.isEnabled(avatar)) {
 				racialAbilityBonusScore = racialAbilityBonus.getValue(avatar);
-			
+			}
+
 			return 12 + initialConstitutionScore + racialAbilityBonusScore;
+		}
+
+		@Override
+		public IGrantor grantedBy() {
+			return null;
 		}
 	};
 	public static final PerLevelHitPointModifier PER_LEVEL_HIT_POINT_MODIFIER = new PerLevelHitPointModifier() {
@@ -60,9 +74,14 @@ public class ClericClass implements AvatarClass {
 		public boolean isEnabled(IAvatar avatar) {
 			return true;
 		}
+
+		@Override
+		public IGrantor grantedBy() {
+			// FIXME: I should not be null!
+			return null;
+		}
 	};
-	
-	
+
 	@Override
 	public void configure(Avatar avatar) {
 		// Bonus to Defense
@@ -85,7 +104,7 @@ public class ClericClass implements AvatarClass {
 
 	@Override
 	public String[] getKeyAbilities() {
-		return new String[] { };
+		return new String[]{};
 	}
-	
+
 }

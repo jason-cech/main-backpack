@@ -17,6 +17,10 @@ import org.sizzle.dd.phb.RangerClass;
  */
 public class AgileHunterFeat extends FeatProperty {
 	protected static final String AGILE_HUNTER_FEAT_NAME = "Agile Hunter";
+	
+	public AgileHunterFeat(Avatar avatar) {
+		super(avatar, AGILE_HUNTER_FEAT_NAME);
+	}
 
 	// <editor-fold desc=" IFeat Implementation ">
 	@Override

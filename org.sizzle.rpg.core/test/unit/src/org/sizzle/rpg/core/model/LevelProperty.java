@@ -2,6 +2,7 @@ package org.sizzle.rpg.core.model;
 
 import org.openide.util.Lookup;
 import org.sizzle.rpg.core.AbstractProperty;
+import org.sizzle.rpg.core.IGrantor;
 
 /**
  *
@@ -9,8 +10,8 @@ import org.sizzle.rpg.core.AbstractProperty;
  */
 public class LevelProperty extends AbstractProperty<Integer>{
     int[] levels = new int[] { 0, 999, 2249, 3749, 5499, 7499, 9999 };
-    public LevelProperty() {
-        super("avatar_level");
+    public LevelProperty(IGrantor grantor) {
+        super(grantor, "avatar_level");
     }
 
     @Override

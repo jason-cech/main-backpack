@@ -6,28 +6,34 @@ import java.util.List;
 import java.util.Vector;
 import org.openide.util.Lookup;
 import org.sizzle.rpg.core.AbstractProperty;
+import org.sizzle.rpg.core.IGrantor;
 
 /**
  *
  * @author Jason
  */
 public class ArmorClassProperty extends AbstractProperty<Integer>{
-    private List<IModifier<Integer>> modifiers = new Vector<IModifier<Integer>>(0);
-    public ArmorClassProperty() {
-        super("armor_class");
+    private List<IModifier<Integer>> modifiers = new Vector<>(0);
+    public ArmorClassProperty(IGrantor grantor) {
+        super(grantor, "armor_class");
         modifiers.add(new FullDefense());
-        modifiers.add(new IModifier<Integer>() {
-
-            @Override
-            public Integer getValue(IAvatar avatar) {
-                return 4;
-            }
-
-            @Override
-            public boolean isEnabled(IAvatar avatar) {
-                return D20Avatar.class.cast(avatar).isWearing(ArmorSlot.class);
-            }
-        });
+//        modifiers.add(new IModifier<Integer>() {
+//
+//            @Override
+//            public Integer getValue(IAvatar avatar) {
+//                return 4;
+//            }
+//
+//            @Override
+//            public boolean isEnabled(IAvatar avatar) {
+//                return D20Avatar.class.cast(avatar).isWearing(ArmorSlot.class);
+//            }
+//
+//					@Override
+//					public IGrantor grantedBy() {
+//						return grantor;
+//					}
+//        });
     }
 
     @Override

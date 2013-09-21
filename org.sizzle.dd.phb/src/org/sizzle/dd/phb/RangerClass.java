@@ -17,6 +17,7 @@ import org.sizzle.dd.core.properties.HealthProperty;
 import org.sizzle.dd.core.properties.ReflexProperty;
 import org.sizzle.dd.phb.modifier.RacialAbilityBonus;
 import org.sizzle.rpg.core.IAvatar;
+import org.sizzle.rpg.core.IGrantor;
 import org.sizzle.rpg.core.model.IModifier;
 
 /**
@@ -36,6 +37,11 @@ public class RangerClass implements AvatarClass {
 		public boolean isEnabled(IAvatar avatar) {
 			return avatar.find(ClassProperty.class).getValue().getClass().isAssignableFrom(RangerClass.class);
 		}
+
+		@Override
+		public IGrantor grantedBy() {
+			throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		}
 	};
 	public static final IModifier<Integer> REFLEX_DEFENSE_BONUS = new IModifier<Integer>() {
 		@Override
@@ -46,6 +52,11 @@ public class RangerClass implements AvatarClass {
 		@Override
 		public boolean isEnabled(IAvatar avatar) {
 			return avatar.find(ClassProperty.class).getValue().getClass().isAssignableFrom(RangerClass.class);
+		}
+
+		@Override
+		public IGrantor grantedBy() {
+			throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 		}
 	};
 	public static final FirstLevelHitPointsModifier FIRST_LEVEL_HIT_POINTS_MODIFIER = new FirstLevelHitPointsModifier() {
@@ -65,6 +76,11 @@ public class RangerClass implements AvatarClass {
 
 			return 12 + initialConstitutionScore + racialAbilityBonusScore;
 		}
+
+		@Override
+		public IGrantor grantedBy() {
+			throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		}
 	};
 	public static final PerLevelHitPointModifier PER_LEVEL_HIT_POINT_MODIFIER = new PerLevelHitPointModifier() {
 		@Override
@@ -75,6 +91,11 @@ public class RangerClass implements AvatarClass {
 		@Override
 		public boolean isEnabled(IAvatar avatar) {
 			return true;
+		}
+
+		@Override
+		public IGrantor grantedBy() {
+			throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 		}
 	};
 	public static final String RANGER_CLASS_NAME = "Ranger";

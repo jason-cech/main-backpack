@@ -9,10 +9,11 @@ import org.sizzle.rpg.core.IAvatar;
  * @author Jason
  */
 public class RaceProperty extends CoreProperty<AvatarRace> {
-
+	public static final String SLUG = "avatar_race";
 	private AvatarRace race;
 
-	public RaceProperty(AvatarRace race) {
+	public RaceProperty(Avatar avatar, AvatarRace race) {
+		super(avatar, SLUG);
 		this.race = race;
 	}
 

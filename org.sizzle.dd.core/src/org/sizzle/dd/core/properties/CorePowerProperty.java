@@ -4,11 +4,19 @@
  */
 package org.sizzle.dd.core.properties;
 
+import org.sizzle.rpg.core.IGrantor;
+
 /**
  *
  * @author Jason
+ * @param <T>
  */
 public abstract class CorePowerProperty<T> extends CoreProperty<T>{
+
+	protected CorePowerProperty(IGrantor grantor, String... aliases) {
+		super(grantor, aliases);
+	}
+	
 	abstract int getPowerLevel();
 	abstract String getPowerName();
 	abstract String getFlavorText();

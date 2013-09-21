@@ -18,7 +18,7 @@ import org.sizzle.rpg.core.model.IModifier;
 public abstract class CoreSkillProperty extends CoreProperty<Integer> {
 
 	protected CoreSkillProperty(String SKILL_SLUG, Avatar avatar, String ABILITY_MODIFIER_SLUG) {
-		super(SKILL_SLUG);
+		super(avatar, SKILL_SLUG);
 		this.avatar = avatar;
 		this.avatar.find(ABILITY_MODIFIER_SLUG, AbilityModifierProperty.class).addObserver(this);
 		this.addModifier(new SkillKeyAbilityModifier(ABILITY_MODIFIER_SLUG));

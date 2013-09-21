@@ -1,6 +1,5 @@
 package org.sizzle.dd.core.properties;
 
-import org.sizzle.rpg.core.AbstractProperty;
 import org.sizzle.rpg.core.IAvatar;
 import org.sizzle.rpg.core.model.IModifier;
 
@@ -8,15 +7,14 @@ import org.sizzle.rpg.core.model.IModifier;
  *
  * @author Jason
  */
-public class AbilityModifierProperty extends CoreProperty<Integer> {
+public abstract class AbilityModifierProperty extends CoreProperty<Integer> {
 
-    public AbilityModifierProperty(IAvatar avatar, String slug) {
-        super(slug);
+    protected AbilityModifierProperty(IAvatar avatar, String slug) {
+        super(avatar, slug);
         this.avatar = avatar;
-        String scoreSlug = slug.replace("modifier", "score");
-        AbstractProperty<Integer> scoreProperty = ((AbstractProperty<Integer>) this.avatar.<Integer>find(scoreSlug));
-        scoreProperty.addObserver(this);
     }
+		
+		protected abstract void init();
     
     @Override
     protected Integer calculate() {

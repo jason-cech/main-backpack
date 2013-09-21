@@ -17,8 +17,7 @@ public class WillProperty extends CoreProperty<Integer> {
 	public static final String SLUG = "will";
 	
 	public WillProperty(Avatar avatar) {
-		super(SLUG);
-		this.avatar = avatar;
+		super(avatar, SLUG);
 		this.avatar.find(LevelProperty.class).addObserver(this);
 		this.avatar.find(AbilityModifierProperty.SLUG.WISDOM_MODIFIER, AbilityModifierProperty.class).addObserver(this);
 		this.avatar.find(AbilityModifierProperty.SLUG.CHARISMA_MODIFIER, AbilityModifierProperty.class).addObserver(this);

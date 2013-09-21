@@ -13,16 +13,28 @@ import org.sizzle.rpg.core.model.IModifier;
 /**
  *
  * @author Jason
+ * @param <T> Class type of property value
  */
 public abstract class AbstractProperty<T> extends Observable implements IProperty<T>, Observer {
 
 	protected InstanceContent content = new InstanceContent();
 	protected IAvatar avatar;
+	protected IGrantor grantor;
 	public Set<String> aliases = new HashSet<>(0);
 	public T value;
 
-	public AbstractProperty(String... aliases) {
+	public AbstractProperty(IGrantor grantor, String... aliases) {
+		this.grantor = grantor;
 		this.aliases.addAll(Arrays.asList(aliases));
+	}
+	
+	/**
+	 *
+	 * @return
+	 */
+	@Override
+	public IGrantor grantedBy() {
+		return grantor;
 	}
 
 	//<editor-fold defaultstate="collapsed" desc="Abstract Implementation of IProperty">
