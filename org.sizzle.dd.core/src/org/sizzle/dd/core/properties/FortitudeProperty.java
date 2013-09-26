@@ -19,9 +19,6 @@ public class FortitudeProperty extends CoreProperty<Integer> {
 	
 	public FortitudeProperty(Avatar avatar) {
 		super(avatar, SLUG);
-		this.avatar.find(LevelProperty.class).addObserver(this);
-		this.avatar.find(AbilityModifierProperty.SLUG.STRENGTH_MODIFIER, AbilityModifierProperty.class).addObserver(this);
-		this.avatar.find(AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER, AbilityModifierProperty.class).addObserver(this);
 	}
 
 	@Override
@@ -29,13 +26,13 @@ public class FortitudeProperty extends CoreProperty<Integer> {
 		Integer score = 0;
 		
 		// Calculate the default ability modifier to use
-		AbilityModifier abilityModifier = this.getLookup().lookup(AbilityModifier.class);
+		AbilityModifier<?> abilityModifier = this.getLookup().lookup(AbilityModifier.class);
 		if (null == abilityModifier) {
 			AbilityModifierProperty strengthModifierProperty = avatar.find(AbilityModifierProperty.SLUG.STRENGTH_MODIFIER, AbilityModifierProperty.class);
 			AbilityModifierProperty constitutionModifierProperty = avatar.find(AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER, AbilityModifierProperty.class);
 			abilityModifier = strengthModifierProperty.getValue().compareTo(constitutionModifierProperty.getValue())>0 
-							? new AbilityModifier(AbilityModifierProperty.SLUG.STRENGTH_MODIFIER) 
-							: new AbilityModifier(AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER);
+							? new AbilityModifier<>(StrengthAbilityScoreProperty.class) 
+							: new AbilityModifier<>(ConstitutionAbilityScoreProperty.class);
 		}
 		
 		score += avatar.findValueOf(LevelProperty.class) / 2;
@@ -63,6 +60,8 @@ public class FortitudeProperty extends CoreProperty<Integer> {
 	public void setAvatar(IAvatar avatar) {
 		super.setAvatar(avatar); //To change body of generated methods, choose Tools | Templates.
 		this.avatar.find(LevelProperty.class).addObserver(this);
+		this.avatar.find(AbilityModifierProperty.SLUG.STRENGTH_MODIFIER, AbilityModifierProperty.class).addObserver(this);
+		this.avatar.find(AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER, AbilityModifierProperty.class).addObserver(this);
 	}
 	
 }

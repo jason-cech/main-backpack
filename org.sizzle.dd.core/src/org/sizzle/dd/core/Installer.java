@@ -9,7 +9,6 @@ import org.sizzle.dd.core.properties.WisdomAbilityScoreProperty;
 import org.sizzle.dd.core.properties.IntelligenceAbilityScoreProperty;
 import org.openide.modules.ModuleInstall;
 import org.openide.util.Lookup;
-import org.sizzle.dd.core.properties.AbilityModifierProperty;
 import org.sizzle.dd.core.properties.AgeProperty;
 import org.sizzle.dd.core.properties.ArmorClassProperty;
 import org.sizzle.dd.core.properties.CharismaAbilityScoreProperty;
@@ -100,7 +99,7 @@ public class Installer extends ModuleInstall {
 		if (!avatar.hasProperty(DexterityAbilityScoreProperty.class))			avatar.addProperty(new DexterityAbilityScoreProperty(avatar));
 		if (!avatar.hasProperty(IntelligenceAbilityScoreProperty.class))	avatar.addProperty(new IntelligenceAbilityScoreProperty(avatar));
 		if (!avatar.hasProperty(WisdomAbilityScoreProperty.class))				avatar.addProperty(new WisdomAbilityScoreProperty(avatar));
-		if (!avatar.hasProperty(ConstitutionAbilityScoreProperty.class))	avatar.addProperty(new CharismaAbilityScoreProperty(avatar));
+		if (!avatar.hasProperty(CharismaAbilityScoreProperty.class))			avatar.addProperty(new CharismaAbilityScoreProperty(avatar));
 		
 		// Add the 6 core ability modifier properties
 		if (!avatar.hasProperty(StrengthAbilityModifierProperty.class))			avatar.addProperty(new StrengthAbilityModifierProperty(avatar));
@@ -111,28 +110,28 @@ public class Installer extends ModuleInstall {
 		if (!avatar.hasProperty(CharismaAbilityModifierProperty.class))			avatar.addProperty(new CharismaAbilityModifierProperty(avatar));
 
 		// Add the 4 core defense properties
-		if (!avatar.hasProperty(ArmorClassProperty.SLUG))avatar.addProperty(new ArmorClassProperty(avatar));
-		if (!avatar.hasProperty(FortitudeProperty.SLUG))avatar.addProperty(new FortitudeProperty(avatar));
-		if (!avatar.hasProperty(ReflexProperty.SLUG))avatar.addProperty(new ReflexProperty(avatar));
-		if (!avatar.hasProperty(WillProperty.SLUG))avatar.addProperty(new WillProperty(avatar));
+		if (!avatar.hasProperty(ArmorClassProperty.SLUG))	avatar.addProperty(new ArmorClassProperty(avatar));
+		if (!avatar.hasProperty(FortitudeProperty.SLUG))	avatar.addProperty(new FortitudeProperty(avatar));
+		if (!avatar.hasProperty(ReflexProperty.SLUG))			avatar.addProperty(new ReflexProperty(avatar));
+		if (!avatar.hasProperty(WillProperty.SLUG))				avatar.addProperty(new WillProperty(avatar));
 		
 		// Add the 17 core skill properties
-		if (!avatar.hasProperty(AcrobatSkill.SLUG))avatar.addProperty(new AcrobatSkill(avatar, AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER));
-		if (!avatar.hasProperty(ArcanaSkill.SLUG))avatar.addProperty(new ArcanaSkill(avatar, AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER));
-		if (!avatar.hasProperty(AthleticSkill.SLUG))avatar.addProperty(new AthleticSkill(avatar, AbilityModifierProperty.SLUG.STRENGTH_MODIFIER));
-		if (!avatar.hasProperty(BluffSkill.SLUG))avatar.addProperty(new BluffSkill(avatar, AbilityModifierProperty.SLUG.CHARISMA_MODIFIER));
-		if (!avatar.hasProperty(DiplomacySkill.SLUG))avatar.addProperty(new DiplomacySkill(avatar, AbilityModifierProperty.SLUG.CHARISMA_MODIFIER));
-		if (!avatar.hasProperty(DungeoneeringSkill.SLUG))avatar.addProperty(new DungeoneeringSkill(avatar, AbilityModifierProperty.SLUG.WISDOM_MODIFIER));
-		if (!avatar.hasProperty(EnduranceSkill.SLUG))avatar.addProperty(new EnduranceSkill(avatar, AbilityModifierProperty.SLUG.CONSTITUTION_MODIFIER));
-		if (!avatar.hasProperty(HealSkill.SLUG))avatar.addProperty(new HealSkill(avatar, AbilityModifierProperty.SLUG.WISDOM_MODIFIER));
-		if (!avatar.hasProperty(HistorySkill.SLUG))avatar.addProperty(new HistorySkill(avatar, AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER));
-		if (!avatar.hasProperty(InsightSkill.SLUG))avatar.addProperty(new InsightSkill(avatar, AbilityModifierProperty.SLUG.WISDOM_MODIFIER));
-		if (!avatar.hasProperty(IntimidateSkill.SLUG))avatar.addProperty(new IntimidateSkill(avatar, AbilityModifierProperty.SLUG.CHARISMA_MODIFIER));
-		if (!avatar.hasProperty(NatureSkill.SLUG))avatar.addProperty(new NatureSkill(avatar, AbilityModifierProperty.SLUG.WISDOM_MODIFIER));
-		if (!avatar.hasProperty(PerceptionSkill.SLUG))avatar.addProperty(new PerceptionSkill(avatar, AbilityModifierProperty.SLUG.WISDOM_MODIFIER));
-		if (!avatar.hasProperty(ReligionSkill.SLUG))avatar.addProperty(new ReligionSkill(avatar, AbilityModifierProperty.SLUG.INTELLIGENCE_MODIFIER));
-		if (!avatar.hasProperty(StealthSkill.SLUG))avatar.addProperty(new StealthSkill(avatar, AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER));
-		if (!avatar.hasProperty(StreetwiseSkill.SLUG))avatar.addProperty(new StreetwiseSkill(avatar, AbilityModifierProperty.SLUG.CHARISMA_MODIFIER));
-		if (!avatar.hasProperty(ThieverySkill.SLUG))avatar.addProperty(new ThieverySkill(avatar, AbilityModifierProperty.SLUG.DEXTERITY_MODIFIER));
+		if (!avatar.hasProperty(AcrobatSkill.SLUG))				avatar.addProperty(new AcrobatSkill(avatar));
+		if (!avatar.hasProperty(ArcanaSkill.SLUG))				avatar.addProperty(new ArcanaSkill(avatar));
+		if (!avatar.hasProperty(AthleticSkill.SLUG))			avatar.addProperty(new AthleticSkill(avatar));
+		if (!avatar.hasProperty(BluffSkill.SLUG))					avatar.addProperty(new BluffSkill(avatar));
+		if (!avatar.hasProperty(DiplomacySkill.SLUG))			avatar.addProperty(new DiplomacySkill(avatar));
+		if (!avatar.hasProperty(DungeoneeringSkill.SLUG))	avatar.addProperty(new DungeoneeringSkill(avatar));
+		if (!avatar.hasProperty(EnduranceSkill.SLUG))			avatar.addProperty(new EnduranceSkill(avatar));
+		if (!avatar.hasProperty(HealSkill.SLUG))					avatar.addProperty(new HealSkill(avatar));
+		if (!avatar.hasProperty(HistorySkill.SLUG))				avatar.addProperty(new HistorySkill(avatar));
+		if (!avatar.hasProperty(InsightSkill.SLUG))				avatar.addProperty(new InsightSkill(avatar));
+		if (!avatar.hasProperty(IntimidateSkill.SLUG))		avatar.addProperty(new IntimidateSkill(avatar));
+		if (!avatar.hasProperty(NatureSkill.SLUG))				avatar.addProperty(new NatureSkill(avatar));
+		if (!avatar.hasProperty(PerceptionSkill.SLUG))		avatar.addProperty(new PerceptionSkill(avatar));
+		if (!avatar.hasProperty(ReligionSkill.SLUG))			avatar.addProperty(new ReligionSkill(avatar));
+		if (!avatar.hasProperty(StealthSkill.SLUG))				avatar.addProperty(new StealthSkill(avatar));
+		if (!avatar.hasProperty(StreetwiseSkill.SLUG))		avatar.addProperty(new StreetwiseSkill(avatar));
+		if (!avatar.hasProperty(ThieverySkill.SLUG))			avatar.addProperty(new ThieverySkill(avatar));
 	}
 }

@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Logger;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
@@ -169,17 +170,21 @@ public final class SkillTopComponent extends TopComponent implements ExplorerMan
 		}
 		
 		private void attachToSkillProperties() {
-			for (CoreSkillProperty skillProperty : skillProperties) {
+			for (CoreSkillProperty<?> skillProperty : skillProperties) {
 				skillProperty.addObserver(this);
 			}
 		}
 
 		@Override
 		protected boolean createKeys(List<Skill> toPopulate) {
-			for (CoreSkillProperty skillProperty : skillProperties) {
+			for (CoreSkillProperty<?> skillProperty : skillProperties) {
 				Skill skill = new Skill();
 				skill.setName(skillProperty.getClass().getSimpleName().replace("Skill", ""));
-				skill.setScore(skillProperty.getValue());
+				if (skillProperty.getValue().getClass().isInstance(Integer.class))
+					skill.setScore(Integer.class.cast(skillProperty.getValue()));
+				else
+					Logger.getLogger(SkillChildFactory.class.getName()).warning("WTF Creating SkillChild Keys");
+				
 				TrainedSkillModifier trainedSkillModifier = skillProperty.getLookup().lookup(TrainedSkillModifier.class);
 				skill.setTrained((null != trainedSkillModifier && trainedSkillModifier.isEnabled(avatar)));
 

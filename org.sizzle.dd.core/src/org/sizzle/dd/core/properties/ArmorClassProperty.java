@@ -21,15 +21,9 @@ public class ArmorClassProperty extends CoreProperty<Integer> {
 	
 	public ArmorClassProperty(Avatar avatar) {
 		super(avatar, SLUG);
-		this.avatar = avatar;
 		modifiers.add(BASE_ARMOR_CLASS);
 		modifiers.add(new ArmorBonusModifier());
 		modifiers.add(new ShieldBonusModifier());
-		
-		if (!this.avatar.hasProperty(LevelProperty.class)) {
-			this.avatar.addProperty(new LevelProperty(avatar));
-		}
-		this.avatar.find(LevelProperty.class).addObserver(this);
 	}
 
 	@Override
@@ -45,7 +39,7 @@ public class ArmorClassProperty extends CoreProperty<Integer> {
 	@Override
 	public void setAvatar(IAvatar avatar) {
 		super.setAvatar(avatar); //To change body of generated methods, choose Tools | Templates.
-		avatar.find(LevelProperty.class).addObserver(this);
+		this.avatar.find(LevelProperty.class).addObserver(this);
 	}
 	
 }

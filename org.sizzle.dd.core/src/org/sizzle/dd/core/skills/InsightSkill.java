@@ -5,15 +5,16 @@
 package org.sizzle.dd.core.skills;
 
 import org.sizzle.dd.core.Avatar;
+import org.sizzle.dd.core.properties.WisdomAbilityModifierProperty;
 
 /**
  *
  * @author Jason
  */
-public class InsightSkill extends CoreSkillProperty {
+public class InsightSkill extends CoreSkillProperty<WisdomAbilityModifierProperty> {
 	public static String SLUG = "insight";
 
-	public InsightSkill(Avatar avatar, String WISDOM_MODIFIER) {
-		super(SLUG, avatar, WISDOM_MODIFIER);
+	public InsightSkill(Avatar avatar) {
+		super(SLUG, avatar, WisdomAbilityModifierProperty.class);
 	}
 }

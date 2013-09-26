@@ -5,15 +5,16 @@
 package org.sizzle.dd.core.skills;
 
 import org.sizzle.dd.core.Avatar;
+import org.sizzle.dd.core.properties.DexterityAbilityModifierProperty;
 
 /**
  *
  * @author Jason
  */
-public class ThieverySkill extends CoreSkillProperty {
+public class ThieverySkill extends CoreSkillProperty<DexterityAbilityModifierProperty> {
 	public static String SLUG = "thievery";
 	
-	public ThieverySkill(Avatar avatar, String abilityModifierSlug) {
-		super(SLUG, avatar, abilityModifierSlug);
+	public ThieverySkill(Avatar avatar) {
+		super(SLUG, avatar, DexterityAbilityModifierProperty.class);
 	}
 }

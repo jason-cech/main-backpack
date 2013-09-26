@@ -5,16 +5,17 @@
 package org.sizzle.dd.core.skills;
 
 import org.sizzle.dd.core.Avatar;
+import org.sizzle.dd.core.properties.IntelligenceAbilityModifierProperty;
 
 /**
  *
  * @author Jason
  */
-public class ReligionSkill extends CoreSkillProperty {
+public class ReligionSkill extends CoreSkillProperty<IntelligenceAbilityModifierProperty> {
 	public static String SLUG = "religion";
 	
-	public ReligionSkill(Avatar avatar, String abilityModifierSlug) {
-		super(SLUG, avatar, abilityModifierSlug);
+	public ReligionSkill(Avatar avatar) {
+		super(SLUG, avatar, IntelligenceAbilityModifierProperty.class);
 	}
 	
 }

@@ -5,15 +5,16 @@
 package org.sizzle.dd.core.skills;
 
 import org.sizzle.dd.core.Avatar;
+import org.sizzle.dd.core.properties.CharismaAbilityModifierProperty;
 
 /**
  *
  * @author Jason
  */
-public class DiplomacySkill extends CoreSkillProperty {
+public class DiplomacySkill extends CoreSkillProperty<CharismaAbilityModifierProperty> {
 	public static String SLUG = "diplomacy";
 
-	public DiplomacySkill(Avatar avatar, String CHARISMA_MODIFIER) {
-		super(SLUG, avatar, CHARISMA_MODIFIER);
+	public DiplomacySkill(Avatar avatar) {
+		super(SLUG, avatar, CharismaAbilityModifierProperty.class);
 	}
 }

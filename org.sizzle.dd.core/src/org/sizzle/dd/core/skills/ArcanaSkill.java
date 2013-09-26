@@ -5,15 +5,16 @@
 package org.sizzle.dd.core.skills;
 
 import org.sizzle.dd.core.Avatar;
+import org.sizzle.dd.core.properties.IntelligenceAbilityModifierProperty;
 
 /**
  *
  * @author Jason
  */
-public class ArcanaSkill extends CoreSkillProperty {
+public class ArcanaSkill extends CoreSkillProperty<IntelligenceAbilityModifierProperty> {
 	public static final String SLUG = "arcana";
 
-	public ArcanaSkill(Avatar avatar, String INTELLIGENCE_MODIFIER) {
-		super(SLUG, avatar, INTELLIGENCE_MODIFIER);
+	public ArcanaSkill(Avatar avatar) {
+		super(SLUG, avatar, IntelligenceAbilityModifierProperty.class);
 	}
 }

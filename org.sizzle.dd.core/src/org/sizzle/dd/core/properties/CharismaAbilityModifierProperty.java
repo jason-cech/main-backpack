@@ -6,8 +6,7 @@
 package org.sizzle.dd.core.properties;
 
 import org.sizzle.dd.core.Avatar;
-import org.sizzle.dd.core.properties.AbilityModifierProperty;
-import org.sizzle.dd.core.properties.CharismaAbilityScoreProperty;
+import org.sizzle.dd.core.modifier.AbilityModifier;
 
 /**
  *
@@ -19,10 +18,15 @@ public class CharismaAbilityModifierProperty extends AbilityModifierProperty {
 		super(avatar, AbilityModifierProperty.SLUG.CHARISMA_MODIFIER);
 	}
 
+	/**
+	 *
+	 */
 	@Override
-	protected void init() {
-		CharismaAbilityScoreProperty charismaAbilityModifierProperty = this.avatar.find(CharismaAbilityScoreProperty.class);
-		charismaAbilityModifierProperty.addObserver(this);
+	protected final void init() {
+		this.addModifier(new AbilityModifier<>(CharismaAbilityScoreProperty.class));
+				
+		CharismaAbilityScoreProperty charismaAbilityScoreProperty = this.avatar.find(CharismaAbilityScoreProperty.class);
+		charismaAbilityScoreProperty.addObserver(this);
 	}
 	
 }

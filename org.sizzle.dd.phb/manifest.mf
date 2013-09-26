@@ -2,6 +2,8 @@ Manifest-Version: 1.0
 OpenIDE-Module: org.sizzle.dd.phb
 OpenIDE-Module-Install: org/sizzle/dd/phb/Installer.class
 OpenIDE-Module-Localizing-Bundle: org/sizzle/dd/phb/Bundle.properties
-OpenIDE-Module-Requires: org.openide.windows.WindowManager
+OpenIDE-Module-Requires: 
+  cnb.org.sizzle.dd.core,
+  org.openide.windows.WindowManager
 OpenIDE-Module-Specification-Version: 1.0
 

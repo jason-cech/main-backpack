@@ -5,15 +5,16 @@
 package org.sizzle.dd.core.skills;
 
 import org.sizzle.dd.core.Avatar;
+import org.sizzle.dd.core.properties.WisdomAbilityModifierProperty;
 
 /**
  *
  * @author Jason
  */
-public class HealSkill extends CoreSkillProperty {
+public class HealSkill extends CoreSkillProperty<WisdomAbilityModifierProperty> {
 	public static String SLUG = "heal";
 
-	public HealSkill(Avatar avatar, String WISDOM_MODIFIER) {
-		super(SLUG, avatar, WISDOM_MODIFIER);
+	public HealSkill(Avatar avatar) {
+		super(SLUG, avatar, WisdomAbilityModifierProperty.class);
 	}
 }

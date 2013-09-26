@@ -6,6 +6,7 @@
 package org.sizzle.dd.core.properties;
 
 import org.sizzle.dd.core.Avatar;
+import org.sizzle.dd.core.modifier.AbilityModifier;
 
 /**
  *
@@ -18,7 +19,9 @@ public class WisdomAbilityModifierProperty extends AbilityModifierProperty {
 	}
 
 	@Override
-	protected void init() {
+	protected final void init() {
+		this.addModifier(new AbilityModifier<>(WisdomAbilityScoreProperty.class));
+		
 		WisdomAbilityScoreProperty wisdomAbilityScoreProperty = this.avatar.find(WisdomAbilityScoreProperty.class);
 		wisdomAbilityScoreProperty.addObserver(this);
 	}
